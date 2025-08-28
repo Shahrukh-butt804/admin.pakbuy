@@ -1,0 +1,82 @@
+/* #root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+} */
+
+
+body {
+  position: relative;
+  background-image: url('./images/bg-image.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  z-index: 0;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: -1;
+}
+
+
+
+.glass {
+  background: rgba(178, 178, 178, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.18),
+    inset 0 1px 1px rgba(255, 255, 255, 0.25);
+  padding: 24px;
+}
+
+.glass.dark {
+  background: rgba(0, 0, 0, 0.25);
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #fff;
+}
+
+.glass:hover {
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.22),
+    inset 0 1px 1px rgba(255, 255, 255, 0.3);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass {
+    background: rgba(255, 255, 255, 0.6);
+  }
+}
+
+
+
+.pinkText {
+  color: #F0CDCA;
+}
+
+.bgPink {
+  background-color: #F0CDCA;
+}
+.blackText {
+  color: #1E1F2F;
+}
+
+input {
+  background-color: transparent !important;
+}
+
+input:-webkit-autofill {
+  /* -webkit-box-shadow: 0 0 0 1000px transparent inset !important; */
+  -webkit-text-fill-color: #fff !important; /* keep text white */
+  transition: background-color 9999s ease-in-out 0s;
+}
