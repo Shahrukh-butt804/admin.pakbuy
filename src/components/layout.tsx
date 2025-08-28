@@ -15,25 +15,26 @@ const pages = [
     },
     {
         title: "Customers",
-        link: "/2",
+        link: "/customers",
         icon: "/images/customer-icon.png"
     },
     {
         title: "Products",
-        link: "/3",
+        link: "/products",
         icon: "/images/product-icon.png"
     },
     {
         title: "Orders",
-        link: "/4",
+        link: "/orders",
         icon: "/images/order-icon.png"
     },
     {
         title: "Resources",
-        link: "/5",
+        link: "/resources",
         icon: "/images/resources-icon.png"
     }
 ]
+
 
 export default function Layout() {
     const navigate = useNavigate()
@@ -91,7 +92,7 @@ export default function Layout() {
                     ))}
                 </nav>
 
-                <div className="p-4 mb-10">
+                <div className=" mb-10">
                     <div className="border-b border-gray-200 my-2" />
                     <div onClick={handleLogout} className="rounded-lg hoverBgPink hover:text-black px-4 py-2 flex flex-row gap-2 items-center cursor-pointer">
                         <LogOut size={20} />

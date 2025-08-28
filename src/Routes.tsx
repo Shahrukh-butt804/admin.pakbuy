@@ -5,10 +5,13 @@ import ForgetPassword from "./pages/auth/forgetPassword";
 import Login from "./pages/auth/login";
 import Resetpassword from "./pages/auth/resetpassword";
 import VerifyOtp from "./pages/auth/verifyOtp";
+import Customers from "./pages/customers";
 import Dashboard from "./pages/dashboard";
+import Products from "./pages/products";
 import { selectUser } from "./redux/reducers/userSlice";
 import { store } from "./redux/store";
-import UserManagement from "./pages/user-management";
+import Orders from "./pages/orders";
+import Resources from "./pages/resources";
 
 const PrivateRoute = () => {
   const user = useSelector(selectUser);
@@ -30,8 +33,10 @@ function AppRoutes() {
           <Routes>
             <Route element={<PrivateRoute />}>
               <Route path="/" element={<Dashboard />} />
-              <Route path="/2" element={<UserManagement />} />
-              <Route path="/3" element={<Dashboard />} />
+              <Route path="/customers" element={<Customers />} />
+              <Route path="/products" element={<Products />} />
+              <Route path="/orders" element={<Orders />} />
+              <Route path="/resources" element={<Resources />} />
             </Route>
 
             <Route path="/login" element={<Login />} />

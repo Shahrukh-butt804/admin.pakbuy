@@ -18,25 +18,31 @@ const pages = [
     },
     {
         title: "Customers",
-        link: "/2",
+        link: "/customers",
         icon: "/images/customer-icon.png"
     },
     {
         title: "Products",
-        link: "/3",
+        link: "/products",
         icon: "/images/product-icon.png"
     },
     {
         title: "Orders",
-        link: "/4",
+        link: "/orders",
         icon: "/images/order-icon.png"
     },
     {
         title: "Resources",
-        link: "/5",
+        link: "/resources",
         icon: "/images/resources-icon.png"
     }
 ]
+
+
+
+
+
+
 
 export default function MobileMenu() {
     const navigate = useNavigate()
