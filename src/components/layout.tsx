@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router";
+import { Outlet, useLocation, useNavigate } from "react-router";
 import Header from "./header";
 import { LogOut } from "lucide-react";
 import { useLogoutMutation } from "../redux/services/authSlice";
@@ -25,12 +25,12 @@ const pages = [
     },
     {
         title: "Orders",
-        link: "/3",
+        link: "/4",
         icon: "/images/order-icon.png"
     },
     {
         title: "Resources",
-        link: "/3",
+        link: "/5",
         icon: "/images/resources-icon.png"
     }
 ]
@@ -38,8 +38,9 @@ const pages = [
 export default function Layout() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const [logoutUser] = useLogoutMutation()
+    const location = useLocation();
 
+    const [logoutUser] = useLogoutMutation()
     const handleLogout = async () => {
         try {
             const res: any = await logoutUser({})
@@ -81,7 +82,7 @@ export default function Layout() {
                     {pages.map((page, index) => (
                         <div
                             key={index}
-                            className="rounded-lg hoverBgPink hover:text-black px-4 py-2 flex flex-row gap-2 items-center cursor-pointer"
+                            className={`rounded-lg hoverBgPink hover:text-black px-4 py-2 flex flex-row gap-2 items-center cursor-pointer ${page.link === location.pathname && "bgPink text-black"}`}
                             onClick={() => navigate(page.link)}
                         >
                             <img src={page.icon} alt="" />
