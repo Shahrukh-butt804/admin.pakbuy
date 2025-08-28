@@ -41,7 +41,7 @@ function Dropdown() {
     const [open, setOpen] = useState(false);
 
     return (
-        <div className="relative inline-block text-left">
+        <div className="relative inline-block text-left cursor-pointer">
             <ChevronDown onClick={() => setOpen(!open)} className="ml-2 h-4 w-4" />
 
             {open && (

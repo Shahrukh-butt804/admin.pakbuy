@@ -81,7 +81,7 @@ export default function Layout() {
                     {pages.map((page, index) => (
                         <div
                             key={index}
-                            className="rounded-lg hoverBgPink hover:text-black px-4 py-2 flex flex-row gap-2 items-center"
+                            className="rounded-lg hoverBgPink hover:text-black px-4 py-2 flex flex-row gap-2 items-center cursor-pointer"
                             onClick={() => navigate(page.link)}
                         >
                             <img src={page.icon} alt="" />
@@ -92,7 +92,7 @@ export default function Layout() {
 
                 <div className="p-4 mb-10">
                     <div className="border-b border-gray-200 my-2" />
-                    <div onClick={handleLogout} className="rounded-lg hoverBgPink hover:text-black px-4 py-2 flex flex-row gap-2 items-center">
+                    <div onClick={handleLogout} className="rounded-lg hoverBgPink hover:text-black px-4 py-2 flex flex-row gap-2 items-center cursor-pointer">
                         <LogOut size={20} />
                         Logout
                     </div>
