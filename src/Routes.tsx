@@ -1,17 +1,22 @@
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import { BrowserRouter, Navigate, Outlet, Route, Routes } from "react-router";
-import Login from "./pages/auth/login";
-import { store } from "./redux/store";
 import ForgetPassword from "./pages/auth/forgetPassword";
+import Login from "./pages/auth/login";
 import Resetpassword from "./pages/auth/resetpassword";
 import VerifyOtp from "./pages/auth/verifyOtp";
+import Dashboard from "./pages/dashboard";
+import { selectUser } from "./redux/reducers/userSlice";
+import { store } from "./redux/store";
 
 const PrivateRoute = () => {
-  // const { token } = useSelector((state) => state.auth);
-  const token = "a";
+  const user = useSelector(selectUser);
 
-  return token ? <Outlet /> : <Navigate to="/login" />;
+  const isAuthenticated = user && user._id;
+
+  return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
 };
+
+
 
 function AppRoutes() {
   return (
@@ -19,14 +24,14 @@ function AppRoutes() {
       <Provider store={store}>
         <BrowserRouter basename={"/"}>
           <Routes>
-            {/* <Route path="/login" element={<Login />} /> */}
-
             <Route element={<PrivateRoute />}>
-              <Route path="/" element={<Login />} />
-              <Route path="/forget-password" element={<ForgetPassword />} />
-              <Route path="/verify-otp" element={<VerifyOtp />} />
-              <Route path="/reset-password" element={<Resetpassword />} />
+              <Route path="/" element={<Dashboard />} />
             </Route>
+
+            <Route path="/login" element={<Login />} />
+            <Route path="/forget-password" element={<ForgetPassword />} />
+            <Route path="/verify-otp" element={<VerifyOtp />} />
+            <Route path="/reset-password" element={<Resetpassword />} />
           </Routes>
         </BrowserRouter>
       </Provider>

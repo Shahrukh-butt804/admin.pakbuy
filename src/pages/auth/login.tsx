@@ -49,6 +49,7 @@ export default function Login() {
                     text: res?.data?.message || 'something went wrong!',
                 });
                 dispatch(setUser(res?.data?.user))
+                navigate("/")
             } else {
                 Swal.fire({
                     icon: 'error',

@@ -50,7 +50,7 @@ export default function Resetpassword() {
                     title: 'Success',
                     text: res?.data?.message || 'something went wrong!',
                 });
-                navigate("/")
+                navigate("/login")
 
             } else {
                 Swal.fire({
