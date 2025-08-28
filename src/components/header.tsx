@@ -10,10 +10,10 @@ export default function Header() {
     const user = useSelector(selectUser);
 
     return (
-        <div className="p-8 px-4  md:px-14 flex justify-end items-center">
-            {/* <div>
+        <div className="p-8 px-4  md:px-14 flex justify-between md:justify-end items-center">
+            <div className="md:hidden">
                 <img src="/images/logo.png" className="w-48" alt="Logo" />
-            </div> */}
+            </div>
 
             <div className="hidden md:flex items-center gap-4  ">
                 <div><NotificationIcon /></div>
