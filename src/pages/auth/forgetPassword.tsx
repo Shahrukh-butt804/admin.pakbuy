@@ -62,13 +62,13 @@ export default function ForgetPassword() {
                     <p className="text-center mb-6 text-xs text-gray-300">Enter your email to recover your password.</p>
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div>
-                            <label className="block mb-1 text-xs">Email/User name</label>
+                            <label className="block mb-1 text-xs">Email</label>
                             <input
                                 name="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 type="text"
-                                placeholder="Enter your email/ user name"
+                                placeholder="Enter your email"
                                 required
                                 className="w-full  rounded-lg border  px-4 py-2 text-white text-sm focus:outline-none focus:ring-2 focus:ring-pink-200"
                             />
