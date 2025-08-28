@@ -58,6 +58,36 @@ body::before {
   }
 }
 
+/* black glass effect */
+
+.blackGlass {
+  background: rgba(0, 0, 0, 0.45); 
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.18),
+    inset 0 1px 1px rgba(255, 255, 255, 0.25);
+  padding: 24px;
+}
+
+.blackGlass.dark {
+  background: rgba(0, 0, 0, 0.25);
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #212121;
+}
+
+.blackGlass:hover {
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.22),
+    inset 0 1px 1px rgba(255, 255, 255, 0.3);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .blackGlass {
+    background: rgba(255, 255, 255, 0.6);
+  }
+}
+
 
 
 .pinkText {
@@ -67,6 +97,11 @@ body::before {
 .bgPink {
   background-color: #F0CDCA;
 }
+
+.hoverBgPink:hover {
+  background-color: #F0CDCA;
+}
+
 .blackText {
   color: #1E1F2F;
 }
