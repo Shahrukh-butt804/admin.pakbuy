@@ -1,22 +1,20 @@
-const { VITE_NODE_ENV } = import.meta.env; // Use import.meta.env instead of process.env
 const { hostname } = window.location;
 
 const servers = {
-  local: "http://localhost:3032",
-  customDev: "https://react.customdev.solutions:3032",
+  local: "http://localhost:3054",
+  customDev: "https://react.customdev.solutions:3054",
   live: "",
-  dummy: "https://9d2f-204-157-158-10.ngrok-free.app",
 };
 
 var URL;
 
-if (VITE_NODE_ENV === "production" && hostname.includes("react.customdev.solutions")) {
+if (hostname.includes("react.customdev.solutions")) {
   URL = servers.customDev;
-} else if (VITE_NODE_ENV === "production" && hostname.includes("buffaloaudiovisual.com")) {
+} else if (hostname.includes("choosewell.com")) {
   URL = servers.live;
 } else {
   URL = servers.local;
 }
 export const SOCKET_URL = URL;
 export const UPLOADS_URL = `${URL}/`;
-export const BASE_URL = `${URL}/api`;
+export const BASE_URL = `${URL}/api/v1`;

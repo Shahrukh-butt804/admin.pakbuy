@@ -1,13 +1,58 @@
 import { ArrowLeft } from "lucide-react";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
+import { useVerifyOtpMutation } from "../../redux/services/authSlice";
+import { useState } from "react";
+import Swal from "sweetalert2";
+import Spinner from "../../components/spinner";
 
 
 export default function VerifyOtp() {
     const navigate = useNavigate()
+    const location = useLocation();
+    const email = location.state?.email
 
+    const [otp, setOtp] = useState("")
+
+    const [verifyOtp, { isLoading }] = useVerifyOtpMutation()
     async function handleSubmit(e: any) {
         e.preventDefault()
-        navigate("/reset-password")
+
+        if (!email || !otp) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops!',
+                text: 'Please fill all the fields',
+            })
+            return
+        }
+
+        try {
+            const res: any = await verifyOtp({ email, otp: Number(otp) });
+
+            if (res?.data?.success) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: res?.data?.message || 'something went wrong!',
+                });
+                navigate("/reset-password", { state: { email, otp } })
+
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Login Failed',
+                    text: res?.error?.data?.message || 'something went wrong!',
+                });
+            }
+        } catch (error: any) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Login Failed',
+                text: error?.error?.data?.message || error?.message || error?.data?.message || 'something went wrong!',
+            })
+            console.log("🚀 ~ handleSubmit ~ error:", error)
+
+        }
     }
 
     return (
@@ -24,6 +69,9 @@ export default function VerifyOtp() {
                         <div>
                             <label className="block mb-1 text-xs">Verification Code</label>
                             <input
+                                name="otp"
+                                onChange={(e) => setOtp(e.target.value)}
+                                value={otp}
                                 type="text"
                                 placeholder="Enter your Verification Code"
                                 required
@@ -33,11 +81,13 @@ export default function VerifyOtp() {
 
 
                         <div className="flex flex-col  items-center gap-4 ">
+
                             <button
+                                disabled={isLoading}
                                 type="submit"
                                 className="w-full md:w-xs bgPink blackText  font-semibold  rounded-lg  transition-colors"
                             >
-                                Continue
+                                {isLoading ? <Spinner /> : "Continue"}
                             </button>
                             <div
                                 onClick={() => navigate(-1)}
