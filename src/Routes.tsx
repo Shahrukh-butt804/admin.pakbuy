@@ -7,13 +7,17 @@ import VerifyOtp from "./pages/auth/verifyOtp";
 import Dashboard from "./pages/dashboard";
 import { selectUser } from "./redux/reducers/userSlice";
 import { store } from "./redux/store";
+import Header from "./components/header";
 
 const PrivateRoute = () => {
   const user = useSelector(selectUser);
 
   const isAuthenticated = user && user._id;
 
-  return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
+  return isAuthenticated ? <div>
+    <Header />
+    <Outlet />
+  </div> : <Navigate to="/login" />;
 };
 
 
