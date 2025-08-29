@@ -44,9 +44,7 @@ export default function ProductDetails() {
                 </button>
             </div>
 
-
-
-            <div className='glass flex flex-col gap-10 mx-4 md:mx-12 '>
+            <div className='glass flex flex-col gap-10 mx-2 md:mx-12 '>
                 <div className='flex flex-col gap-10    '>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-y-6  font-extralight md:max-w-3xl md:px-10">
                         <div className="flex flex-col">
