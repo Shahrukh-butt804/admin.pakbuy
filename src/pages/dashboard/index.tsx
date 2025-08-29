@@ -28,12 +28,12 @@ const statusColors: any = {
 
 function Dashboard({ data }: any) {
     return (
-        <div className="p-4 md:px-6 from-gray-800 via-gray-900 to-black md:min-h-screen  text-white">
-            <header className="flex justify-between items-center pb-8">
-                <h1 className="text-2xl font-bold">Dashboard</h1>
+        <div className="p-4 md:px-6 from-gray-800 via-gray-900 to-black   text-white">
+            <header className="flex justify-between items-center ">
+                <p className="text-4xl md:text-5xl font-bold text-white">Dashboard</p>
             </header>
 
-            <div className="grid grid-cols-1 lg:grid-cols-7 gap-4 mb-8 lg:h-40">
+            <div className="grid grid-cols-1 lg:grid-cols-7 gap-4 mb-14 lg:h-32">
                 {data.stats.map((stat: any, idx: any) => {
                     if (stat.label === "Orders") {
                         return (
@@ -73,7 +73,7 @@ function Dashboard({ data }: any) {
 
             {/* charts */}
             <div className="grid grid-cols-1 lg:grid-cols-5 ">
-                <div className="glass rounded-lg lg:mr-12 lg:col-span-3"><OrdersBarChart /></div>
+                <div className="glass rounded-lg lg:mr-13 lg:col-span-3"><OrdersBarChart /></div>
 
                 {/* recen order */}
                 <div className="glass rounded-lg lg:col-span-2 mt-5 lg:mt-0">

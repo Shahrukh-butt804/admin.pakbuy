@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../redux/reducers/userSlice";
 import MobileMenu from "./mobileMenu";
 import { NotificationIcon } from "./notificaiton";
+import { useNavigate } from "react-router";
 
 export default function Header() {
 
@@ -29,7 +30,7 @@ export default function Header() {
                 </div>
             </div>
             <div className="md:hidden">
-                <MobileMenu/>
+                <MobileMenu />
             </div>
         </div>
     )
@@ -38,6 +39,7 @@ export default function Header() {
 
 
 function Dropdown() {
+    const navigate = useNavigate();
     const [open, setOpen] = useState(false);
 
     return (
@@ -49,14 +51,14 @@ function Dropdown() {
                     <div className="py-1">
                         <div
                             onClick={() => {
-                                alert("Option 1 selected");
+                                navigate("/profile");
                                 setOpen(false);
                             }}
                             className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left"
                         >
-                            Option 1
+                            My Profile
                         </div>
-                        <div
+                        {/* <div
                             onClick={() => {
                                 alert("Option 2 selected");
                                 setOpen(false);
@@ -64,7 +66,7 @@ function Dropdown() {
                             className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left"
                         >
                             Option 2
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             )}
