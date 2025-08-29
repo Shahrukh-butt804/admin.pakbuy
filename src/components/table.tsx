@@ -15,7 +15,7 @@ const Table = ({ navigateTo }: { navigateTo?: string }) => {
     ];
 
     return (
-        <div className="md:px-6">
+        <div className="p-3 md:px-6">
             {/* Top Controls */}
             <div className="flex flex-col md:flex-row md:justify-between items-start md:items-center mb-4 gap-5 md:gap-0 p-4 md:p-0 md:px-6 ">
                 <div>
@@ -81,7 +81,7 @@ const Table = ({ navigateTo }: { navigateTo?: string }) => {
             </div>
 
             {/* Footer */}
-            <div className="flex flex-col md:flex-row justify-start md:justify-between items-start md:items-center mt-4 text-sm ">
+            <div className="flex flex-col md:flex-row justify-start md:justify-between  items-center mt-4 text-sm ">
                 <p className="mx-2 md:mx-0">Showing 5 out of 20 entries</p>
                 <div className="flex items-center space-x-2 glass cursor-pointer mx-2 md:mx-0 " style={{ padding: "8px 0px", borderRadius: "10px" }}>
                     <button className="px-3 py-1 removebgColor ">Previous</button>

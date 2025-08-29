@@ -107,7 +107,7 @@ export default function Layout() {
 
 
                 {/* Page Content */}
-                <main className="flex-1 overflow-y-auto pb-10">
+                <main className="flex-1 overflow-y-auto pb-10 max-w-screen">
                     <Outlet />
                 </main>
             </div>

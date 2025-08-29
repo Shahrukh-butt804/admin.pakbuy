@@ -3,8 +3,8 @@ import Table from "../../components/table";
 export default function Customers() {
   return (
     <div >
-      <header className="flex justify-between items-center md:px-6">
-        <h1 className="text-2xl font-bold text-white">Customers</h1>
+      <header className="flex justify-center md:justify-between items-center md:px-6">
+        <p className="text-4xl md:text-5xl font-bold text-white">Customers</p>
       </header>
       <Table navigateTo="/customer-detail" />
     </div>
