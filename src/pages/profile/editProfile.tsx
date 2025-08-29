@@ -104,7 +104,7 @@ export default function EditProfile() {
                             type="email"
                             disabled
                             defaultValue={user?.email || ""}
-                            className="px-3 py-2 rounded-lg border border-gray-600 bg-transparent text-white"
+                            className="px-3 py-2 rounded-lg border border-gray-600 bg-transparent text-gray-400 cursor-not-allowed"
                         />
                     </div>
 
