@@ -28,16 +28,16 @@ const statusColors: any = {
 
 function Dashboard({ data }: any) {
     return (
-        <div className="md:px-6 from-gray-800 via-gray-900 to-black min-h-screen p-2 text-white">
+        <div className="p-4 md:px-6 from-gray-800 via-gray-900 to-black md:min-h-screen  text-white">
             <header className="flex justify-between items-center pb-8">
                 <h1 className="text-2xl font-bold">Dashboard</h1>
             </header>
 
-            <div className="grid grid-cols-7 gap-4 mb-8 h-40">
+            <div className="grid grid-cols-1 lg:grid-cols-7 gap-4 mb-8 lg:h-40">
                 {data.stats.map((stat: any, idx: any) => {
                     if (stat.label === "Orders") {
                         return (
-                            <div key={idx} className="glass rounded-lg ml-9 flex flex-col justify-start gap-5 col-span-3">
+                            <div key={idx} className="glass rounded-lg lg:ml-9 flex flex-col justify-start gap-5 lg:col-span-3">
                                 <div className="flex justify-between">
                                     <div className="pinkText">{stat.label}</div>
                                     <div className="pinkText">
@@ -55,7 +55,7 @@ function Dashboard({ data }: any) {
                         );
                     }
                     return (
-                        <div key={idx} className="glass rounded-lg flex justify-between items-center col-span-2  ">
+                        <div key={idx} className="glass rounded-lg flex justify-between items-center lg:col-span-2  ">
                             <div className="flex flex-col gap-1">
                                 <div className="text-4xl font-semibold">
                                     {stat.isMoney ? `$${stat.value.toLocaleString()}` : stat.value}
@@ -72,11 +72,11 @@ function Dashboard({ data }: any) {
             </div>
 
             {/* charts */}
-            <div className="grid grid-cols-5 ">
-                <div className="glass rounded-lg mr-12 col-span-3"><OrdersBarChart /></div>
+            <div className="grid grid-cols-1 lg:grid-cols-5 ">
+                <div className="glass rounded-lg lg:mr-12 lg:col-span-3"><OrdersBarChart /></div>
 
                 {/* recen order */}
-                <div className="glass rounded-lg col-span-2 ">
+                <div className="glass rounded-lg lg:col-span-2 mt-5 lg:mt-0">
                     <div className="flex justify-between items-center mb-4">
                         <h2 className="text-xl font-semibold pinkText">Recent Orders</h2>
                         <div className="pinkText">
