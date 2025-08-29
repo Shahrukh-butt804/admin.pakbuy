@@ -29,7 +29,9 @@ export default function Profile() {
                             className="px-4 py-2 bgPink blackText font-semibold rounded-lg transition-colors "
                         >
                             Edit profile
-                        </button>   <button
+                        </button>
+                        <button
+                            onClick={() => navigate("/change-password")}
                             type="submit"
                             className="px-4 py-2 bgPink blackText font-semibold rounded-lg transition-colors"
                         >
