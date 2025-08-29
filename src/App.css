@@ -61,7 +61,7 @@ body::before {
 /* black glass effect */
 
 .blackGlass {
-  background: rgba(0, 0, 0, 0.45); 
+  background: rgba(0, 0, 0, 0.45);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow:
@@ -112,6 +112,11 @@ input {
 
 input:-webkit-autofill {
   /* -webkit-box-shadow: 0 0 0 1000px transparent inset !important; */
-  -webkit-text-fill-color: #fff !important; /* keep text white */
+  -webkit-text-fill-color: #fff !important;
+  /* keep text white */
   transition: background-color 9999s ease-in-out 0s;
+}
+
+.removebgColor {
+  background-color: transparent !important;
 }

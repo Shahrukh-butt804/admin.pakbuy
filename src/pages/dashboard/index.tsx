@@ -28,9 +28,9 @@ const statusColors: any = {
 
 function Dashboard({ data }: any) {
     return (
-        <div className=" from-gray-800 via-gray-900 to-black min-h-screen p-2 text-white">
+        <div className="md:px-6 from-gray-800 via-gray-900 to-black min-h-screen p-2 text-white">
             <header className="flex justify-between items-center pb-8">
-                <h1 className="text-3xl font-bold">Dashboard</h1>
+                <h1 className="text-2xl font-bold">Dashboard</h1>
             </header>
 
             <div className="grid grid-cols-7 gap-4 mb-8 h-40">
