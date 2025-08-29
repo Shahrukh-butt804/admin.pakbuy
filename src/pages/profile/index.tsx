@@ -1,10 +1,11 @@
 import { useSelector } from "react-redux";
 import { selectUser } from "../../redux/reducers/userSlice";
 import { UPLOADS_URL } from "../../constants/api";
+import { useNavigate } from "react-router";
 
 export default function Profile() {
+    const navigate = useNavigate();
     const user = useSelector(selectUser);
-    console.log("🚀 ~ Profile ~ user:", user)
     return (
         <div>
             <div className="text-3xl font-bold text-white  mb-10  md:px-8 flex justify-center md:justify-start items-start"> My Profile</div>
@@ -14,7 +15,7 @@ export default function Profile() {
 
                     <div className="flex  items-center gap-2  lg:px-10">
 
-                        <img className="w-24 h-24 rounded-full" src={user?.image ? UPLOADS_URL + user?.image : "https://static.vecteezy.com/system/resources/previews/036/280/651/non_2x/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-illustration-vector.jpg"} alt="Image" />
+                        <img className="w-24 h-24 rounded-full" crossOrigin="anonymous" src={user?.image ? UPLOADS_URL + user?.image : "https://static.vecteezy.com/system/resources/previews/036/280/651/non_2x/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-illustration-vector.jpg"} alt="Image" />
                         <div className="flex flex-col">
                             <span className=" ">{user?.fullName || ""}</span>
                             <span className="text-sm text-gray-400 ">{user?.email || ""} </span>
@@ -23,6 +24,7 @@ export default function Profile() {
 
                     <div className="flex flex-col md:flex-row  gap-4 w-full md:w-max">
                         <button
+                            onClick={() => navigate("/edit-profile")}
                             type="submit"
                             className="px-4 py-2 bgPink blackText font-semibold rounded-lg transition-colors "
                         >

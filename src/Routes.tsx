@@ -16,6 +16,7 @@ import CustomerDetail from "./pages/customers/customerDetail";
 import ProductDetails from "./pages/products/productDetails";
 import OrderDetails from "./pages/orders/orderDetails";
 import Profile from "./pages/profile";
+import EditProfile from "./pages/profile/editProfile";
 
 const PrivateRoute = () => {
   const user = useSelector(selectUser);
@@ -45,6 +46,7 @@ function AppRoutes() {
               <Route path="/order-detail/:id" element={<OrderDetails />} />
               <Route path="/resources" element={<Resources />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/edit-profile" element={<EditProfile />} />
             </Route>
 
             <Route path="/login" element={<Login />} />
