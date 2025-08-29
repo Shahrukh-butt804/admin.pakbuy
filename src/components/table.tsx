@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { Eye, Search } from "lucide-react";
+import { useNavigate } from "react-router";
 
-const Table = () => {
+const Table = ({ navigateTo }: { navigateTo?: string }) => {
+    const navigate = useNavigate()
     const [entriesPerPage, setEntriesPerPage] = useState(10);
 
     const data = [
@@ -65,7 +67,9 @@ const Table = () => {
                                     <td className="px-4 py-3">{row.date}</td>
                                     <td className="px-4 py-3">{row.orders}</td>
                                     <td className="px-4 py-3">
-                                        <button className="bg-pink-200 text-black p-2 rounded-full hover:bg-pink-300 removebgColor">
+                                        <button
+                                            onClick={() => navigate(`${navigateTo}/${row.id}`)}
+                                            className="bg-pink-200 text-black p-2 rounded-full hover:bg-pink-300 removebgColor">
                                             <Eye className="w-6 h-6 pinkText" />
                                         </button>
                                     </td>

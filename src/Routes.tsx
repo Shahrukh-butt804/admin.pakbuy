@@ -12,6 +12,8 @@ import { selectUser } from "./redux/reducers/userSlice";
 import { store } from "./redux/store";
 import Orders from "./pages/orders";
 import Resources from "./pages/resources";
+import CustomerDetail from "./pages/customers/customerDetail";
+import ProductDetails from "./pages/products/productDetails";
 
 const PrivateRoute = () => {
   const user = useSelector(selectUser);
@@ -34,7 +36,9 @@ function AppRoutes() {
             <Route element={<PrivateRoute />}>
               <Route path="/" element={<Dashboard />} />
               <Route path="/customers" element={<Customers />} />
+              <Route path="/customer-detail/:id" element={<CustomerDetail />} />
               <Route path="/products" element={<Products />} />
+              <Route path="/product-detail/:id" element={<ProductDetails />} />
               <Route path="/orders" element={<Orders />} />
               <Route path="/resources" element={<Resources />} />
             </Route>

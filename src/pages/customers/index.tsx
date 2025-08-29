@@ -6,7 +6,7 @@ export default function Customers() {
       <header className="flex justify-between items-center md:px-6">
         <h1 className="text-2xl font-bold text-white">Customers</h1>
       </header>
-      <Table />
+      <Table navigateTo="/customer-detail" />
     </div>
   )
 }
