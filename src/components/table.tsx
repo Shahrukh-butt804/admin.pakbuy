@@ -3,20 +3,12 @@ import { Eye, Search } from "lucide-react";
 import { useNavigate } from "react-router";
 
 
-const data = [
-    { id: 1, firstName: "Eva", lastName: "Fox", email: "eva@email.com", date: "MM/DD/YYYY", orders: 5 },
-    { id: 2, firstName: "Linda", lastName: "Arcand", email: "linda@email.com", date: "MM/DD/YYYY", orders: 2 },
-    { id: 3, firstName: "Kevin", lastName: "Vetrovs", email: "kevin@email.com", date: "MM/DD/YYYY", orders: 8 },
-    { id: 4, firstName: "Sarah", lastName: "Jones", email: "sarah@email.com", date: "MM/DD/YYYY", orders: 0 },
-    { id: 5, firstName: "Jennifer", lastName: "Smith", email: "jennifer@email.com", date: "MM/DD/YYYY", orders: 1 },
-];
-
 const Table = ({ navigateTo, tableData, setPagination, pagination }: { navigateTo?: string, tableData?: { data: any, exlucdedFields?: string[] }, setPagination?: any, pagination?: any }) => {
     const navigate = useNavigate()
     const [entriesPerPage, setEntriesPerPage] = useState(10);
     const [keyword, setkeyword] = useState("")
 
-    const rows = tableData?.data?.length ? tableData.data : data || [];
+    const rows = tableData?.data?.length ? tableData.data : [];
 
     const columns = rows.length > 0
         ? Object.keys(rows[0]).filter((col) => !tableData?.exlucdedFields?.includes(col))

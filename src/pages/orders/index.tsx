@@ -4,6 +4,7 @@ import Table from "../../components/table";
 import { useGetAllOrdersQuery } from "../../redux/services/orderSlice";
 
 export default function Orders() {
+
   const [pagination, setPagination] = useState({
     page: 1,
     limit: 10,

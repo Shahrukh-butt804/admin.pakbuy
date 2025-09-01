@@ -6,7 +6,15 @@ export const orderSlice = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: BASE_URL + "/order", credentials: 'include' }),
     endpoints: (builder) => ({
         getAllOrders: builder.query({
-            query: () => "/get-all-orders",
+            query: ({ page, limit, keyword }) => ({
+                url: "/get-all-orders",
+                method: "GET",
+                params: {
+                    page,
+                    limit,
+                    keyword
+                }
+            })
         }),
         getOrderById: builder.query({
             query: (id) => `/get-order-by-id/${id}`,
@@ -15,6 +23,6 @@ export const orderSlice = createApi({
     }),
 });
 
-export const { useGetAllOrdersQuery , useGetOrderByIdQuery } = orderSlice;
+export const { useGetAllOrdersQuery, useGetOrderByIdQuery } = orderSlice;
 
 
