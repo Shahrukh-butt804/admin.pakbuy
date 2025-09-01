@@ -11,15 +11,36 @@ const data = [
     { id: 5, firstName: "Jennifer", lastName: "Smith", email: "jennifer@email.com", date: "MM/DD/YYYY", orders: 1 },
 ];
 
-const Table = ({ navigateTo, tableData }: { navigateTo?: string, tableData?: { data: any  ,exlucdedFields?: string[]} }) => {
+const Table = ({ navigateTo, tableData, setPagination, pagination }: { navigateTo?: string, tableData?: { data: any, exlucdedFields?: string[] }, setPagination?: any, pagination?: any }) => {
     const navigate = useNavigate()
     const [entriesPerPage, setEntriesPerPage] = useState(10);
+    const [keyword, setkeyword] = useState("")
 
     const rows = tableData?.data?.length ? tableData.data : data || [];
 
     const columns = rows.length > 0
-            ? Object.keys(rows[0]).filter((col) => !tableData?.exlucdedFields?.includes(col))
-            : [];
+        ? Object.keys(rows[0]).filter((col) => !tableData?.exlucdedFields?.includes(col))
+        : [];
+
+
+    const handleChange = (e: any) => {
+        const { value } = e.target;
+        setPagination((prevPagination: any) => ({
+            ...prevPagination,
+            "keyword": value,
+        }));
+        setkeyword(value)
+    };
+
+    const handleEntryChange = (e: any) => {
+        const { name, value } = e.target;
+        setPagination((prevPagination: any) => ({
+            ...prevPagination,
+            [name]: value,
+        }));
+        setEntriesPerPage(value)
+    };
+
 
 
     return (
@@ -29,8 +50,9 @@ const Table = ({ navigateTo, tableData }: { navigateTo?: string, tableData?: { d
                 <div>
                     <label className="text-sm mr-3">Show entries</label>
                     <select
+                        name="limit"
                         value={entriesPerPage}
-                        onChange={(e: any) => setEntriesPerPage(e.target.value)}
+                        onChange={handleEntryChange}
                         className="bg-transparent border glass  appearance-none text-sm"
                         style={{ padding: "8px 35px" }}
                     >
@@ -42,9 +64,11 @@ const Table = ({ navigateTo, tableData }: { navigateTo?: string, tableData?: { d
 
                 <div className="flex items-center bg-[#111827]  rounded-lg  glass" style={{ padding: "12px 15px" }}>
                     <input
-                        type="text"
+                        type="keyword"
                         placeholder="Search Here..."
                         className="bg-transparent focus:outline-none text-sm"
+                        value={keyword}
+                        onChange={handleChange}
                     />
                     <Search className="w-5 h-5 text-white" />
                 </div>
@@ -92,19 +116,56 @@ const Table = ({ navigateTo, tableData }: { navigateTo?: string, tableData?: { d
             </div>
 
             {/* Footer */}
-            <div className="flex flex-col md:flex-row justify-start md:justify-between  items-center mt-4 text-sm ">
-                <p className="mx-2 md:mx-0">Showing 5 out of 20 entries</p>
-                <div className="flex items-center space-x-2 glass cursor-pointer mx-2 md:mx-0 " style={{ padding: "8px 0px", borderRadius: "10px" }}>
-                    <button className="px-3 py-1 removebgColor ">Previous</button>
-                    <button className="px-3 py-1 removebgColor" >01 </button>
-                    <button className="px-3 py-1 removebgColor" >02 </button>
-                    <button className="px-3 py-1 removebgColor" >03 </button>
-                    <button className="px-3 py-1 removebgColor" >Next</button>
-                </div>
-            </div>
+            <Pagination setPagination={setPagination} pagination={pagination} />
+
 
         </div>
     );
 };
 
 export default Table;
+
+
+const Pagination = ({ setPagination, pagination }: any) => {
+    const { totalDocs, currentPage, totalPages, hasNextPage, hasPrevPage } = pagination;
+
+    return (
+        <div className="flex flex-col md:flex-row justify-start md:justify-between items-center mt-4 text-sm">
+            <p className="mx-2 md:mx-0">
+                Showing page {currentPage} of {totalPages} (Total {totalDocs} entries)
+            </p>
+
+            <div
+                className="flex items-center space-x-2 glass cursor-pointer mx-2 md:mx-0"
+                style={{ padding: "8px 0px", borderRadius: "10px" }}
+            >
+                <button
+                    className="px-3 py-1 removebgColor"
+                    disabled={!hasPrevPage}
+                    onClick={() => setPagination((prevPagination: any) => ({ ...prevPagination, page: prevPagination.page - 1 }))}
+                >
+                    Previous
+                </button>
+
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                    <button
+                        key={page}
+                        className={`px-3 py-1 removebgColor ${page === currentPage ? "bg-blue-500 text-white rounded-md" : ""
+                            }`}
+                        onClick={() => setPagination((prevPagination: any) => ({ ...prevPagination, page: prevPagination.page = page }))}
+                    >
+                        {page.toString().padStart(2, "0")}
+                    </button>
+                ))}
+
+                <button
+                    className="px-3 py-1 removebgColor"
+                    disabled={!hasNextPage}
+                    onClick={() => setPagination((prevPagination: any) => ({ ...prevPagination, page: prevPagination.page + 1 }))}
+                >
+                    Next
+                </button>
+            </div>
+        </div>
+    );
+};

@@ -6,11 +6,20 @@ export const userManagementSlice = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: BASE_URL + "/admin/user-management", credentials: 'include' }),
     tagTypes: ["User"],
     endpoints: (builder) => ({
-        getReport : builder.query({
+        getReport: builder.query({
             query: () => "/get-report",
         }),
         getAllUsers: builder.query({
-            query: () => "/get-all-users",
+            query: ({ page, limit, keyword }) => ({
+                url: "/get-all-users",
+                method: "GET",
+                params: {
+                    page,
+                    limit,
+                    keyword
+                }
+            })
+
         }),
         getUserById: builder.query({
             query: (id) => `/get-user-by-id/${id}`,
@@ -19,7 +28,7 @@ export const userManagementSlice = createApi({
 
         }),
         toggleUserStatus: builder.mutation({
-            query: ({id}) => ({
+            query: ({ id }) => ({
                 url: `/toggle-user-status/${id}`,
                 method: "PUT",
             }),

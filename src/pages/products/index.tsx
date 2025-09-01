@@ -1,11 +1,16 @@
+import { useState } from "react";
 import Spinner from "../../components/spinner";
 import Table from "../../components/table";
 import { useGetAllProductsQuery } from "../../redux/services/productSlice";
 
 export default function Products() {
 
-
-    const { data, isLoading } = useGetAllProductsQuery({})
+    const [pagination, setPagination] = useState({
+        page: 1,
+        limit: 10,
+        keyword: ""
+    })
+    const { data, isLoading } = useGetAllProductsQuery({ ...pagination })
 
     if (isLoading) {
         return (
@@ -28,7 +33,12 @@ export default function Products() {
                     Add PRODUCT
                 </button>
             </div>
-            <Table tableData={{data : data.packages , exlucdedFields : ["__v", "updatedAt", "products"]}}  navigateTo="/product-detail" />
+            <Table
+                tableData={{ data: data.packages, exlucdedFields: ["__v", "updatedAt", "products"] }}
+                navigateTo="/product-detail"
+                setPagination={setPagination}
+                pagination={data?.pagination || {}}
+            />
         </div>
     )
 }
