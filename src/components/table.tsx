@@ -127,7 +127,7 @@ const Table = ({ navigateTo, tableData }: { navigateTo?: string, tableData?: { d
                                     <td className="px-4 py-3">{String(i + 1).padStart(2, "0")}</td>
                                     {columns.map((col) => (
                                         <td key={col} className="px-4 py-3">
-                                            {String(row[col]) || "N/A"}
+                                            {col === "createdAt" ? new Date(row[col]).toLocaleDateString() : String(row[col]) || "N/A"}
                                         </td>
                                     ))}
                                     <td className="px-4 py-3">
