@@ -63,20 +63,20 @@ export default function OrderDetails() {
                         </div>
                         <div className="flex flex-col">
                             <span className="text-gray-400">Email</span>
-                            <span>{order?.user.fullName || "N/A"}</span>
+                            <span>{order?.user.email || "N/A"}</span>
                         </div>
                         <div className="flex flex-col">
                             <span className="text-gray-400">Phone Number</span>
-                            <span>{order?.user.fullName || "N/A"}</span>
+                            <span>{order?.shippingAddress.phone || "N/A"}</span>
                         </div>
 
                         <div className="flex flex-col">
                             <span className="text-gray-400">Billing Address</span>
-                            <span>{order?.user.fullName || "N/A"}</span>
+                            <span>{order?.billingAddress.country + " ," + order?.billingAddress.state + " ," + order?.billingAddress.city || "N/A"}</span>
                         </div>
                         <div className="flex flex-col">
                             <span className="text-gray-400">Shipping Address</span>
-                            <span>{order?.user.fullName || "N/A"}</span>
+                            <span>{order?.shippingAddress.country + " ," + order?.shippingAddress.state + " ," + order?.shippingAddress.city || "N/A"}</span>
                         </div>
                         <div className="flex flex-col">
                             <span className="text-gray-400">Collections Purchased</span>

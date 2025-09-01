@@ -49,9 +49,9 @@ function Dashboard() {
                 <div className="glass rounded-lg flex justify-between items-center lg:col-span-2  ">
                     <div className="flex flex-col gap-1">
                         <div className="text-4xl font-semibold">
-                            {reportData?.lastMonthSale || 0}
+                            {reportData?.totalSubscriptionsRevenue || 0}
                         </div>
-                        <div className="">Monthly Sale</div>
+                        <div className="">Total Subscriptions Revenue</div>
                         <div className="text-xs text-green-400">+{10}%</div>
                     </div>
 
