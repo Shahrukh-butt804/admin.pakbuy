@@ -2,6 +2,7 @@ import { useNavigate, useParams } from 'react-router'
 import { ChevronLeft } from "lucide-react";
 import { useGetOrderByIdQuery } from '../../redux/services/orderSlice';
 import Spinner from '../../components/spinner';
+import React from 'react';
 
 
 export default function OrderDetails() {
@@ -9,6 +10,7 @@ export default function OrderDetails() {
     const { id } = useParams()
 
     const { data: order, isLoading } = useGetOrderByIdQuery(id, { skip: !id })
+    console.log("🚀 ~ OrderDetails ~ order:", order)
 
 
     if (isLoading) {
@@ -29,7 +31,7 @@ export default function OrderDetails() {
 
                     {/* Order Details */}
                     <span className='md:px-10 text-xl font-bold'>Order Details</span>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-y-6  font-extralight md:max-w-3xl md:px-10">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-y-6  font-extralight md:max-w-5xl md:px-10">
                         <div className="flex flex-col">
                             <span className="text-gray-400">Order ID</span>
                             <span>{order?._id || "N/A"}</span>
@@ -56,31 +58,39 @@ export default function OrderDetails() {
 
                     {/* Customer Details */}
                     <span className='md:px-10 text-xl font-bold'>Customer Details</span>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-y-6  font-extralight md:max-w-3xl md:px-10">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-y-6  font-extralight md:max-w-5xl md:px-10">
                         <div className="flex flex-col">
                             <span className="text-gray-400">Name</span>
-                            <span>{order?.user.fullName || "N/A"}</span>
+                            <span>{order?.user?.fullName || "N/A"}</span>
                         </div>
                         <div className="flex flex-col">
                             <span className="text-gray-400">Email</span>
-                            <span>{order?.user.email || "N/A"}</span>
+                            <span>{order?.user?.email || "N/A"}</span>
                         </div>
                         <div className="flex flex-col">
                             <span className="text-gray-400">Phone Number</span>
-                            <span>{order?.shippingAddress.phone || "N/A"}</span>
+                            <span>{order?.shippingAddress?.phone || "N/A"}</span>
                         </div>
 
                         <div className="flex flex-col">
                             <span className="text-gray-400">Billing Address</span>
-                            <span>{order?.billingAddress.country + " ," + order?.billingAddress.state + " ," + order?.billingAddress.city || "N/A"}</span>
+                            <span>{order?.billingAddress?.country + " ," + order?.billingAddress?.state + " ," + order?.billingAddress?.city || "N/A"}</span>
                         </div>
                         <div className="flex flex-col">
                             <span className="text-gray-400">Shipping Address</span>
-                            <span>{order?.shippingAddress.country + " ," + order?.shippingAddress.state + " ," + order?.shippingAddress.city || "N/A"}</span>
+                            <span>{order?.shippingAddress?.country + " ," + order?.shippingAddress?.state + " ," + order?.shippingAddress?.city || "N/A"}</span>
                         </div>
                         <div className="flex flex-col">
                             <span className="text-gray-400">Collections Purchased</span>
-                            <span>CHOOSE {order.products.map((product: any) => product.packageId.name + " ") || "N/A"}</span>
+                            <span>
+                                CHOOSE{" "}
+                                {order?.products && order?.products.length > 0
+                                    ? order.products
+                                        .filter((p: any) => p.packageId) // avoid nulls
+                                        .map((p: any) => p.packageId.name)
+                                        .join(", ")
+                                    : "N/A"}
+                            </span>
                         </div>
                     </div>
 
@@ -99,18 +109,25 @@ export default function OrderDetails() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {order?.products?.map((orderData: any, index: any) => (
-                                    <>
-                                        <div className="my-6" />
-                                        <tr key={index}>
-                                            <td>{orderData.packageId.name}</td>
-                                            <td>{orderData.packageId.products.map((product: any) => product.name + "  ")}</td>
-                                            <td>{orderData.packageId.price}</td>
-                                            <td>{orderData.quantity}</td>
-                                            <td>{order.totalAmount}</td>
-                                        </tr>
-                                        <div className="h-px  bg-gray-700" /></>
-                                ))}
+                                {order?.products?.length > 0 &&
+                                    order.products.some((p: any) => p.packageId !== null) &&
+                                    order.products.map((orderData: any, index: number) => (
+                                        <React.Fragment key={index}>
+                                            <div className="my-6" />
+                                            <tr>
+                                                <td>{orderData.packageId?.name || "N/A"}</td>
+                                                <td>
+                                                    {orderData.packageId?.products
+                                                        ?.map((product: any) => product.name)
+                                                        .join(", ") || "N/A"}
+                                                </td>
+                                                <td>{orderData.packageId?.price ?? "N/A"}</td>
+                                                <td>{orderData.quantity}</td>
+                                                <td>{order.totalAmount}</td>
+                                            </tr>
+                                            <div className="h-px bg-gray-700" />
+                                        </React.Fragment>
+                                    ))}
                             </tbody>
                         </table>
                     </div>
