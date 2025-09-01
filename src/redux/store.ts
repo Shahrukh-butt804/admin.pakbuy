@@ -5,6 +5,7 @@ import userReducer from "./reducers/userSlice";
 import { authSlice } from "./services/authSlice";
 import { profileSlice } from "./services/profileSlice";
 import { userManagementSlice } from "./services/userManagement";
+import { orderSlice } from "./services/orderSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,10 +13,11 @@ export const store = configureStore({
     [authSlice.reducerPath]: authSlice.reducer,
     [profileSlice.reducerPath]: profileSlice.reducer,
     [userManagementSlice.reducerPath]: userManagementSlice.reducer,
+    [orderSlice.reducerPath]: orderSlice.reducer,
     user: userReducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(apiSlice.middleware).concat(authSlice.middleware).concat(profileSlice.middleware).concat(userManagementSlice.middleware), // Add RTK Query middleware
+    getDefaultMiddleware().concat(apiSlice.middleware).concat(authSlice.middleware).concat(profileSlice.middleware).concat(userManagementSlice.middleware).concat(orderSlice.middleware), // Add RTK Query middleware
 });
 
 setupListeners(store.dispatch);
