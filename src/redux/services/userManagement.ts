@@ -6,6 +6,9 @@ export const userManagementSlice = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: BASE_URL + "/admin/user-management", credentials: 'include' }),
     tagTypes: ["User"],
     endpoints: (builder) => ({
+        getReport : builder.query({
+            query: () => "/get-report",
+        }),
         getAllUsers: builder.query({
             query: () => "/get-all-users",
         }),
@@ -25,6 +28,6 @@ export const userManagementSlice = createApi({
     }),
 });
 
-export const { useGetAllUsersQuery, useGetUserByIdQuery, useToggleUserStatusMutation } = userManagementSlice;
+export const { useGetReportQuery, useGetAllUsersQuery, useGetUserByIdQuery, useToggleUserStatusMutation } = userManagementSlice;
 
 
