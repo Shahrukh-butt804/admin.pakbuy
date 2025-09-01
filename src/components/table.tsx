@@ -2,17 +2,25 @@ import { useState } from "react";
 import { Eye, Search } from "lucide-react";
 import { useNavigate } from "react-router";
 
-const Table = ({ navigateTo }: { navigateTo?: string }) => {
+
+const data = [
+    { id: 1, firstName: "Eva", lastName: "Fox", email: "eva@email.com", date: "MM/DD/YYYY", orders: 5 },
+    { id: 2, firstName: "Linda", lastName: "Arcand", email: "linda@email.com", date: "MM/DD/YYYY", orders: 2 },
+    { id: 3, firstName: "Kevin", lastName: "Vetrovs", email: "kevin@email.com", date: "MM/DD/YYYY", orders: 8 },
+    { id: 4, firstName: "Sarah", lastName: "Jones", email: "sarah@email.com", date: "MM/DD/YYYY", orders: 0 },
+    { id: 5, firstName: "Jennifer", lastName: "Smith", email: "jennifer@email.com", date: "MM/DD/YYYY", orders: 1 },
+];
+
+const Table = ({ navigateTo, tableData }: { navigateTo?: string, tableData?: { data: any  ,exlucdedFields?: string[]} }) => {
     const navigate = useNavigate()
     const [entriesPerPage, setEntriesPerPage] = useState(10);
 
-    const data = [
-        { id: 1, firstName: "Eva", lastName: "Fox", email: "eva@email.com", date: "MM/DD/YYYY", orders: 5 },
-        { id: 2, firstName: "Linda", lastName: "Arcand", email: "linda@email.com", date: "MM/DD/YYYY", orders: 2 },
-        { id: 3, firstName: "Kevin", lastName: "Vetrovs", email: "kevin@email.com", date: "MM/DD/YYYY", orders: 8 },
-        { id: 4, firstName: "Sarah", lastName: "Jones", email: "sarah@email.com", date: "MM/DD/YYYY", orders: 0 },
-        { id: 5, firstName: "Jennifer", lastName: "Smith", email: "jennifer@email.com", date: "MM/DD/YYYY", orders: 1 },
-    ];
+    const rows = tableData?.data?.length ? tableData.data : data || [];
+
+    const columns = rows.length > 0
+            ? Object.keys(rows[0]).filter((col) => !tableData?.exlucdedFields?.includes(col))
+            : [];
+
 
     return (
         <div className="p-3 md:px-6">
@@ -45,7 +53,9 @@ const Table = ({ navigateTo }: { navigateTo?: string }) => {
             {/* Table */}
             <div className="glass border border-white/20 rounded-2xl shadow-lg overflow-hidden max-w-screen" >
                 <div className="overflow-x-scroll lg:overflow-auto">
-                    <table className="w-full min-w-[700px] text-left text-sm ">
+
+
+                    {/* <table className="w-full min-w-[700px] text-left text-sm ">
                         <thead className="uppercase border-b border-white/10">
                             <tr>
                                 <th className="px-4 py-3">S.No</th>
@@ -58,7 +68,7 @@ const Table = ({ navigateTo }: { navigateTo?: string }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {data.map((row, i) => (
+                            {tableData?.data && tableData?.data?.length > 0 ? tableData?.data?.map((row: any, i: any) => (
                                 <tr key={row.id} className="hover:bg-white/5 transition">
                                     <td className="px-4 py-3">{String(i + 1).padStart(2, "0")}</td>
                                     <td className="px-4 py-3">{row.firstName}</td>
@@ -74,9 +84,65 @@ const Table = ({ navigateTo }: { navigateTo?: string }) => {
                                         </button>
                                     </td>
                                 </tr>
+                            ))
+                                :
+                                data.map((row: any, i: any) => (
+                                    <tr key={row.id} className="hover:bg-white/5 transition">
+                                        <td className="px-4 py-3">{String(i + 1).padStart(2, "0")}</td>
+                                        <td className="px-4 py-3">{row.firstName}</td>
+                                        <td className="px-4 py-3">{row.lastName}</td>
+                                        <td className="px-4 py-3">{row.email}</td>
+                                        <td className="px-4 py-3">{row.date}</td>
+                                        <td className="px-4 py-3">{row.orders}</td>
+                                        <td className="px-4 py-3">
+                                            <button
+                                                onClick={() => navigate(`${navigateTo}/${row.id}`)}
+                                                className="bg-pink-200 text-black p-2 rounded-full hover:bg-pink-300 removebgColor">
+                                                <Eye className="w-6 h-6 pinkText" />
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))
+
+
+                            }
+                        </tbody>
+                    </table> */}
+
+                    <table className="w-full min-w-[700px] text-left text-sm">
+                        <thead className="uppercase border-b border-white/10">
+                            <tr>
+                                <th className="px-4 py-3">S.No</th>
+                                {columns.map((col) => (
+                                    <th key={col} className="px-4 py-3">
+                                        {col.replace(/([A-Z])/g, " $1").trim()} {/* makes firstName → First Name */}
+                                    </th>
+                                ))}
+                                <th className="px-4 py-3">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {rows.map((row: any, i: number) => (
+                                <tr key={row.id || i} className="hover:bg-white/5 transition">
+                                    <td className="px-4 py-3">{String(i + 1).padStart(2, "0")}</td>
+                                    {columns.map((col) => (
+                                        <td key={col} className="px-4 py-3">
+                                            {String(row[col]) || "N/A"}
+                                        </td>
+                                    ))}
+                                    <td className="px-4 py-3">
+                                        <button
+                                            onClick={() => navigate(`${navigateTo}/${row._id}`)}
+                                            className="bg-pink-200 text-black p-2 rounded-full hover:bg-pink-300 removebgColor"
+                                        >
+                                            <Eye className="w-6 h-6 pinkText" />
+                                        </button>
+                                    </td>
+                                </tr>
                             ))}
                         </tbody>
                     </table>
+
                 </div>
             </div>
 
