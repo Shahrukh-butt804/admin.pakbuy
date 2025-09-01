@@ -1,29 +1,28 @@
 import { useNavigate, useParams } from 'react-router'
 import { ChevronLeft } from "lucide-react";
+import { useGetProductByIdQuery } from '../../redux/services/productSlice';
+import Spinner from '../../components/spinner';
+import { UPLOADS_URL } from '../../constants/api';
 
 
-const sampleData = {
-    userName: "John Doe",
-    avatarUrl: "avatar.png",
-    stats: [
-        { label: "Monthly Revenue", value: 10540, growth: 22.45, isMoney: true, image: "/images/revenue.png" },
-        { label: "Monthly Sales", value: 37, growth: 15.54, isMoney: false, image: "/images/chart.png" },
-        {
-            label: "Orders",
-            counts: { New: 10, Processing: 28, Ship: 90 },
-        },
-    ],
-    recentOrders: [
-        { customer: "Alice James", date: "24.05.2023", amount: 124.97, status: "Paid" },
-        { customer: "Angela Jones", date: "23.05.2023", amount: 55.42, status: "Pending" },
-        { customer: "Amanda Will", date: "23.05.2023", amount: 89.9, status: "Paid" },
-        { customer: "Emily Jade", date: "22.05.2023", amount: 144.94, status: "Pending" },
-    ],
-};
 export default function ProductDetails() {
     const navigate = useNavigate()
     const { id } = useParams()
-    console.log("🚀 ~ CustomerDetail ~ id:", id)
+
+    const { data: pkg, isLoading } = useGetProductByIdQuery(id, { skip: !id })
+
+
+
+
+    if (isLoading) {
+        return (
+            <div className='grid place-content-center'>
+                <Spinner size='lg' />
+            </div>
+        )
+    }
+
+
     return (
         <div>
 
@@ -47,39 +46,41 @@ export default function ProductDetails() {
             <div className='glass flex flex-col gap-10 mx-2 md:mx-12 '>
                 <div className='flex flex-col gap-10    '>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-y-6  font-extralight md:max-w-3xl md:px-10">
-                        <div className="flex flex-col">
-                            <span className="text-gray-400">Product Name</span>
-                            <span>Muse S Athena</span>
-                        </div>
-                        <div className="flex flex-col">
+
+                        {/* <div className="flex flex-col">
                             <span className="text-gray-400">SKU</span>
                             <span>BW22-BL</span>
-                        </div>
+                        </div> */}
                         <div className="flex flex-col">
                             <span className="text-gray-400">Collection Name</span>
-                            <span>CHOOSE Mind</span>
+                            <span>CHOOSE {pkg?.name || "N/A"}</span>
+                        </div>
+
+                        <div className="flex flex-col">
+                            <span className="text-gray-400">Collection ID</span>
+                            <span>{pkg?._id || "N/A"}</span>
                         </div>
 
                         <div className="flex flex-col">
                             <span className="text-gray-400">Price</span>
-                            <span>$600.00</span>
+                            <span>${pkg?.price || "N/A"}</span>
                         </div>
                         <div className="flex flex-col">
                             <span className="text-gray-400">Stock</span>
-                            <span>23</span>
+                            <span>{pkg?.stock || "N/A"}</span>
                         </div>
                         <div className="flex flex-col">
                             <span className="text-gray-400">Status</span>
-                            <span>In Stock</span>
+                            <span>{pkg?.stock > 0 ? "In Stock" : "Out of Stock"}</span>
                         </div>
-
+                        {/* 
                         <div className="flex flex-col">
                             <span className="text-gray-400">Ratings</span>
                             <span>5 out of 4</span>
-                        </div>
+                        </div> */}
                         <div className="flex flex-col">
                             <span className="text-gray-400">Description</span>
-                            <span>Train your brain to achieve peak focus, endurance, and resilience with exclusive EEG and fNIRS technology</span>
+                            <span>{pkg?.description || "N/A"}</span>
                         </div>
                     </div>
                 </div>
@@ -92,20 +93,27 @@ export default function ProductDetails() {
                                     <th>Collection Name </th>
                                     <th>Product Name </th>
                                     <th>Price</th>
-                                    <th>Coupon Code</th>
+                                    <th>Image</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {sampleData.recentOrders.map((order: any, index: any) => (
+                                {pkg.products.map((product: any, index: any) => (
                                     <>
                                         <div className="my-6" />
                                         <tr key={index}>
-                                            <td>{order.customer}</td>
-                                            <td>{order.date}</td>
-                                            <td>${order.amount.toFixed(2)}</td>
-                                            <td className={"text-gray-400"}>{order.status}</td>
+                                            <td>{pkg.name}</td>
+                                            <td>{product.name}</td>
+                                            <td>${product.price.toFixed(2)}</td>
+                                            <td className={"text-gray-400"}>
+                                                {product.image ? (
+                                                    <img src={UPLOADS_URL + product.image} alt="Image" crossOrigin='anonymous' className='w-10 h-10 rounded-full' />
+                                                )
+                                                    :
+                                                    "N/A"
+                                                }
+                                            </td>
                                         </tr>
-                                        <div className="h-px  bg-gray-700" /></>
+                                        </>
                                 ))}
                             </tbody>
                         </table>

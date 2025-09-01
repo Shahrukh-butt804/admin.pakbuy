@@ -1,6 +1,21 @@
+import Spinner from "../../components/spinner";
 import Table from "../../components/table";
+import { useGetAllProductsQuery } from "../../redux/services/productSlice";
 
 export default function Products() {
+
+
+    const { data, isLoading } = useGetAllProductsQuery({})
+
+    if (isLoading) {
+        return (
+            <div className='grid place-content-center'>
+                <Spinner size='lg' />
+            </div>
+        )
+    }
+
+
     return (
         <div >
             <div className="flex flex-col md:flex-row gap-4 md:gap-0 justify-between  items-start md:items-center px-4 md:px-6  text-white mr-7">
@@ -13,7 +28,7 @@ export default function Products() {
                     Add PRODUCT
                 </button>
             </div>
-            <Table navigateTo="/product-detail" />
+            <Table tableData={{data : data.packages , exlucdedFields : ["__v", "updatedAt", "products"]}}  navigateTo="/product-detail" />
         </div>
     )
 }

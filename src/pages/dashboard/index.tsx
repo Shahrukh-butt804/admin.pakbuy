@@ -2,25 +2,6 @@ import OrdersBarChart from "../../components/barChart";
 import Spinner from "../../components/spinner";
 import { useGetReportQuery } from "../../redux/services/userManagement";
 
-// Example props structure for dynamic data
-// const sampleData = {
-//     userName: "John Doe",
-//     avatarUrl: "avatar.png",
-//     stats: [
-//         { label: "Monthly Revenue", value: 10540, growth: 22.45, isMoney: true, image: "/images/revenue.png" },
-//         { label: "Monthly Sales", value: 37, growth: 15.54, isMoney: false, image: "/images/chart.png" },
-//         {
-//             label: "Orders",
-//             counts: { New: 10, Processing: 28, Ship: 90 },
-//         },
-//     ],
-//     recentOrders: [
-//         { customer: "Alice James", date: "24.05.2023", amount: 124.97, status: "Paid" },
-//         { customer: "Angela Jones", date: "23.05.2023", amount: 55.42, status: "Pending" },
-//         { customer: "Amanda Will", date: "23.05.2023", amount: 89.9, status: "Paid" },
-//         { customer: "Emily Jade", date: "22.05.2023", amount: 144.94, status: "Pending" },
-//     ],
-// };
 
 const statusColors: any = {
     confirmed: "text-green-400",
