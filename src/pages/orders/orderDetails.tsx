@@ -10,7 +10,6 @@ export default function OrderDetails() {
     const { id } = useParams()
 
     const { data: order, isLoading } = useGetOrderByIdQuery(id, { skip: !id })
-    console.log("🚀 ~ OrderDetails ~ order:", order)
 
 
     if (isLoading) {
