@@ -54,61 +54,6 @@ const Table = ({ navigateTo, tableData }: { navigateTo?: string, tableData?: { d
             <div className="glass border border-white/20 rounded-2xl shadow-lg overflow-hidden max-w-screen" >
                 <div className="overflow-x-scroll lg:overflow-auto">
 
-
-                    {/* <table className="w-full min-w-[700px] text-left text-sm ">
-                        <thead className="uppercase border-b border-white/10">
-                            <tr>
-                                <th className="px-4 py-3">S.No</th>
-                                <th className="px-4 py-3">First Name</th>
-                                <th className="px-4 py-3">Last Name</th>
-                                <th className="px-4 py-3">Email Address</th>
-                                <th className="px-4 py-3">Registration Date</th>
-                                <th className="px-4 py-3">Orders</th>
-                                <th className="px-4 py-3">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {tableData?.data && tableData?.data?.length > 0 ? tableData?.data?.map((row: any, i: any) => (
-                                <tr key={row.id} className="hover:bg-white/5 transition">
-                                    <td className="px-4 py-3">{String(i + 1).padStart(2, "0")}</td>
-                                    <td className="px-4 py-3">{row.firstName}</td>
-                                    <td className="px-4 py-3">{row.lastName}</td>
-                                    <td className="px-4 py-3">{row.email}</td>
-                                    <td className="px-4 py-3">{row.date}</td>
-                                    <td className="px-4 py-3">{row.orders}</td>
-                                    <td className="px-4 py-3">
-                                        <button
-                                            onClick={() => navigate(`${navigateTo}/${row.id}`)}
-                                            className="bg-pink-200 text-black p-2 rounded-full hover:bg-pink-300 removebgColor">
-                                            <Eye className="w-6 h-6 pinkText" />
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))
-                                :
-                                data.map((row: any, i: any) => (
-                                    <tr key={row.id} className="hover:bg-white/5 transition">
-                                        <td className="px-4 py-3">{String(i + 1).padStart(2, "0")}</td>
-                                        <td className="px-4 py-3">{row.firstName}</td>
-                                        <td className="px-4 py-3">{row.lastName}</td>
-                                        <td className="px-4 py-3">{row.email}</td>
-                                        <td className="px-4 py-3">{row.date}</td>
-                                        <td className="px-4 py-3">{row.orders}</td>
-                                        <td className="px-4 py-3">
-                                            <button
-                                                onClick={() => navigate(`${navigateTo}/${row.id}`)}
-                                                className="bg-pink-200 text-black p-2 rounded-full hover:bg-pink-300 removebgColor">
-                                                <Eye className="w-6 h-6 pinkText" />
-                                            </button>
-                                        </td>
-                                    </tr>
-                                ))
-
-
-                            }
-                        </tbody>
-                    </table> */}
-
                     <table className="w-full min-w-[700px] text-left text-sm">
                         <thead className="uppercase border-b border-white/10">
                             <tr>
