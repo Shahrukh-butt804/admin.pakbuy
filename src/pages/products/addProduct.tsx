@@ -140,7 +140,7 @@ const AddProduct = () => {
 
 
     return (
-        <div className="p-6 glass text-white rounded-xl shadow-lg max-w-7xl mx-12">
+        <div className="md:p-4 glass text-white rounded-xl shadow-lg max-w-7xl mx-2 md:mx-12">
             <h2 className="text-3xl font-bold mb-6 flex items-center gap-2"><ChevronLeft className='cursor-pointer w-7 h-7' onClick={() => navigate(-1)} />  Add Product</h2>
 
             <form

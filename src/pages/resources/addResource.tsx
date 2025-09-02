@@ -67,7 +67,7 @@ const AddResource = () => {
 
 
     return (
-        <div className="p-6 glass text-white rounded-xl shadow-lg max-w-7xl mx-12">
+        <div className="p-2 md:p-6 glass text-white rounded-xl shadow-lg max-w-7xl mx-4 md:mx-12">
             <h2 className="text-3xl font-bold mb-6 flex items-center gap-2"><ChevronLeft className='cursor-pointer w-7 h-7' onClick={() => navigate(-1)} />  Add Resource</h2>
 
             <form
