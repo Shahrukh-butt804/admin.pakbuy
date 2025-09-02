@@ -15,10 +15,18 @@ export const resourceSlice = createApi({
                     keyword
                 }
             }),
+
+        }),
+        addResource: builder.mutation({
+            query: ({name , content}) => ({
+                url: "/add-resource",
+                method: "POST",
+                body : {name , content},
+            }),
         })
     }),
 });
 
-export const { useGetAllResourcesQuery } = resourceSlice;
+export const { useGetAllResourcesQuery, useAddResourceMutation } = resourceSlice;
 
 

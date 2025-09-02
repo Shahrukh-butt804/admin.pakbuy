@@ -4,12 +4,13 @@ import Swal from "sweetalert2";
 import { useGetProductByIdQuery, useUpdateProductMutation } from "../../redux/services/productSlice";
 import { UPLOADS_URL } from "../../constants/api";
 import { ChevronLeft } from "lucide-react";
+import Spinner from "../../components/spinner";
 
 const EditProduct = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const { data: pkg } = useGetProductByIdQuery(id, { skip: !id });
-    const [updateProduct] = useUpdateProductMutation();
+    const [updateProduct, { isLoading }] = useUpdateProductMutation();
 
     const [showValidation, setShowValidation] = useState(false);
     const [form, setForm] = useState({
@@ -288,10 +289,12 @@ const EditProduct = () => {
                             + Add Product
                         </button>
                         <button
+                            disabled={isLoading}
                             type="submit"
                             className="w-full sm:w-auto px-6 py-2 bgPink blackText font-semibold rounded-lg transition-colors"
                         >
-                            Save Changes
+                            {isLoading ? <Spinner /> : "Save Changes"}
+
                         </button>
                     </div>
                 </div>

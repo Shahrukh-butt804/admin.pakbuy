@@ -2,8 +2,10 @@ import { useState } from "react";
 import Table from "../../components/table";
 import { useGetAllResourcesQuery } from "../../redux/services/resourceSlice";
 import Spinner from "../../components/spinner";
+import { useNavigate } from "react-router";
 
 export default function Resources() {
+    const navigate = useNavigate();
     const [pagination, setPagination] = useState({
         page: 1,
         limit: 10,
@@ -24,9 +26,17 @@ export default function Resources() {
 
     return (
         <div >
-            <header className="flex justify-center md:justify-between items-center md:px-6">
+      <div className="flex flex-col md:flex-row gap-4 md:gap-0 justify-between  items-start md:items-center px-4 md:px-6  text-white mr-7">
                 <p className="text-4xl md:text-5xl font-bold text-white">Resources</p>
-            </header>
+
+                <button
+                    onClick={() => navigate("/add-resource")}
+                    type="submit"
+                    className="px-4 py-2 bgPink blackText font-semibold rounded-lg transition-colors"
+                >
+                    Add Resource
+                </button>
+            </div>
             <Table
                 tableData={{ data: data?.resources, exlucdedFields: ["_id", "__v", "createdAt"] }}
                 navigateTo="/resource-detail"

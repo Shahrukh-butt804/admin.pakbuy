@@ -3,6 +3,7 @@ import { useAddProductMutation } from "../../redux/services/productSlice";
 import Swal from "sweetalert2";
 import { ChevronLeft } from "lucide-react";
 import { useNavigate } from "react-router";
+import Spinner from "../../components/spinner";
 
 const AddProduct = () => {
     const navigate = useNavigate();
@@ -20,7 +21,7 @@ const AddProduct = () => {
         ],
     });
 
-    const [addProduct] = useAddProductMutation()
+    const [addProduct, { isLoading }] = useAddProductMutation()
 
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -140,7 +141,7 @@ const AddProduct = () => {
 
     return (
         <div className="p-6 glass text-white rounded-xl shadow-lg max-w-7xl mx-12">
-               <h2 className="text-3xl font-bold mb-6 flex items-center gap-2"><ChevronLeft className='cursor-pointer w-7 h-7' onClick={() => navigate(-1)} />  Add Product</h2>
+            <h2 className="text-3xl font-bold mb-6 flex items-center gap-2"><ChevronLeft className='cursor-pointer w-7 h-7' onClick={() => navigate(-1)} />  Add Product</h2>
 
             <form
                 onSubmit={handleSubmit}
@@ -304,11 +305,12 @@ const AddProduct = () => {
                     </button>
 
                     <button
+                        disabled={isLoading}
                         type="submit"
                         onClick={handleSubmit}
                         className="w-full md:w-xs bgPink blackText font-semibold rounded-lg transition-colors"
                     >
-                        Save
+                        {isLoading ? <Spinner /> : "Save"}
                     </button>
                 </div>
             </div>
