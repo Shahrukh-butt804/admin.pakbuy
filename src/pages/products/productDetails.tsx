@@ -45,7 +45,7 @@ export default function ProductDetails() {
 
             <div className='glass flex flex-col gap-10 mx-2 md:mx-12 '>
                 <div className='flex flex-col gap-10    '>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-y-6  font-extralight md:max-w-3xl md:px-10">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-y-6  font-extralight md:max-w-3xl md:px-4">
 
                         {/* <div className="flex flex-col">
                             <span className="text-gray-400">SKU</span>
@@ -84,8 +84,8 @@ export default function ProductDetails() {
                         </div>
                     </div>
                 </div>
-                <div className='md:px-10'>
-                    <p>Ordered Items from Collections</p>
+                <div className='md:px-4'>
+                    <p>Items In Collections</p>
                     <div className="glass rounded-lg col-span-2 max-w-2xl">
                         <table className="w-full text-left font-extralight">
                             <thead >
