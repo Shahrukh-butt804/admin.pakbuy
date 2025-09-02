@@ -92,7 +92,7 @@ const Table = ({ navigateTo, tableData, setPagination, pagination }: { navigateT
                                     <td className="px-4 py-3">{String(i + 1).padStart(2, "0")}</td>
                                     {columns.map((col) => (
                                         <td key={col} className="px-4 py-3">
-                                            {col === "createdAt" ? new Date(row[col]).toLocaleDateString() : String(row[col]) || "N/A"}
+                                            {col === "createdAt" ? new Date(row[col]).toLocaleDateString() : String(row[col]).length > 200 ? String(row[col]).slice(0, 140) + "..." : row[col] || "N/A"}
                                         </td>
                                     ))}
                                     <td className="px-4 py-3">
