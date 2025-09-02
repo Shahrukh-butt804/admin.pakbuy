@@ -6,7 +6,15 @@ export const productSlice = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: BASE_URL + "/products", credentials: 'include' }),
     endpoints: (builder) => ({
         getAllProducts: builder.query({
-            query: () => "/get-all-products",
+            query: ({ page, limit, keyword }) => ({
+                url: "/get-all-products",
+                method: "GET",
+                params: {
+                    page,
+                    limit,
+                    keyword
+                }
+            }),
         }),
         getProductById: builder.query({
             query: (id) => `/get-product-by-id/${id}`,
@@ -15,6 +23,6 @@ export const productSlice = createApi({
     }),
 });
 
-export const { useGetAllProductsQuery  , useGetProductByIdQuery} = productSlice;
+export const { useGetAllProductsQuery, useGetProductByIdQuery } = productSlice;
 
 

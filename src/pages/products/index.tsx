@@ -11,7 +11,6 @@ export default function Products() {
         keyword: ""
     })
     const { data, isLoading } = useGetAllProductsQuery({ ...pagination })
-    console.log("🚀 ~ Products ~ data:", data)
 
     if (isLoading) {
         return (

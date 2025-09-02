@@ -73,17 +73,21 @@ const Table = ({ navigateTo, tableData, setPagination, pagination }: { navigateT
                     <table className="w-full min-w-[700px] text-left text-sm">
                         <thead className="uppercase border-b border-white/10">
                             <tr>
-                                <th className="px-4 py-3">S.No</th>
-                                {columns.map((col) => (
-                                    <th key={col} className="px-4 py-3">
-                                        {col.replace(/([A-Z])/g, " $1").trim()} {/* makes firstName → First Name */}
-                                    </th>
-                                ))}
-                                <th className="px-4 py-3">Action</th>
+                                {columns.length > 0 && (
+                                    <>
+                                        <th className="px-4 py-3">S.No</th>
+                                        {columns.map((col) => (
+                                            <th key={col} className="px-4 py-3">
+                                                {col.replace(/([A-Z])/g, " $1").trim()} {/* makes firstName → First Name */}
+                                            </th>
+                                        ))}
+                                        <th className="px-4 py-3">Action</th>
+                                    </>
+                                )}
                             </tr>
                         </thead>
                         <tbody>
-                            {rows.map((row: any, i: number) => (
+                            {rows.length > 0 ? rows.map((row: any, i: number) => (
                                 <tr key={row.id || i} className="hover:bg-white/5 transition">
                                     <td className="px-4 py-3">{String(i + 1).padStart(2, "0")}</td>
                                     {columns.map((col) => (
@@ -100,7 +104,13 @@ const Table = ({ navigateTo, tableData, setPagination, pagination }: { navigateT
                                         </button>
                                     </td>
                                 </tr>
-                            ))}
+                            )) :
+                                <tr>
+                                    <td colSpan={columns.length + 2} className="px-4 py-3 text-center font-bold text-xl">
+                                        No Data Found
+                                    </td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
 
