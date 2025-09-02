@@ -2,15 +2,16 @@ import { useState } from "react";
 import Spinner from "../../components/spinner";
 import Table from "../../components/table";
 import { useGetAllProductsQuery } from "../../redux/services/productSlice";
+import { useNavigate } from "react-router";
 
 export default function Products() {
-
+    const navigate = useNavigate();
     const [pagination, setPagination] = useState({
         page: 1,
         limit: 10,
         keyword: ""
     })
-    const { data, isLoading } = useGetAllProductsQuery({ ...pagination })
+    const { data, isLoading } = useGetAllProductsQuery({ ...pagination }, { refetchOnMountOrArgChange: true })
 
     if (isLoading) {
         return (
@@ -27,6 +28,7 @@ export default function Products() {
                 <p className="text-4xl md:text-5xl font-bold text-white">Product Management</p>
 
                 <button
+                    onClick={() => navigate("/add-product")}
                     type="submit"
                     className="px-4 py-2 bgPink blackText font-semibold rounded-lg transition-colors"
                 >

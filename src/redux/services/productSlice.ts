@@ -19,10 +19,24 @@ export const productSlice = createApi({
         getProductById: builder.query({
             query: (id) => `/get-product-by-id/${id}`,
             transformResponse: (response: any) => response?.pkg
+        }),
+        addProduct: builder.mutation({
+            query: (body) => ({
+                url: "/add-product",
+                method: "POST",
+                body,
+            }),
+        }),
+        updateProduct: builder.mutation({
+            query: ({ id, body }) => ({
+                url: `/update-product/${id}`,
+                method: "PUT",
+                body,
+            }),
         })
     }),
 });
 
-export const { useGetAllProductsQuery, useGetProductByIdQuery } = productSlice;
+export const { useGetAllProductsQuery, useGetProductByIdQuery, useAddProductMutation  , useUpdateProductMutation} = productSlice;
 
 

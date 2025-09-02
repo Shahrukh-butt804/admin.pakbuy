@@ -8,8 +8,7 @@ import { UPLOADS_URL } from '../../constants/api';
 export default function ProductDetails() {
     const navigate = useNavigate()
     const { id } = useParams()
-
-    const { data: pkg, isLoading } = useGetProductByIdQuery(id, { skip: !id })
+    const { data: pkg, isLoading } = useGetProductByIdQuery(id, { skip: !id , refetchOnMountOrArgChange: true})
 
 
 
@@ -36,6 +35,7 @@ export default function ProductDetails() {
                 </div>
 
                 <button
+                    onClick={() => navigate(`/edit-product/${pkg?._id}`)}
                     type="submit"
                     className="px-4 py-2 bgPink blackText font-semibold rounded-lg transition-colors"
                 >
@@ -113,7 +113,7 @@ export default function ProductDetails() {
                                                 }
                                             </td>
                                         </tr>
-                                        </>
+                                    </>
                                 ))}
                             </tbody>
                         </table>
