@@ -264,7 +264,7 @@ const EditProduct = () => {
                 <button
                   type="button"
                   onClick={() => removeProductField(index)}
-                  className="bgPink blackText font-semibold rounded-lg transition-colors"
+                  className="w-32 bgPink blackText font-semibold rounded-lg transition-colors"
                 >
                   Remove
                 </button>
