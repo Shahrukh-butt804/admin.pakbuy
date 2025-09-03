@@ -6,7 +6,7 @@ import Spinner from "../../components/spinner";
 export default function ResourceDetails() {
     const navigate = useNavigate();
     const { id } = useParams();
-    const { data: resource, isLoading } = useGetResourceByIdQuery(id , {refetchOnMountOrArgChange: true});
+    const { data: resource, isLoading } = useGetResourceByIdQuery(id, { refetchOnMountOrArgChange: true });
 
     if (isLoading) {
         return (
