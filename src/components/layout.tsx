@@ -33,7 +33,12 @@ const pages = [
         title: "Resources",
         link: "/resources",
         icon: "/images/resources-icon.png"
-    }
+    },
+    {
+        title: "Coupons",
+        link: "/coupons",
+        icon: "/images/customer-icon.png"
+    },
 ]
 
 

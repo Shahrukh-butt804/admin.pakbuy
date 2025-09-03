@@ -23,6 +23,10 @@ import EditProduct from "./pages/products/editProduct";
 import AddResource from "./pages/resources/addResource";
 import EditResource from "./pages/resources/editResource";
 import ResourceDetails from "./pages/resources/resourceDetails";
+import Coupons from "./pages/coupons";
+import AddCoupon from "./pages/coupons/addCoupon";
+import EditCoupon from "./pages/coupons/editCoupon";
+import CouponDetails from "./pages/coupons/couponDetails";
 
 const PrivateRoute = () => {
   const user = useSelector(selectUser);
@@ -54,6 +58,10 @@ function AppRoutes() {
               <Route path="/add-resource" element={<AddResource />} />
               <Route path="/edit-resource/:id" element={<EditResource />} />
               <Route path="/resource-detail/:id" element={<ResourceDetails />} />
+              <Route path="/coupons" element={<Coupons />} />
+              <Route path="/coupon-detail/:id" element={<CouponDetails />} />
+              <Route path="/add-coupon" element={<AddCoupon />} />
+              <Route path="/edit-coupon/:id" element={<EditCoupon />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/edit-profile" element={<EditProfile />} />
               <Route path="/change-password" element={<ChangePassword />} />

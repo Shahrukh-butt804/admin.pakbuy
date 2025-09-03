@@ -8,6 +8,7 @@ import { userManagementSlice } from "./services/userManagement";
 import { orderSlice } from "./services/orderSlice";
 import { productSlice } from "./services/productSlice";
 import { resourceSlice } from "./services/resourceSlice";
+import { couponSlice } from "./services/couponSlice";
 
 export const store = configureStore({
   reducer: {
@@ -18,10 +19,11 @@ export const store = configureStore({
     [orderSlice.reducerPath]: orderSlice.reducer,
     [productSlice.reducerPath]: productSlice.reducer,
     [resourceSlice.reducerPath]: resourceSlice.reducer,
+    [couponSlice.reducerPath]: couponSlice.reducer,
     user: userReducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(apiSlice.middleware).concat(authSlice.middleware).concat(profileSlice.middleware).concat(userManagementSlice.middleware).concat(orderSlice.middleware).concat(productSlice.middleware).concat(resourceSlice.middleware), // Add RTK Query middleware
+    getDefaultMiddleware().concat(apiSlice.middleware).concat(authSlice.middleware).concat(profileSlice.middleware).concat(userManagementSlice.middleware).concat(orderSlice.middleware).concat(productSlice.middleware).concat(resourceSlice.middleware).concat(couponSlice.middleware), // Add RTK Query middleware
 });
 
 setupListeners(store.dispatch);

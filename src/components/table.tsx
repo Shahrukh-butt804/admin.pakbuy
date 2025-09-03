@@ -98,7 +98,7 @@ const Table = ({ navigateTo, tableData, setPagination, pagination }: { navigateT
                                             :
 
                                             <td key={col} className="px-4 py-3">
-                                                {col === "createdAt" ? new Date(row[col]).toLocaleDateString() : String(row[col]).length > 200 ? String(row[col]).slice(0, 140) + "..." : row[col] || "N/A"}
+                                                {col === "createdAt" || col === "expiryDate" || col === "updatedAt" ? new Date(row[col]).toLocaleDateString() : String(row[col]).length > 200 ? String(row[col]).slice(0, 140) + "..." : String(row[col]) || "N/A"}
                                             </td>
 
 
