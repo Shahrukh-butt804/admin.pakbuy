@@ -2,6 +2,7 @@ import { useNavigate } from "react-router";
 import OrdersBarChart from "../../components/barChart";
 import Spinner from "../../components/spinner";
 import { useGetReportQuery } from "../../redux/services/userManagement";
+import { ImageUrl } from "../../utils/Functions";
 
 
 const statusColors: any = {
@@ -45,7 +46,7 @@ function Dashboard() {
                     </div>
 
 
-                    <img src="/images/revenue.png" alt="Image" className="w-24 h-24 mb-2" />
+                    <img src={ImageUrl("revenue.png")} alt="Image" className="w-24 h-24 mb-2" />
                 </div>
                 <div className="glass rounded-lg flex justify-between items-center lg:col-span-2  ">
                     <div className="flex flex-col gap-1">
@@ -57,7 +58,7 @@ function Dashboard() {
                     </div>
 
 
-                    <img src="/images/chart.png" alt="Image" className="w-24 h-24 mb-2" />
+                    <img src={ImageUrl("chart.png")} alt="Image" className="w-24 h-24 mb-2" />
                 </div>
 
 
