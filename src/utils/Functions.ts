@@ -4,7 +4,7 @@ export const ImageUrl = (image: string) => {
 
     var basename = "/"
     if (hostname.includes("react.customdev.solutions")) {
-        basename = "./"
+        basename = "/choosewell/admin/"
     }
     basename;
 
