@@ -26,9 +26,7 @@ import ResourceDetails from "./pages/resources/resourceDetails";
 
 const PrivateRoute = () => {
   const user = useSelector(selectUser);
-
   const isAuthenticated = user && user._id;
-
   return isAuthenticated ? <div>
     <Layout />
   </div> : <Navigate to="/login" />;
