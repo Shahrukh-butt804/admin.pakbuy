@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router";
 import OrdersBarChart from "../../components/barChart";
 import Spinner from "../../components/spinner";
 import { useGetReportQuery } from "../../redux/services/userManagement";
@@ -10,7 +11,7 @@ const statusColors: any = {
 };
 
 function Dashboard() {
-
+    const navigate = useNavigate()
     const { data: reportData, isLoading } = useGetReportQuery({})
 
 
@@ -64,7 +65,9 @@ function Dashboard() {
                 <div className="glass rounded-lg lg:ml-9 flex flex-col justify-start gap-5 lg:col-span-3">
                     <div className="flex justify-between">
                         <div className="pinkText">Orders</div>
-                        <div className="pinkText">
+                        <div 
+                        onClick={() => navigate("/orders")}
+                        className="pinkText cursor-pointer">
                             View All
                         </div>
                     </div>
@@ -89,7 +92,9 @@ function Dashboard() {
                 <div className="glass rounded-lg lg:col-span-2 mt-5 lg:mt-0">
                     <div className="flex justify-between items-center mb-4">
                         <h2 className="text-xl font-semibold pinkText">Recent Orders</h2>
-                        <div className="pinkText">
+                        <div
+                        onClick={() => navigate("/orders")}
+                        className="pinkText cursor-pointer">
                             View All
                         </div>
                     </div>
