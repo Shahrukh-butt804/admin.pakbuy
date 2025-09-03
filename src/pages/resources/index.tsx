@@ -12,7 +12,7 @@ export default function Resources() {
         keyword: ""
     })
 
-    const { data, isLoading } = useGetAllResourcesQuery({ ...pagination })
+    const { data, isLoading } = useGetAllResourcesQuery({ ...pagination } , {refetchOnMountOrArgChange: true})
 
 
     if (isLoading) {

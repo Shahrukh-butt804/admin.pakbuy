@@ -91,9 +91,17 @@ const Table = ({ navigateTo, tableData, setPagination, pagination }: { navigateT
                                 <tr key={row.id || i} className="hover:bg-white/5 transition">
                                     <td className="px-4 py-3">{String(i + 1).padStart(2, "0")}</td>
                                     {columns.map((col) => (
-                                        <td key={col} className="px-4 py-3">
-                                            {col === "createdAt" ? new Date(row[col]).toLocaleDateString() : String(row[col]).length > 200 ? String(row[col]).slice(0, 140) + "..." : row[col] || "N/A"}
-                                        </td>
+                                        col === "content" ?
+                                            <td key={col} className="px-4 py-3">
+                                                <div dangerouslySetInnerHTML={{ __html: row[col].length > 200 ? String(row[col]).slice(0, 40) + "..." : row[col] }} />
+                                            </td>
+                                            :
+
+                                            <td key={col} className="px-4 py-3">
+                                                {col === "createdAt" ? new Date(row[col]).toLocaleDateString() : String(row[col]).length > 200 ? String(row[col]).slice(0, 140) + "..." : row[col] || "N/A"}
+                                            </td>
+
+
                                     ))}
                                     <td className="px-4 py-3">
                                         <button

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import { useAddResourceMutation } from "../../redux/services/resourceSlice";
 import Spinner from "../../components/spinner";
+import Editor from "../../components/editor";
 
 const AddResource = () => {
     const navigate = useNavigate();
@@ -89,16 +90,8 @@ const AddResource = () => {
                     <label className="block mt-4 mb-2 text-sm font-semibold">
                         Resource Content <span className="text-red-500 font-bold ">*</span>
                     </label>
-                    <textarea
-                        name="content"
-                        value={form.content}
-                        onChange={handleChange}
-                        rows={4}
-                        required
-                        style={{ resize: "none" }}
-                        placeholder="Write content..."
-                        className={`w-full p-4 rounded-lg border border-gray-600 focus:outline-none ${showValidation && !form.content && 'border-red-500'}`}
-                    />
+                    <Editor content={form.content} setContent={setForm} />
+
                     <div className="flex justify-between items-center m-2">
                         <button
                             disabled={isLoading}

@@ -21,6 +21,8 @@ import ChangePassword from "./pages/profile/changePassword";
 import AddProduct from "./pages/products/addProduct";
 import EditProduct from "./pages/products/editProduct";
 import AddResource from "./pages/resources/addResource";
+import EditResource from "./pages/resources/editResource";
+import ResourceDetails from "./pages/resources/resourceDetails";
 
 const PrivateRoute = () => {
   const user = useSelector(selectUser);
@@ -52,6 +54,8 @@ function AppRoutes() {
               <Route path="/order-detail/:id" element={<OrderDetails />} />
               <Route path="/resources" element={<Resources />} />
               <Route path="/add-resource" element={<AddResource />} />
+              <Route path="/edit-resource/:id" element={<EditResource />} />
+              <Route path="/resource-detail/:id" element={<ResourceDetails />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/edit-profile" element={<EditProfile />} />
               <Route path="/change-password" element={<ChangePassword />} />

@@ -17,16 +17,27 @@ export const resourceSlice = createApi({
             }),
 
         }),
+        getResourceById: builder.query({
+            query: (id) => `/get-resource-by-id/${id}`,
+            transformResponse: (response: any) => response?.resource
+        }),
         addResource: builder.mutation({
-            query: ({name , content}) => ({
+            query: ({ name, content }) => ({
                 url: "/add-resource",
                 method: "POST",
-                body : {name , content},
+                body: { name, content },
+            }),
+        }),
+        updateResource: builder.mutation({
+            query: ({ id, body }) => ({
+                url: `/update-resource/${id}`,
+                method: "PUT",
+                body,
             }),
         })
     }),
 });
 
-export const { useGetAllResourcesQuery, useAddResourceMutation } = resourceSlice;
+export const { useGetAllResourcesQuery, useGetResourceByIdQuery, useAddResourceMutation, useUpdateResourceMutation } = resourceSlice;
 
 
