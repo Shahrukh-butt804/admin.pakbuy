@@ -5,6 +5,7 @@ import { useLogoutMutation } from "../redux/services/authSlice";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import { logout } from "../redux/reducers/userSlice";
+import { ImageUrl } from "../utils/Functions";
 
 
 const pages = [
@@ -77,7 +78,7 @@ export default function Layout() {
             {/* Sidebar */}
             <aside className="w-64 blackGlass shadow-lg hidden md:flex flex-col">
                 <div className="p-4 font-bold text-xl ">
-                    <img src="/images/logo.png" className="w-48" alt="Logo" />
+                    <img src={ImageUrl("logo.png")} className="w-48" alt="Logo" />
                 </div>
                 <nav className="flex-1 space-y-3">
                     {pages.map((page, index) => (

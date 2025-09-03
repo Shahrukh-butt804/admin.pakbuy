@@ -6,6 +6,7 @@ import MobileMenu from "./mobileMenu";
 import { NotificationIcon } from "./notificaiton";
 import { useNavigate } from "react-router";
 import { UPLOADS_URL } from "../constants/api";
+import { ImageUrl } from "../utils/Functions";
 
 export default function Header() {
 
@@ -14,7 +15,7 @@ export default function Header() {
     return (
         <div className="p-8 px-4  md:px-14 flex justify-between md:justify-end items-center">
             <div className="md:hidden">
-                <img src="/images/logo.png" className="w-48" alt="Logo" />
+                <img src={ImageUrl("logo.png")} className="w-48" alt="Logo" />
             </div>
 
             <div className="hidden md:flex items-center gap-4  ">

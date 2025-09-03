@@ -1,6 +1,14 @@
 
-
 export const ImageUrl = (image: string) => {
-    let { PUBLIC_URL } = process.env;
-    return `${PUBLIC_URL}/images/${image}`;
+    const { hostname } = window.location;
+
+    var basename = "/"
+    if (hostname.includes("react.customdev.solutions")) {
+        basename = "./"
+    }
+    basename;
+
+    return `${basename}images/${image}`;
 };
+
+
