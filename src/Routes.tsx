@@ -40,7 +40,7 @@ function AppRoutes() {
   return (
     <>
       <Provider store={store}>
-        <BrowserRouter basename={"/"}>
+        <BrowserRouter basename="/choosewell/admin">
           <Routes>
             <Route element={<PrivateRoute />}>
               <Route path="/" element={<Dashboard />} />
