@@ -10,7 +10,7 @@ export default function Orders() {
     limit: 10,
     keyword: ""
   })
-  const { data, isLoading } = useGetAllOrdersQuery({ ...pagination })
+  const { data, isLoading } = useGetAllOrdersQuery({ ...pagination }, { refetchOnMountOrArgChange: true })
 
 
   if (isLoading) {

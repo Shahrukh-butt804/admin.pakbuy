@@ -9,7 +9,7 @@ export default function Customers() {
     limit: 10,
     keyword: ""
   })
-  const { data, isLoading } = useGetAllUsersQuery({ ...pagination })
+  const { data, isLoading } = useGetAllUsersQuery({ ...pagination } , {refetchOnMountOrArgChange: true})
 
 
 
