@@ -57,7 +57,7 @@ const AddResource = () => {
         } catch (error: any) {
             Swal.fire({
                 icon: 'error',
-                title: 'Login Failed',
+                title: 'Oops!',
                 text: error?.error?.data?.message || error?.message || error?.data?.message || 'something went wrong!',
             })
             console.log("🚀 ~ handleSubmit ~ error:", error)

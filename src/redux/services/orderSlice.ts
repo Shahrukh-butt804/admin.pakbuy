@@ -19,10 +19,18 @@ export const orderSlice = createApi({
         getOrderById: builder.query({
             query: (id) => `/get-order-by-id/${id}`,
             transformResponse: (response: any) => response?.order
+        }),
+        updateOrderStatus: builder.mutation({
+            query: ({ id, body }) => ({
+                url: `/update-order-status/${id}`,
+                method: "PUT",
+                body,
+            }),
         })
+
     }),
 });
 
-export const { useGetAllOrdersQuery, useGetOrderByIdQuery } = orderSlice;
+export const { useGetAllOrdersQuery, useGetOrderByIdQuery , useUpdateOrderStatusMutation } = orderSlice;
 
 

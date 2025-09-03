@@ -40,14 +40,14 @@ export default function VerifyOtp() {
             } else {
                 Swal.fire({
                     icon: 'error',
-                    title: 'Login Failed',
+                    title: 'Oops!',
                     text: res?.error?.data?.message || 'something went wrong!',
                 });
             }
         } catch (error: any) {
             Swal.fire({
                 icon: 'error',
-                title: 'Login Failed',
+                title: 'Oops!',
                 text: error?.error?.data?.message || error?.message || error?.data?.message || 'something went wrong!',
             })
             console.log("🚀 ~ handleSubmit ~ error:", error)

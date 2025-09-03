@@ -1,15 +1,47 @@
-import { useNavigate, useParams } from 'react-router'
 import { ChevronLeft } from "lucide-react";
-import { useGetOrderByIdQuery } from '../../redux/services/orderSlice';
-import Spinner from '../../components/spinner';
 import React from 'react';
+import { useNavigate, useParams } from 'react-router';
+import Swal from 'sweetalert2';
+import Spinner from '../../components/spinner';
+import { useGetOrderByIdQuery, useUpdateOrderStatusMutation } from '../../redux/services/orderSlice';
 
 
 export default function OrderDetails() {
     const navigate = useNavigate()
     const { id } = useParams()
 
-    const { data: order, isLoading } = useGetOrderByIdQuery(id, { skip: !id })
+
+    const { data: order, isLoading, refetch } = useGetOrderByIdQuery(id, { skip: !id })
+    const [updateOrderStatus] = useUpdateOrderStatusMutation()
+
+    const handleChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const selected = e.target.value;
+        try {
+            const res: any = await updateOrderStatus({ id, body: { status: selected } })
+            if (res?.data?.success) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: res?.data?.message || 'something went wrong!',
+                })
+                refetch()
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Opps!',
+                    text: res?.error?.data?.message || 'something went wrong!',
+                });
+            }
+        } catch (error: any) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Opps!',
+                text: error?.error?.data?.message || error?.message || error?.data?.message || 'something went wrong!',
+            })
+            console.log("🚀 ~ handleChange ~ error:", error)
+
+        }
+    };
 
 
     if (isLoading) {
@@ -23,7 +55,25 @@ export default function OrderDetails() {
 
     return (
         <div>
-            <div className="text-3xl font-bold text-white flex  items-center gap-2 mb-5 md:px-6"><ChevronLeft className='cursor-pointer w-10 h-10' onClick={() => navigate(-1)} /> Order Details</div>
+            <div className="text-xl font-bold text-white flex  items-center gap-2 mb-5 md:px-6">
+                <div className='w-full flex flex-col md:flex-row justify-between  gap-2 mx-4 md:mx-0  md:mr-7'>
+                    <div className='flex items-center gap-2'>
+                        <ChevronLeft className='cursor-pointer w-8 h-8 mb-6' onClick={() => navigate(-1)} />
+                        <p className="text-2xl md:text-3xl"> Order Details</p>
+                    </div>
+                    <select
+                        value={order.status}
+                        onChange={handleChange}
+                        className="border px-4 text-xs font-semibold rounded-lg transition-colors cursor-pointer"
+                    >
+                        <option className="text-black text-xs md:text-lg" value="confirmed">confirmed</option>
+                        <option className="text-black text-xs md:text-lg" value="dispatched">dispatched</option>
+                        <option className="text-black text-xs md:text-lg" value="delivered">delivered</option>
+                        <option className="text-black text-xs md:text-lg" value="cancelled">cancelled</option>
+                    </select>
+                </div>
+
+            </div>
 
             <div className='glass flex flex-col gap-10 mx-4 md:mx-12 text-sm'>
                 <div className='flex flex-col gap-10 '>
@@ -51,7 +101,7 @@ export default function OrderDetails() {
 
                         <div className="flex flex-col">
                             <span className="text-gray-400">Status</span>
-                            <span>{order?.status || "N/A"}</span>
+                            <span className={`${order?.status === "cancelled" && "text-red-400 font-bold" }`}>{order?.status || "N/A"}</span>
                         </div>
                     </div>
 
