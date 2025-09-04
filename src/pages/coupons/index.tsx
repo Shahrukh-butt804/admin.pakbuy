@@ -27,7 +27,9 @@ export default function Coupons() {
     return (
         <div >
             <div className="flex flex-col md:flex-row gap-4 md:gap-0 justify-between  items-start md:items-center px-4 md:px-6  text-white mr-7">
-                <p className="text-4xl md:text-5xl font-bold text-white">Coupons</p>
+                <header className="flex justify-center md:justify-between items-center ">
+                    <p className="text-4xl md:text-5xl font-bold text-white">Coupons</p>
+                </header>
 
                 <button
                     onClick={() => navigate("/add-coupon")}
@@ -38,7 +40,7 @@ export default function Coupons() {
                 </button>
             </div>
             <Table
-                tableData={{ data: data?.coupon, exlucdedFields: ["_id", "__v", "updatedAt" ,"usedBy"] }}
+                tableData={{ data: data?.coupon, exlucdedFields: ["_id", "__v", "updatedAt", "usedBy"] }}
                 navigateTo="/coupon-detail"
                 setPagination={setPagination}
                 pagination={data?.pagination || {}}

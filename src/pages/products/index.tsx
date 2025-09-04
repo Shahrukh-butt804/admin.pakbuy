@@ -25,7 +25,10 @@ export default function Products() {
     return (
         <div >
             <div className="flex flex-col md:flex-row gap-4 md:gap-0 justify-between  items-start md:items-center px-4 md:px-6  text-white mr-7">
-                <p className="text-4xl md:text-5xl font-bold text-white">Product Management</p>
+
+                <header className="flex justify-center md:justify-between items-center ">
+                    <p className="text-4xl md:text-5xl font-bold text-white">Product Management</p>
+                </header>
 
                 <button
                     onClick={() => navigate("/add-product")}

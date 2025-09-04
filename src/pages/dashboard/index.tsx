@@ -17,7 +17,7 @@ function Dashboard() {
 
 
 
-    
+
     if (isLoading) {
         return (
             <div className='grid place-content-center'>
@@ -29,7 +29,7 @@ function Dashboard() {
 
     return (
         <div className="px-4 md:px-6 from-gray-800 via-gray-900 to-black   text-white">
-            <header className="flex justify-between items-center ">
+            <header className="flex justify-center md:justify-between items-center ">
                 <p className="text-4xl md:text-5xl font-bold text-white">Dashboard</p>
             </header>
 
@@ -66,9 +66,9 @@ function Dashboard() {
                 <div className="glass rounded-lg lg:ml-9 flex flex-col justify-start gap-5 lg:col-span-3">
                     <div className="flex justify-between">
                         <div className="pinkText">Orders</div>
-                        <div 
-                        onClick={() => navigate("/orders")}
-                        className="pinkText cursor-pointer">
+                        <div
+                            onClick={() => navigate("/orders")}
+                            className="pinkText cursor-pointer">
                             View All
                         </div>
                     </div>
@@ -94,8 +94,8 @@ function Dashboard() {
                     <div className="flex justify-between items-center mb-4">
                         <h2 className="text-xl font-semibold pinkText">Recent Orders</h2>
                         <div
-                        onClick={() => navigate("/orders")}
-                        className="pinkText cursor-pointer">
+                            onClick={() => navigate("/orders")}
+                            className="pinkText cursor-pointer">
                             View All
                         </div>
                     </div>
