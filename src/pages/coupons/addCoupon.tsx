@@ -2,32 +2,30 @@ import { ChevronLeft } from "lucide-react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
-import { useAddProductMutation } from "../../redux/services/productSlice";
+import { useAddCouponMutation } from "../../redux/services/couponSlice";
+import Spinner from "../../components/spinner";
 
 const AddCoupon = () => {
     const navigate = useNavigate();
     const [showValidation, setShowValidation] = useState(false)
     const [form, setForm] = useState({
-        name: "",
-        discountPrice: "",
+        code: "",
+        value: "",
         description: "",
-        tax: false,
-        categories: [] as string[],
-        stock: "",
-        products: [
-            { name: "", price: "", description: "", image: null as File | null },
-        ],
+        type: "amount",
+        expiryDate: "",
+        limit: "",
+        perUserLimit: "",
+
     });
 
-    const [addProduct] = useAddProductMutation()
+    const [addCoupon, { isLoading }] = useAddCouponMutation()
 
-    const handleChange = (
-        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-    ) => {
-        const { name, value, type, checked }: any = e.target;
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+        const { name, value }: any = e.target;
         setForm({
             ...form,
-            [name]: type === "checkbox" ? checked : value,
+            [name]: value,
         });
     };
 
@@ -36,37 +34,26 @@ const AddCoupon = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        const formData = new FormData();
-
         const isEmpty = Object.values(form).some((value) => value === '');
         if (isEmpty) {
             setShowValidation(true)
             return;
         }
 
-
-        // formData.append("tax", String(form.tax));
-
-        formData.append("name", form.name);
-        formData.append("discountPrice", form.discountPrice);
-        formData.append("description", form.description);
-        formData.append("stock", form.stock);
-        formData.append("products", JSON.stringify(form.products));
-
-
         try {
-            const res: any = await addProduct(formData)
+            const res: any = await addCoupon(form)
             if (res?.data?.success) {
                 Swal.fire({
                     icon: 'success',
                     title: 'Success',
                     text: res?.data?.message || 'something went wrong!',
                 })
+                navigate(-1)
             } else {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops!',
-                    text: res?.error?.data?.message || 'something went wrong!',
+                    text: res?.error?.data?.message || res?.error?.data?.errors[0].msg || 'something went wrong!',
                 });
             }
         } catch (error: any) {
@@ -92,59 +79,109 @@ const AddCoupon = () => {
             >
                 {/* Left Side */}
                 <div>
-                    <label className="block mb-2 text-sm font-semibold">Product Name <span className="text-red-500 font-bold ">*</span></label>
+                    <label className="block mb-2 text-sm font-semibold">Code <span className="text-red-500 font-bold ">*</span></label>
                     <input
                         type="text"
-                        name="name"
-                        value={form.name}
+                        name="code"
+                        value={form.code}
                         onChange={handleChange}
-                        required
-                        placeholder="Enter product name"
-                        className={`w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600 focus:outline-none ${showValidation && !form.name && 'border-red-500'}`}
+                        // required
+                        placeholder="Enter code"
+                        className={`w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600 focus:outline-none ${showValidation && !form.code && 'border-red-500'}`}
                     />
 
                     <label className="block mt-4 mb-2 text-sm font-semibold">
-                        Discount Price <span className="text-red-500 font-bold ">*</span>
+                        value <span className="text-red-500 font-bold ">*</span>
                     </label>
                     <input
                         type="number"
-                        name="discountPrice"
-                        value={form.discountPrice}
+                        name="value"
+                        value={form.value}
                         onChange={handleChange}
-                        required
-                        placeholder="Enter Discounted Price"
-                        className={`w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600 focus:outline-none ${showValidation && !form.discountPrice && 'border-red-500'}`}
+                        // required
+                        placeholder="Enter Value"
+                        className={`w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600 focus:outline-none ${showValidation && !form.value && 'border-red-500'}`}
                     />
+                    <label className="block mt-4 mb-2 text-sm font-semibold">
+                        Limit <span className="text-red-500 font-bold ">*</span>
+                    </label>
+                    <input
+                        type="number"
+                        name="limit"
+                        value={form.limit}
+                        onChange={handleChange}
+                        // required
+                        placeholder="Enter Limit"
+                        className={`w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600 focus:outline-none ${showValidation && !form.limit && 'border-red-500'}`}
+                    />
+                    <label className="block mt-4 mb-2 text-sm font-semibold">
+                        Per User Limit <span className="text-red-500 font-bold ">*</span>
+                    </label>
+                    <input
+                        type="number"
+                        name="perUserLimit"
+                        value={form.perUserLimit}
+                        onChange={handleChange}
+                        // required
+                        placeholder="Enter Per User Limit"
+                        className={`w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600 focus:outline-none ${showValidation && !form.perUserLimit && 'border-red-500'}`}
+                    />
+
+
                 </div>
 
                 {/* Right Side */}
                 <div>
 
-                    <label className="block mt-4 mb-2 text-sm font-semibold">Stock <span className="text-red-500 font-bold ">*</span></label>
-                    <input
-                        type="number"
-                        name="stock"
-                        value={form.stock}
-                        onChange={handleChange}
-                        placeholder="Enter stock quantity"
-                        required
-                        className={`w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600 focus:outline-none ${showValidation && !form.stock && 'border-red-500'}`}
-                    />
 
-                    <label className="block mt-4 mb-2 text-sm font-semibold">
+                    <label className="block  text-sm font-semibold">
                         Description <span className="text-red-500 font-bold ">*</span>
                     </label>
                     <textarea
                         name="description"
                         value={form.description}
                         onChange={handleChange}
-                        rows={4}
-                        required
+                        rows={1}
+                        // required
                         style={{ resize: "none" }}
                         placeholder="Write description..."
                         className={`w-full p-4 rounded-lg border border-gray-600 focus:outline-none ${showValidation && !form.description && 'border-red-500'}`}
                     />
+
+                    <label className="block mt-4 mb-2 text-sm font-semibold">
+                        Type <span className="text-red-500 font-bold">*</span>
+                    </label>
+                    <select
+                        name="type"
+                        value={form.type}
+                        onChange={handleChange}
+                        // required
+                        className={`w-full p-4 rounded-lg  border border-gray-600 focus:outline-none ${showValidation && !form.type && 'border-red-500'
+                            }`}
+                    >
+                        <option className="text-black" value="amount">Amount</option>
+                        <option className="text-black" value="percentage">Percentage</option>
+                    </select>
+                    <label className="block mt-4 mb-2 text-sm font-semibold">
+                        Expiry Date <span className="text-red-500 font-bold">*</span>
+                    </label>
+                    <input
+                        type="date"
+                        name="expiryDate"
+                        value={form.expiryDate}
+                        onChange={handleChange}
+                        // required
+                        className={`w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600 focus:outline-none ${showValidation && !form.expiryDate && 'border-red-500'}`}
+                    />
+
                 </div>
+                <button
+                    disabled={isLoading}
+                    type="submit"
+                    className="px-4 py-2 bgPink blackText font-semibold rounded-lg transition-colors whitespace-nowrap"
+                >
+                    {isLoading ? <Spinner /> : "Add Coupon"}
+                </button>
             </form>
 
         </div>

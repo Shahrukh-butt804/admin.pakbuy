@@ -138,6 +138,7 @@ export default Table;
 
 const Pagination = ({ setPagination, pagination }: any) => {
     const { totalDocs, currentPage, totalPages, hasNextPage, hasPrevPage } = pagination;
+    console.log("🚀 ~ Pagination ~ currentPage:", currentPage)
 
     return (
         <div className="flex flex-col md:flex-row justify-start md:justify-between items-center mt-4 text-sm">
@@ -160,7 +161,7 @@ const Pagination = ({ setPagination, pagination }: any) => {
                 {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
                     <button
                         key={page}
-                        className={`px-3 py-1 removebgColor ${page === currentPage ? "bg-blue-500 text-white rounded-md" : ""
+                        className={`px-3 py-1  ${page === currentPage ? "bgPink blackText rounded-md" : "removebgColor"
                             }`}
                         onClick={() => setPagination((prevPagination: any) => ({ ...prevPagination, page: prevPagination.page = page }))}
                     >

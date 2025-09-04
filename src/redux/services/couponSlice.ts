@@ -7,10 +7,19 @@ export const couponSlice = createApi({
     endpoints: (builder) => ({
 
         getAllCoupons: builder.query({
-            query: () => "/get-all-coupons",
+            query: ({ page, limit, keyword }) => ({
+                url: "/get-all-coupons",
+                method: "GET",
+                params: {
+                    page,
+                    limit,
+                    keyword
+                }
+            }),
         }),
         getCouponById: builder.query({
-            query: (id) => `/get-coupon-by-id/${id}`
+            query: (id) => `/get-coupon-by-id/${id}`,
+            transformResponse: (response: any) => response?.coupon
         }),
         addCoupon: builder.mutation({
             query: (body) => ({
@@ -31,11 +40,17 @@ export const couponSlice = createApi({
                 url: `/delete-coupon/${id}`,
                 method: "DELETE",
             }),
+        }),
+        toggleCouponStatus: builder.mutation({
+            query: ({ id }) => ({
+                url: `/toggle-coupon-status/${id}`,
+                method: "PUT",
+            }),
         })
 
     }),
 });
 
-export const { useGetAllCouponsQuery, useGetCouponByIdQuery, useAddCouponMutation, useUpdateCouponMutation, useDeleteCouponMutation } = couponSlice;
+export const { useGetAllCouponsQuery, useGetCouponByIdQuery, useAddCouponMutation, useUpdateCouponMutation, useDeleteCouponMutation, useToggleCouponStatusMutation } = couponSlice;
 
 
