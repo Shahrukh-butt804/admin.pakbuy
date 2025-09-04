@@ -12,32 +12,32 @@ export const pages = [
     {
         title: "Dashboard",
         link: "/",
-        icon: "/images/dashboard-icon.png"
+        icon: "dashboard-icon.png"
     },
     {
         title: "Customers",
         link: "/customers",
-        icon: "/images/customer-icon.png"
+        icon: "customer-icon.png"
     },
     {
         title: "Products",
         link: "/products",
-        icon: "/images/product-icon.png"
+        icon: "product-icon.png"
     },
     {
         title: "Orders",
         link: "/orders",
-        icon: "/images/order-icon.png"
+        icon: "order-icon.png"
     },
     {
         title: "Resources",
         link: "/resources",
-        icon: "/images/resources-icon.png"
+        icon: "resources-icon.png"
     },
     {
         title: "Coupons",
         link: "/coupons",
-        icon: "/images/customer-icon.png"
+        icon: "customer-icon.png"
     },
 ]
 
@@ -92,7 +92,7 @@ export default function Layout() {
                             className={`rounded-lg hoverBgPink hover:text-black px-4 py-2 flex flex-row gap-2 items-center cursor-pointer ${page.link === location.pathname && "bgPink text-black"}`}
                             onClick={() => navigate(page.link)}
                         >
-                            <img src={page.icon} alt="" />
+                            <img src={`${ImageUrl(page.icon)}`} alt={page.title} />
                             {page.title}
                         </div>
                     ))}
