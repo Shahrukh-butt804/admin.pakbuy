@@ -12,7 +12,7 @@ export default function Resources() {
         keyword: ""
     })
 
-    const { data, isLoading } = useGetAllResourcesQuery({ ...pagination } , {refetchOnMountOrArgChange: true})
+    const { data, isLoading } = useGetAllResourcesQuery({ ...pagination }, { refetchOnMountOrArgChange: true })
 
 
     if (isLoading) {
@@ -26,9 +26,10 @@ export default function Resources() {
 
     return (
         <div >
-      <div className="flex flex-col md:flex-row gap-4 md:gap-0 justify-between  items-start md:items-center px-4 md:px-6  text-white mr-7">
-                <p className="text-4xl md:text-5xl font-bold text-white">Resources</p>
-
+            <div className="flex flex-col md:flex-row gap-4 md:gap-0 justify-between  items-start md:items-center px-4 md:px-6  text-white mr-7">
+                <header className="flex justify-center md:justify-between items-center ">
+                    <p className="text-4xl md:text-5xl font-bold text-white">Resources</p>
+                </header>
                 <button
                     onClick={() => navigate("/add-resource")}
                     type="submit"
