@@ -9,6 +9,7 @@ import { logout, selectUser } from "../redux/reducers/userSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { pages } from "../components/layout"
+import { ImageUrl } from "../utils/Functions";
 
 
 
@@ -106,7 +107,7 @@ export default function MobileMenu() {
                                         className={`flex items-center gap-2 p-2 rounded-lg hover:bg-gray-100 cursor-pointer" ${location.pathname === page.link && "underline underline-offset-4 "}`}
                                     >
                                         <img
-                                            src={page.icon}
+                                            src={`${ImageUrl(page.icon)}`}
                                             alt={page.title}
                                             className="h-6 w-6"
                                         />
