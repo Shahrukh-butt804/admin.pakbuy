@@ -8,7 +8,7 @@ import { logout } from "../redux/reducers/userSlice";
 import { ImageUrl } from "../utils/Functions";
 
 
-const pages = [
+export const pages = [
     {
         title: "Dashboard",
         link: "/",

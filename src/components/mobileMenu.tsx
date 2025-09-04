@@ -8,36 +8,7 @@ import Swal from "sweetalert2";
 import { logout, selectUser } from "../redux/reducers/userSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-
-
-const pages = [
-    {
-        title: "Dashboard",
-        link: "/",
-        icon: "/images/dashboard-icon.png"
-    },
-    {
-        title: "Customers",
-        link: "/customers",
-        icon: "/images/customer-icon.png"
-    },
-    {
-        title: "Products",
-        link: "/products",
-        icon: "/images/product-icon.png"
-    },
-    {
-        title: "Orders",
-        link: "/orders",
-        icon: "/images/order-icon.png"
-    },
-    {
-        title: "Resources",
-        link: "/resources",
-        icon: "/images/resources-icon.png"
-    }
-]
-
+import { pages } from "../components/layout"
 
 
 
