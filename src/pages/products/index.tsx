@@ -39,7 +39,7 @@ export default function Products() {
                 </button>
             </div>
             <Table
-                tableData={{ data: data.packages, exlucdedFields: ["__v", "updatedAt", "products"] }}
+                tableData={{ data: data.packages, exlucdedFields: ["__v", "updatedAt", "products" ,"discountPrice"] }}
                 navigateTo="/product-detail"
                 setPagination={setPagination}
                 pagination={data?.pagination || {}}
