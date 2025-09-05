@@ -15,7 +15,7 @@ const EditProduct = () => {
     const [showValidation, setShowValidation] = useState(false);
     const [form, setForm] = useState({
         name: "",
-        discountPrice: "",
+        // discountPrice: "",
         description: "",
         tax: false,
         categories: [] as string[],
@@ -27,7 +27,7 @@ const EditProduct = () => {
         if (pkg?._id) {
             setForm({
                 name: pkg.name || "",
-                discountPrice: pkg.discountPrice?.toString() || "",
+                // discountPrice: pkg.discountPrice?.toString() || "",
                 description: pkg.description || "",
                 tax: pkg.tax || false,
                 categories: pkg.categories || [],
@@ -79,14 +79,16 @@ const EditProduct = () => {
         e.preventDefault();
 
         const formData = new FormData();
-        const isEmpty = !form.name || !form.discountPrice || !form.description || !form.stock;
+        const isEmpty = !form.name ||
+            //  !form.discountPrice || 
+            !form.description || !form.stock;
         if (isEmpty) {
             setShowValidation(true);
             return;
         }
 
         formData.append("name", form.name);
-        formData.append("discountPrice", form.discountPrice);
+        // formData.append("discountPrice", form.discountPrice);
         formData.append("description", form.description);
         formData.append("stock", form.stock);
 
@@ -152,7 +154,7 @@ const EditProduct = () => {
                             }`}
                     />
 
-                    <label className="block mt-4 mb-2 text-sm font-semibold">Discount Price *</label>
+                    {/* <label className="block mt-4 mb-2 text-sm font-semibold">Discount Price *</label>
                     <input
                         type="number"
                         name="discountPrice"
@@ -161,7 +163,7 @@ const EditProduct = () => {
                         required
                         className={`w-full p-3 sm:p-4 rounded-lg bg-[#1a2236] border ${showValidation && !form.discountPrice ? "border-red-500" : "border-gray-600"
                             }`}
-                    />
+                    /> */}
 
                     <div className="flex items-center mt-4">
                         <input
