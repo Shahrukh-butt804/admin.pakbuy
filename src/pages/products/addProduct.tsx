@@ -11,7 +11,7 @@ const AddProduct = () => {
     const [showValidation, setShowValidation] = useState(false)
     const [form, setForm] = useState({
         name: "",
-        discountPrice: "",
+        // discountPrice: "",
         description: "",
         tax: false,
         categories: [] as string[],
@@ -94,7 +94,7 @@ const AddProduct = () => {
         // formData.append("tax", String(form.tax));
 
         formData.append("name", form.name);
-        formData.append("discountPrice", form.discountPrice);
+        // formData.append("discountPrice", form.discountPrice);
         formData.append("description", form.description);
         formData.append("stock", form.stock);
         formData.append("products", JSON.stringify(form.products));
@@ -160,7 +160,7 @@ const AddProduct = () => {
                         className={`w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600 focus:outline-none ${showValidation && !form.name && 'border-red-500'}`}
                     />
 
-                    <label className="block mt-4 mb-2 text-sm font-semibold">
+                    {/* <label className="block mt-4 mb-2 text-sm font-semibold">
                         Discount Price <span className="text-red-500 font-bold ">*</span>
                     </label>
                     <input
@@ -171,7 +171,7 @@ const AddProduct = () => {
                         required
                         placeholder="Enter Discounted Price"
                         className={`w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600 focus:outline-none ${showValidation && !form.discountPrice && 'border-red-500'}`}
-                    />
+                    /> */}
 
                     <div className="flex items-center mt-4">
                         <input
