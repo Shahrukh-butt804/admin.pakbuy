@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { pages } from "../components/layout"
 import { ImageUrl } from "../utils/Functions";
+import { UPLOADS_URL } from "../constants/api";
 
 
 
@@ -85,7 +86,7 @@ export default function MobileMenu() {
                             {/* profile section */}
                             <div className="flex items-center gap-4  mb-10">
                                 <div className="flex items-center gap-2">
-                                    <img className="w-10 h-10 rounded-full" src="https://static.vecteezy.com/system/resources/previews/036/280/651/non_2x/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-illustration-vector.jpg" alt="Image" />
+                                    <img className="w-10 h-10 rounded-full" crossOrigin="anonymous" src={user?.image ? UPLOADS_URL + user?.image : "https://static.vecteezy.com/system/resources/previews/036/280/651/non_2x/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-illustration-vector.jpg"} alt="Image" />
                                     <div className="flex flex-col">
                                         <span className="text-sm ">Hi, {user?.fullName || ""} </span>
                                         <span className="text-xs hoverPink">View Profile</span>

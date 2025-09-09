@@ -8,10 +8,11 @@ import Spinner from "../../components/spinner";
 const AddProduct = () => {
     const navigate = useNavigate();
     const [images, setImages] = useState<File[]>([]);
+    const [collectionImage, setCollectionImage] = useState<File | null>(null);
     const [showValidation, setShowValidation] = useState(false)
     const [form, setForm] = useState({
         name: "",
-        // discountPrice: "",
+        codes: "",
         description: "",
         tax: false,
         categories: [] as string[],
@@ -33,11 +34,11 @@ const AddProduct = () => {
         });
     };
 
-    // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    //     if (e.target.files) {
-    //         setImages([...Array.from(e.target.files)]);
-    //     }
-    // };
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            setCollectionImage(e.target.files[0]);
+        }
+    };
 
     const handleProductChange = (
         index: number,
@@ -91,13 +92,52 @@ const AddProduct = () => {
         }
 
 
-        // formData.append("tax", String(form.tax));
+        const codes = form.codes.split(",");
+
+
+        if (codes.length < Number(form.stock)) {
+            return Swal.fire({
+                icon: 'error',
+                title: 'Oops!',
+                text: `Enter ${Number(form.stock) - codes.length} more codes`,
+            })
+        }
+
+        if (codes.length > Number(form.stock)) {
+            return Swal.fire({
+                icon: 'error',
+                title: 'Oops!',
+                text: `remove ${codes.length - Number(form.stock)} codes`,
+            })
+        }
+
+
+        if (Number(form.stock) < 1) {
+            return Swal.fire({
+                icon: 'error',
+                title: 'Oops!',
+                text: 'Stock should be greater than 0',
+            })
+        }
+
+
+        // formData.append("tax", "true");
 
         formData.append("name", form.name);
-        // formData.append("discountPrice", form.discountPrice);
+        formData.append("codes", JSON.stringify(codes));
         formData.append("description", form.description);
         formData.append("stock", form.stock);
         formData.append("products", JSON.stringify(form.products));
+
+        if (collectionImage) {
+            formData.append("collectionImage", collectionImage);
+        } else {
+            return Swal.fire({
+                icon: 'error',
+                title: 'Oops!',
+                text: 'collection Image is required',
+            })
+        }
 
         if (images.length > 0) {
             images.forEach((image) => {
@@ -107,7 +147,7 @@ const AddProduct = () => {
             return Swal.fire({
                 icon: 'error',
                 title: 'Oops!',
-                text: 'Please select an image',
+                text: 'product Image is required',
             })
         }
 
@@ -132,7 +172,6 @@ const AddProduct = () => {
                 title: 'Oops!',
                 text: error?.error?.data?.message || error?.message || error?.data?.message || 'something went wrong!',
             })
-            console.log("🚀 ~ handleSubmit ~ error:", error)
 
         }
 
@@ -145,7 +184,7 @@ const AddProduct = () => {
 
             <form
                 onSubmit={handleSubmit}
-                className="grid grid-cols-1 md:grid-cols-2 gap-6"
+                className="grid grid-cols-1 md:grid-cols-2 gap-6 md:mt-6"
             >
                 {/* Left Side */}
                 <div>
@@ -160,19 +199,19 @@ const AddProduct = () => {
                         className={`w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600 focus:outline-none ${showValidation && !form.name && 'border-red-500'}`}
                     />
 
-                    {/* <label className="block mt-4 mb-2 text-sm font-semibold">
-                        Discount Price <span className="text-red-500 font-bold ">*</span>
+                    <label className="block mt-4 mb-2 text-sm font-semibold">
+                        Codes <span className="text-red-500 font-bold ">* </span>{`( comma separated )`}
                     </label>
                     <input
-                        type="number"
-                        name="discountPrice"
-                        value={form.discountPrice}
+                        type="text"
+                        name="codes"
+                        value={form.codes}
                         onChange={handleChange}
                         required
-                        placeholder="Enter Discounted Price"
-                        className={`w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600 focus:outline-none ${showValidation && !form.discountPrice && 'border-red-500'}`}
-                    /> */}
-
+                        placeholder={`Enter ${form.stock || ""} Codes`}
+                        className={`w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600 focus:outline-none ${showValidation && !form.codes && 'border-red-500'}`}
+                    />
+                    {/* 
                     <div className="flex items-center mt-4">
                         <input
                             type="checkbox"
@@ -183,9 +222,9 @@ const AddProduct = () => {
 
                         />
                         <span className="ml-2">Add tax for this product</span>
-                    </div>
+                    </div> */}
 
-                    {/* <label className="block mt-4 mb-2 text-sm font-semibold">Images</label>
+                    <label className="block mt-4 mb-2 text-sm font-semibold">Collection Image</label>
                     <input
                         type="file"
                         multiple
@@ -194,21 +233,19 @@ const AddProduct = () => {
                         className="w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600"
                     />
                     <div className="flex flex-wrap gap-4 mt-2">
-                        {images.map((file, idx) => (
-                            <span
-                                key={idx}
-                                className="px-2 py-1 text-xs bg-gray-700 rounded-lg"
-                            >
-                                {file.name}
+                        {collectionImage?.name && (
+                            <span className="px-2 py-1 text-xs bg-gray-700 rounded-lg" >
+                                {collectionImage?.name || ""}
                             </span>
-                        ))}
-                    </div> */}
+                        )}
+
+                    </div>
                 </div>
 
                 {/* Right Side */}
                 <div>
 
-                    <label className="block mt-4 mb-2 text-sm font-semibold">Stock <span className="text-red-500 font-bold ">*</span></label>
+                    <label className="block mb-3 text-sm font-semibold">Stock <span className="text-red-500 font-bold ">*</span></label>
                     <input
                         type="number"
                         name="stock"
@@ -226,7 +263,7 @@ const AddProduct = () => {
                         name="description"
                         value={form.description}
                         onChange={handleChange}
-                        rows={4}
+                        rows={5}
                         required
                         style={{ resize: "none" }}
                         placeholder="Write description..."

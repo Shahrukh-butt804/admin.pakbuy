@@ -13,9 +13,10 @@ const EditProduct = () => {
     const [updateProduct, { isLoading }] = useUpdateProductMutation();
 
     const [showValidation, setShowValidation] = useState(false);
+    const [collectionImage, setCollectionImage] = useState<File | null | any>(null);
     const [form, setForm] = useState({
         name: "",
-        // discountPrice: "",
+        codes: "",
         description: "",
         tax: false,
         categories: [] as string[],
@@ -27,7 +28,7 @@ const EditProduct = () => {
         if (pkg?._id) {
             setForm({
                 name: pkg.name || "",
-                // discountPrice: pkg.discountPrice?.toString() || "",
+                codes: pkg.codes.join(",") || "",
                 description: pkg.description || "",
                 tax: pkg.tax || false,
                 categories: pkg.categories || [],
@@ -40,6 +41,7 @@ const EditProduct = () => {
                         image: p.image || null, // string path from DB
                     })) || [],
             });
+
         }
     }, [pkg]);
 
@@ -75,6 +77,13 @@ const EditProduct = () => {
         setForm({ ...form, products: updatedProducts });
     };
 
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            setCollectionImage(e.target.files[0]);
+        }
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -87,8 +96,41 @@ const EditProduct = () => {
             return;
         }
 
+
+        const codes = form.codes.split(",");
+
+
+        if (codes.length < Number(form.stock)) {
+            return Swal.fire({
+                icon: 'error',
+                title: 'Oops!',
+                text: `Enter ${Number(form.stock) - codes.length} more codes`,
+            })
+        }
+
+        
+        if (codes.length > Number(form.stock)) {
+            return Swal.fire({
+                icon: 'error',
+                title: 'Oops!',
+                text: `remove ${codes.length - Number(form.stock)} codes`,
+            })
+        }
+
+
+        if (Number(form.stock) < 1) {
+            return Swal.fire({
+                icon: 'error',
+                title: 'Oops!',
+                text: 'Stock should be greater than 0',
+            })
+        }
+
+
+
+
         formData.append("name", form.name);
-        // formData.append("discountPrice", form.discountPrice);
+        formData.append("codes", JSON.stringify(codes));
         formData.append("description", form.description);
         formData.append("stock", form.stock);
 
@@ -99,6 +141,12 @@ const EditProduct = () => {
             description: p.description,
         }));
         formData.append("products", JSON.stringify(productsPayload));
+
+
+        if (collectionImage) {
+            formData.append("collectionImage", collectionImage);
+        }
+
 
         // ✅ attach each product’s image with an indexed field name
         form.products.forEach((p, index) => {
@@ -153,19 +201,20 @@ const EditProduct = () => {
                         className={`w-full p-3 sm:p-4 rounded-lg bg-[#1a2236] border ${showValidation && !form.name ? "border-red-500" : "border-gray-600"
                             }`}
                     />
-
-                    {/* <label className="block mt-4 mb-2 text-sm font-semibold">Discount Price *</label>
+                    <label className="block mt-4 mb-2 text-sm font-semibold">
+                        Codes <span className="text-red-500 font-bold ">* </span>{`( comma separated )`}
+                    </label>
                     <input
-                        type="number"
-                        name="discountPrice"
-                        value={form.discountPrice}
+                        type="text"
+                        name="codes"
+                        value={form.codes}
                         onChange={handleChange}
                         required
-                        className={`w-full p-3 sm:p-4 rounded-lg bg-[#1a2236] border ${showValidation && !form.discountPrice ? "border-red-500" : "border-gray-600"
-                            }`}
-                    /> */}
+                        placeholder={`Enter ${form.stock || ""} Codes`}
+                        className={`w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600 focus:outline-none ${showValidation && !form.codes && 'border-red-500'}`}
+                    />
 
-                    <div className="flex items-center mt-4">
+                    {/* <div className="flex items-center mt-4">
                         <input
                             type="checkbox"
                             name="tax"
@@ -174,7 +223,38 @@ const EditProduct = () => {
                             className="mr-2"
                         />
                         <span className="ml-2 text-sm sm:text-base">Add tax for this product</span>
-                    </div>
+                    </div> */}
+
+
+
+                    <label className="block mt-4 mb-2 text-sm font-semibold">Collection Image</label>
+                    <input
+                        type="file"
+                        multiple
+                        onChange={handleFileChange}
+                        accept="image/*"
+                        className="w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600"
+                    />
+
+                    {collectionImage ? (
+
+                        <img
+                            src={URL.createObjectURL(collectionImage)}
+                            alt="new-existing"
+                            crossOrigin="anonymous"
+                            className="h-24 w-24 rounded-lg object-cover"
+                        />
+                    ) : (
+
+                        <img
+                            src={UPLOADS_URL + pkg?.image}
+                            alt="existing-image"
+                            crossOrigin="anonymous"
+                            className="h-24 w-24 rounded-lg object-cover"
+                        />
+                    )}
+
+
                 </div>
 
                 {/* Right Side */}
