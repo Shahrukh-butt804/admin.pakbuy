@@ -159,6 +159,7 @@ const AddProduct = () => {
                     title: 'Success',
                     text: res?.data?.message || 'something went wrong!',
                 })
+                navigate(-1)
             } else {
                 Swal.fire({
                     icon: 'error',

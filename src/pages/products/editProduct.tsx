@@ -163,7 +163,7 @@ const EditProduct = () => {
                     title: "Updated!",
                     text: res?.data?.message || "Product updated successfully.",
                 });
-                navigate(-1);
+                navigate("/products");
             } else {
                 Swal.fire({
                     icon: "error",
