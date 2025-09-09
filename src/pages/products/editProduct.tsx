@@ -187,7 +187,7 @@ const EditProduct = () => {
 
             <form
                 onSubmit={handleSubmit}
-                className="grid grid-cols-1 md:grid-cols-2 gap-6 "
+                className="grid grid-cols-1 md:grid-cols-2 gap-6 md:mt-6 "
             >
                 {/* Left Side */}
                 <div className="flex flex-col">
@@ -258,8 +258,8 @@ const EditProduct = () => {
                 </div>
 
                 {/* Right Side */}
-                <div className="flex flex-col">
-                    <label className="block mb-2 text-sm font-semibold">Stock *</label>
+                <div className="flex  flex-col">
+                    <label className="block mb-4 text-sm font-semibold">Stock *</label>
                     <input
                         type="number"
                         name="stock"
@@ -275,7 +275,7 @@ const EditProduct = () => {
                         name="description"
                         value={form.description}
                         onChange={handleChange}
-                        rows={4}
+                        rows={5}
                         required
                         style={{ resize: "none" }}
                         className={`w-full p-3 sm:p-4 rounded-lg border ${showValidation && !form.description ? "border-red-500" : "border-gray-600"
