@@ -38,7 +38,7 @@ const Table = ({ navigateTo, tableData, setPagination, pagination }: { navigateT
     return (
         <div className="p-3 md:px-6">
             {/* Top Controls */}
-            <div className="flex flex-col md:flex-row md:justify-between items-start md:items-center mb-4 gap-5 md:gap-0 p-4 md:p-0 md:px-6 ">
+            <div className="flex flex-col md:flex-row md:justify-between items-start md:items-center mb-4 gap-5 md:gap-0 p-4 md:p-0 md:px-6 text-gray-200">
                 <div>
                     <label className="text-sm mr-3">Show entries</label>
                     <select
@@ -67,7 +67,7 @@ const Table = ({ navigateTo, tableData, setPagination, pagination }: { navigateT
             </div>
 
             {/* Table */}
-            <div className="glass border border-white/20 rounded-2xl shadow-lg overflow-hidden max-w-screen" >
+            <div className="glass border border-white/20 rounded-2xl shadow-lg overflow-hidden max-w-screen text-gray-200" >
                 <div className="overflow-x-scroll lg:overflow-auto">
 
                     <table className="w-full min-w-[700px] text-left text-sm">
@@ -140,7 +140,7 @@ const Pagination = ({ setPagination, pagination }: any) => {
     const { totalDocs, currentPage, totalPages, hasNextPage, hasPrevPage } = pagination;
 
     return (
-        <div className="flex flex-col md:flex-row justify-start md:justify-between items-center mt-4 text-sm">
+        <div className="flex flex-col md:flex-row justify-start md:justify-between items-center mt-4 text-sm text-gray-200">
             <p className="mx-2 md:mx-0">
                 Showing page {currentPage} of {totalPages} (Total {totalDocs} entries)
             </p>

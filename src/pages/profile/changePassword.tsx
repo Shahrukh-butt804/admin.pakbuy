@@ -68,7 +68,7 @@ export default function ChangePassword() {
             <div className="text-3xl font-bold text-white mb-10 md:px-8 flex justify-center md:justify-start items-start">
                 ChangePassword
             </div>
-            <div className="flex flex-col gap-10 glass mx-4 md:mx-12">
+            <div className="flex flex-col gap-10 glass mx-4 md:mx-12 text-gray-200">
 
                 {/* Password Update Fields */}
                 <div className="flex flex-col gap-4 md:max-w-2xl ">

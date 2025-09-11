@@ -8,8 +8,8 @@ export default function Profile() {
     const user = useSelector(selectUser);
     return (
         <div>
-            <div className="text-3xl font-bold text-white  mb-10  md:px-8 flex justify-center md:justify-start items-start"> My Profile</div>
-            <div className='flex flex-col gap-10 glass mx-4 md:mx-12 '>
+            <div className="text-3xl font-bold text-white  mb-10  md:px-8 flex justify-center md:justify-start items-start "> My Profile</div>
+            <div className='flex flex-col gap-10 glass mx-4 md:mx-12 text-gray-200'>
 
                 <div className="flex flex-col-reverse lg:flex-row gap-5 justify-between items-start py-2">
 

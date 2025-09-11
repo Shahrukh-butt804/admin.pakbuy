@@ -54,7 +54,7 @@ export default function OrderDetails() {
 
 
     return (
-        <div>
+        <div className="text-gray-200">
             <div className="text-xl font-bold text-white flex  items-center gap-2 mb-5 md:px-6">
                 <div className='w-full flex flex-col md:flex-row justify-between  gap-2 mx-4 md:mx-0  md:mr-7'>
                     <div className='flex items-center gap-2'>

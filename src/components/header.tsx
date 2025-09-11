@@ -23,8 +23,8 @@ export default function Header() {
                 <div className="flex items-center gap-2">
                     <img className="w-10 h-10 rounded-full" crossOrigin="anonymous" src={user?.image ? UPLOADS_URL + user?.image : "https://static.vecteezy.com/system/resources/previews/036/280/651/non_2x/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-illustration-vector.jpg"} alt="Image" />
                     <div className="flex flex-col">
-                        <span className="text-sm ">Hi, {user?.fullName || ""} </span>
-                        <span className="text-xs ">View Profile</span>
+                        <span className="text-sm text-white">Hi, {user?.fullName || ""} </span>
+                        <span className="text-xs text-white">View Profile</span>
                     </div>
                     <div>
                         <Dropdown />
@@ -46,7 +46,7 @@ function Dropdown() {
 
     return (
         <div className="relative inline-block text-left cursor-pointer">
-            <ChevronDown onClick={() => setOpen(!open)} className="ml-2 h-4 w-4" />
+            <ChevronDown color="#fff" onClick={() => setOpen(!open)} className="ml-2 h-4 w-4" />
 
             {open && (
                 <div className="absolute right-0 z-10 mt-5 w-40 origin-top-right rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
