@@ -23,7 +23,7 @@ export default function ProductDetails() {
 
 
     return (
-        <div>
+        <div className='text-gray-200'>
 
             <div className="flex flex-col md:flex-row gap-4 md:gap-0 justify-between items-start md:items-center px-4 md:px-6 mb-6 text-white mr-7">
                 <div className="flex items-center gap-2 text-3xl font-bold">
