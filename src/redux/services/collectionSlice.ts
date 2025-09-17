@@ -18,8 +18,7 @@ export const collectionSlice = createApi({
         }),
         getCollectionById: builder.query({
             query: (id) => `/get-collection-by-id/${id}`,
-            transformResponse: (response: any) => response?.collections
-
+            transformResponse: (response: any) => response?.collection
         }),
         addCollection: builder.mutation({
             query: (body) => ({

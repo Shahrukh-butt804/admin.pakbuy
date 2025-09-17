@@ -18,7 +18,7 @@ export const productSlice = createApi({
         }),
         getProductById: builder.query({
             query: (id) => `/get-product-by-id/${id}`,
-            transformResponse: (response: any) => response?.pkg
+            transformResponse: (response: any) => response?.product
         }),
         addProduct: builder.mutation({
             query: (body) => ({

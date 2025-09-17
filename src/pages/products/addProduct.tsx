@@ -90,8 +90,8 @@ const AddProduct = () => {
     const toggleCategory = (categoryId: string) => {
         setSelectedCategories((prev) =>
             prev.includes(categoryId)
-                ? prev.filter((id) => id !== categoryId) // remove if already selected
-                : [...prev, categoryId] // add if not selected
+                ? prev.filter((id) => id !== categoryId) 
+                : [...prev, categoryId]
         );
     };
 

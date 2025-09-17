@@ -20,6 +20,11 @@ export const pages = [
         icon: "customer-icon.png"
     },
     {
+        title: "Collections",
+        link: "/collections",
+        icon: "order-icon.png"
+    },
+    {
         title: "Products",
         link: "/products",
         icon: "product-icon.png"
