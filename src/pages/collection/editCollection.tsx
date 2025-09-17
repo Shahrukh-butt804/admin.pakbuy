@@ -4,14 +4,13 @@ import { useNavigate, useParams } from "react-router";
 import Swal from "sweetalert2";
 import Spinner from "../../components/spinner";
 import { UPLOADS_URL } from "../../constants/api";
-import { useGetCollectionByIdQuery } from "../../redux/services/collectionSlice";
-import { useUpdateProductMutation } from "../../redux/services/productSlice";
+import { useGetCollectionByIdQuery, useUpdateCollectionMutation } from "../../redux/services/collectionSlice";
 
 const EditCollection = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { data: collection, isLoading: isLoadingProduct } = useGetCollectionByIdQuery(id, { skip: !id });
-    const [updateProduct, { isLoading }] = useUpdateProductMutation();
+    const { data: collection, isLoading: isLoadingProduct } = useGetCollectionByIdQuery(id, { skip: !id  ,refetchOnMountOrArgChange: true });
+    const [updateCollection, { isLoading }] = useUpdateCollectionMutation();
 
     const [showValidation, setShowValidation] = useState(false);
     const [productImage, setProductImage] = useState<File | null | any>(null);
@@ -65,19 +64,19 @@ const EditCollection = () => {
         }
 
         try {
-            const res: any = await updateProduct({ id, body: formData });
+            const res: any = await updateCollection({ id, body: formData });
             if (res?.data?.success) {
                 Swal.fire({
                     icon: "success",
                     title: "Updated!",
-                    text: res?.data?.message || "Product updated successfully.",
+                    text: res?.data?.message || "Collection updated successfully.",
                 });
-                navigate("/products");
+                navigate("/collections");
             } else {
                 Swal.fire({
                     icon: "error",
                     title: "Oops!",
-                    text: res?.error?.data?.message || "Something went wrong!",
+                    text: res?.error?.data?.message || res?.error?.data?.errors[0]?.msg || "Something went wrong!",
                 });
             }
         } catch (error: any) {

@@ -10,7 +10,7 @@ import { useGetAllCollectionsQuery } from "../../redux/services/collectionSlice"
 const EditProduct = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { data: collection, isLoading: isLoadingProduct } = useGetProductByIdQuery(id, { skip: !id });
+    const { data: collection, isLoading: isLoadingProduct } = useGetProductByIdQuery(id, { skip: !id ,refetchOnMountOrArgChange: true });
     const [updateProduct, { isLoading }] = useUpdateProductMutation();
 
     const [showValidation, setShowValidation] = useState(false);
