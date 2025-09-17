@@ -27,7 +27,7 @@ const AddProduct = () => {
 
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
-    const { data } = useGetAllCollectionsQuery({});
+    const { data } = useGetAllCollectionsQuery({refetchOnMountOrArgChange: true});
     const [addProduct, { isLoading }] = useAddProductMutation()
 
     const handleChange = (
