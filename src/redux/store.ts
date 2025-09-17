@@ -9,6 +9,7 @@ import { orderSlice } from "./services/orderSlice";
 import { productSlice } from "./services/productSlice";
 import { resourceSlice } from "./services/resourceSlice";
 import { couponSlice } from "./services/couponSlice";
+import { collectionSlice } from "./services/collectionSlice";
 
 export const store = configureStore({
   reducer: {
@@ -18,12 +19,13 @@ export const store = configureStore({
     [userManagementSlice.reducerPath]: userManagementSlice.reducer,
     [orderSlice.reducerPath]: orderSlice.reducer,
     [productSlice.reducerPath]: productSlice.reducer,
+    [collectionSlice.reducerPath]: collectionSlice.reducer,
     [resourceSlice.reducerPath]: resourceSlice.reducer,
     [couponSlice.reducerPath]: couponSlice.reducer,
     user: userReducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(apiSlice.middleware).concat(authSlice.middleware).concat(profileSlice.middleware).concat(userManagementSlice.middleware).concat(orderSlice.middleware).concat(productSlice.middleware).concat(resourceSlice.middleware).concat(couponSlice.middleware), // Add RTK Query middleware
+    getDefaultMiddleware().concat(apiSlice.middleware).concat(authSlice.middleware).concat(profileSlice.middleware).concat(userManagementSlice.middleware).concat(orderSlice.middleware).concat(productSlice.middleware).concat(collectionSlice.middleware).concat(resourceSlice.middleware).concat(couponSlice.middleware), // Add RTK Query middleware
 });
 
 setupListeners(store.dispatch);
