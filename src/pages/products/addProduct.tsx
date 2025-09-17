@@ -329,7 +329,7 @@ const AddProduct = () => {
                         ))}
                     </ul>
                     <button
-                        onClick={() => alert("Create new category")}
+                        onClick={() => navigate("/add-collection")}
                         className="mt-4 bgPink blackText font-semibold"
                     >
                         Create New
