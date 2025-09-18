@@ -10,7 +10,7 @@ import { useGetAllCollectionsQuery } from "../../redux/services/collectionSlice"
 const EditProduct = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { data: collection, isLoading: isLoadingProduct } = useGetProductByIdQuery(id, { skip: !id ,refetchOnMountOrArgChange: true });
+    const { data: collection, isLoading: isLoadingProduct } = useGetProductByIdQuery(id, { skip: !id, refetchOnMountOrArgChange: true });
     const [updateProduct, { isLoading }] = useUpdateProductMutation();
 
     const [showValidation, setShowValidation] = useState(false);
@@ -121,8 +121,10 @@ const EditProduct = () => {
 
         const codes = form.codes.split(",");
 
+        let realLength = form.codes .split(",").map(c => c.trim()).filter(c => c !== "")
 
-        if (codes.length < Number(form.stock)) {
+
+        if (realLength.length > 0 && codes.length < Number(form.stock)) {
             return Swal.fire({
                 icon: 'error',
                 title: 'Oops!',
@@ -149,10 +151,11 @@ const EditProduct = () => {
         }
 
 
-
+        if (realLength.length > 0) {
+            formData.append("codes", JSON.stringify(codes));
+        }
 
         formData.append("name", form.name);
-        formData.append("codes", JSON.stringify(codes));
         formData.append("description", form.description);
         formData.append("stock", form.stock);
         formData.append("price", form.price);
@@ -238,7 +241,9 @@ const EditProduct = () => {
                             }`}
                     />
                     <label className="block mt-4 mb-2 text-sm font-semibold">
-                        Codes <span className="text-red-500 font-bold ">* </span>{`( comma separated )`}
+                        Codes
+                        {/* <span className="text-red-500 font-bold ">* </span> */}
+                        {`( comma separated )`}
                     </label>
 
                     <textarea
@@ -246,7 +251,7 @@ const EditProduct = () => {
                         value={form.codes}
                         onChange={handleChange}
                         rows={5}
-                        required
+                        // required
                         style={{ resize: "none" }}
                         className={`w-full p-3 sm:p-4 rounded-lg border ${showValidation && !form.codes ? "border-red-500" : "border-gray-600"
                             }`}

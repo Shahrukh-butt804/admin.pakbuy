@@ -8,7 +8,6 @@ import { useGetAllCollectionsQuery } from "../../redux/services/collectionSlice"
 
 const AddProduct = () => {
     const navigate = useNavigate();
-    // const [images, setImages] = useState<File[]>([]);
     const [image, setImage] = useState<File | null>(null);
     const [showValidation, setShowValidation] = useState(false)
     const [form, setForm] = useState({
@@ -27,7 +26,7 @@ const AddProduct = () => {
 
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
-    const { data } = useGetAllCollectionsQuery({refetchOnMountOrArgChange: true});
+    const { data } = useGetAllCollectionsQuery({ refetchOnMountOrArgChange: true });
     const [addProduct, { isLoading }] = useAddProductMutation()
 
     const handleChange = (
@@ -90,7 +89,7 @@ const AddProduct = () => {
     const toggleCategory = (categoryId: string) => {
         setSelectedCategories((prev) =>
             prev.includes(categoryId)
-                ? prev.filter((id) => id !== categoryId) 
+                ? prev.filter((id) => id !== categoryId)
                 : [...prev, categoryId]
         );
     };
@@ -101,9 +100,13 @@ const AddProduct = () => {
 
         const formData = new FormData();
 
-        const isEmpty = Object.values(form).some((value) => value === '');
+
+        const { codes, ...rest } = form;
+
+        const isEmpty = Object.values(rest).some(value => value === '');
+
         if (isEmpty) {
-            setShowValidation(true)
+            setShowValidation(true);
             return;
         }
 
@@ -115,22 +118,25 @@ const AddProduct = () => {
             })
         }
 
-        const codes = form.codes.split(",");
+        const splitCodes = form.codes.split(",");
+
+        let realLength = form.codes.split(",").map(c => c.trim()).filter(c => c !== "")
 
 
-        if (codes.length < Number(form.stock)) {
+
+        if (realLength.length > 0 && splitCodes.length < Number(form.stock)) {
             return Swal.fire({
                 icon: 'error',
                 title: 'Oops!',
-                text: `Enter ${Number(form.stock) - codes.length} more codes`,
+                text: `Enter ${Number(form.stock) - splitCodes.length} more codes`,
             })
         }
 
-        if (codes.length > Number(form.stock)) {
+        if (splitCodes.length > Number(form.stock)) {
             return Swal.fire({
                 icon: 'error',
                 title: 'Oops!',
-                text: `remove ${codes.length - Number(form.stock)} codes`,
+                text: `remove ${splitCodes.length - Number(form.stock)} codes`,
             })
         }
 
@@ -145,9 +151,11 @@ const AddProduct = () => {
 
 
         // formData.append("tax", "true");
+        if (realLength.length > 0) {
+            formData.append("codes", JSON.stringify(splitCodes));
+        }
 
         formData.append("name", form.name);
-        formData.append("codes", JSON.stringify(codes));
         formData.append("description", form.description);
         formData.append("stock", form.stock);
         formData.append("price", form.price);
@@ -164,21 +172,8 @@ const AddProduct = () => {
             })
         }
 
-        // if (images.length > 0) {
-        //     images.forEach((image) => {
-        //         formData.append("images", image);
-        //     })
-        // } else {
-        //     return Swal.fire({
-        //         icon: 'error',
-        //         title: 'Oops!',
-        //         text: 'product Image is required',
-        //     })
-        // }
-
         try {
             const res: any = await addProduct(formData)
-            console.log("🚀 ~ handleSubmit ~ res:", res)
             if (res?.data?.success) {
                 Swal.fire({
                     icon: 'success',
@@ -227,7 +222,9 @@ const AddProduct = () => {
                     />
 
                     <label className="block mt-5 mb-2 text-sm font-semibold">
-                        Codes <span className="text-red-500 font-bold ">* </span>{`( comma separated )`}
+                        Codes
+                        {/* <span className="text-red-500 font-bold ">* </span> */}
+                        {`( comma separated )`}
                     </label>
 
                     <textarea
@@ -235,7 +232,7 @@ const AddProduct = () => {
                         value={form.codes}
                         onChange={handleChange}
                         rows={5}
-                        required
+                        // required
                         style={{ resize: "none" }}
                         placeholder={`Enter ${form.stock || ""} Codes`}
                         className={`w-full p-4 rounded-lg border border-gray-600 focus:outline-none ${showValidation && !form.stock && 'border-red-500'}`}
