@@ -11,6 +11,7 @@ const AddCollection = () => {
     const [showValidation, setShowValidation] = useState(false)
     const [form, setForm] = useState({
         name: "",
+        title: "",
         slogan: "",
         description: [
             { heading: "", text: "" }
@@ -50,6 +51,7 @@ const AddCollection = () => {
         formData.append("name", form.name);
         formData.append("description", JSON.stringify(form.description));
         formData.append("slogan", form.slogan);
+        formData.append("title", form.title);
 
         if (image) {
             formData.append("collectionImage", image);
@@ -130,6 +132,16 @@ const AddCollection = () => {
                         required
                         placeholder="Enter Collection name"
                         className={`w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600 focus:outline-none ${showValidation && !form.name && 'border-red-500'}`}
+                    />
+                    <label className="block mb-2 text-sm font-semibold">Collection Title <span className="text-red-500 font-bold ">*</span></label>
+                    <input
+                        type="text"
+                        name="title"
+                        value={form.title}
+                        onChange={handleChange}
+                        required
+                        placeholder="Enter Collection title"
+                        className={`w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600 focus:outline-none ${showValidation && !form.title && 'border-red-500'}`}
                     />
 
                     <label className="block mb-2 text-sm font-semibold">Collection Slogan <span className="text-red-500 font-bold ">*</span></label>

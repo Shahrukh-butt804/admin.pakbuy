@@ -18,6 +18,7 @@ const EditCollection = () => {
 
     const [form, setForm] = useState({
         name: "",
+        title: "",
         slogan: "",
         description: [{ heading: "", text: "" }],
     });
@@ -26,6 +27,7 @@ const EditCollection = () => {
         if (collection?._id) {
             setForm({
                 name: collection.name || "",
+                title: collection.title || "",
                 slogan: collection.slogan || "",
                 description: Array.isArray(collection.description)
                     ? collection.description
@@ -62,6 +64,7 @@ const EditCollection = () => {
         formData.append("name", form.name);
         formData.append("description", JSON.stringify(form.description));
         formData.append("slogan", form.slogan);
+        formData.append("title", form.title);
 
         if (productImage) {
             formData.append("collectionImage", productImage);
@@ -149,6 +152,16 @@ const EditCollection = () => {
                         required
                         placeholder="Enter Collection name"
                         className={`w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600 focus:outline-none ${showValidation && !form.name && 'border-red-500'}`}
+                    />
+                    <label className="block mb-2 text-sm font-semibold">Collection Title <span className="text-red-500 font-bold ">*</span></label>
+                    <input
+                        type="text"
+                        name="title"
+                        value={form.title}
+                        onChange={handleChange}
+                        required
+                        placeholder="Enter Collection title"
+                        className={`w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600 focus:outline-none ${showValidation && !form.title && 'border-red-500'}`}
                     />
 
                     <label className="block mb-2 text-sm font-semibold">Collection Slogan <span className="text-red-500 font-bold ">*</span></label>
