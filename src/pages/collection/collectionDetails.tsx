@@ -126,7 +126,7 @@ export default function CollectionDetails() {
                                         <tr key={index}>
                                             <td>{product.name || "N/A"}</td>
                                             <td>${product.price?.toFixed(2) || "0"}</td>
-                                            <td>{product.stock || "N/A"}</td>
+                                            <td>{product.stock || "0"}</td>
                                             <td className={"text-gray-400"}>
                                                 {product.image ? (
                                                     <img src={UPLOADS_URL + product.image} alt="Image" crossOrigin='anonymous' className='w-10 h-10 rounded-full' />

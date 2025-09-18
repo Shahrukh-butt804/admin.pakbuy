@@ -110,7 +110,7 @@ export default function ProductDetails() {
                         </div>
                         <div className="flex flex-col">
                             <span className="text-gray-400">Stock</span>
-                            <span>{product?.stock || "N/A"}</span>
+                            <span>{product?.stock || "0"}</span>
                         </div>
                         <div className="flex flex-col">
                             <span className="text-gray-400">Status</span>
@@ -146,7 +146,7 @@ export default function ProductDetails() {
                                         <tr key={index}>
                                             <td>{collection.name || "N/A"}</td>
                                             <td>{product.name || "N/A"}</td>
-                                            <td>${collection.price?.toFixed(2) || "0"}</td>
+                                            <td>${collection.CollectionPrice?.toFixed(2) || "0"}</td>
                                             <td className={"text-gray-400"}>
                                                 {collection.image ? (
                                                     <img src={UPLOADS_URL + collection.image} alt="Image" crossOrigin='anonymous' className='w-10 h-10 rounded-full' />
