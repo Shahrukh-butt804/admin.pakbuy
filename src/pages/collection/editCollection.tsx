@@ -143,7 +143,7 @@ const EditCollection = () => {
             >
                 {/* Left Side */}
                 <div className="flex flex-col">
-                    <label className="block mb-2 text-sm font-semibold">Collection Name <span className="text-red-500 font-bold ">*</span></label>
+                    <label className="block my-3 text-sm font-semibold">Collection Name <span className="text-red-500 font-bold ">*</span></label>
                     <input
                         type="text"
                         name="name"
@@ -153,7 +153,7 @@ const EditCollection = () => {
                         placeholder="Enter Collection name"
                         className={`w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600 focus:outline-none ${showValidation && !form.name && 'border-red-500'}`}
                     />
-                    <label className="block mb-2 text-sm font-semibold">Collection Title <span className="text-red-500 font-bold ">*</span></label>
+                    <label className="block my-3 text-sm font-semibold">Collection Title <span className="text-red-500 font-bold ">*</span></label>
                     <input
                         type="text"
                         name="title"
@@ -164,7 +164,7 @@ const EditCollection = () => {
                         className={`w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600 focus:outline-none ${showValidation && !form.title && 'border-red-500'}`}
                     />
 
-                    <label className="block mb-2 text-sm font-semibold">Collection Slogan <span className="text-red-500 font-bold ">*</span></label>
+                    <label className="block my-3 text-sm font-semibold">Collection Slogan <span className="text-red-500 font-bold ">*</span></label>
                     <input
                         type="text"
                         name="slogan"
@@ -191,7 +191,7 @@ const EditCollection = () => {
                             src={URL.createObjectURL(productImage)}
                             alt="new-existing"
                             crossOrigin="anonymous"
-                            className="h-24 w-24 rounded-lg object-cover"
+                            className="h-24 w-24 mt-2 rounded-lg object-cover"
                         />
                     ) : (
 
@@ -199,7 +199,7 @@ const EditCollection = () => {
                             src={UPLOADS_URL + collection?.image}
                             alt="existing-image"
                             crossOrigin="anonymous"
-                            className="h-24 w-24 rounded-lg object-cover"
+                            className="h-24 w-24 mt-2 rounded-lg object-cover"
                         />
                     )}
 
@@ -211,7 +211,7 @@ const EditCollection = () => {
                     {form.description.map((desc, index) => (
                         <div
                             key={index}
-                            className="mb-4 p-4 rounded-lg border border-gray-600 glass"
+                            className="my-3 p-4 rounded-lg border border-gray-600 glass"
                         >
                             <input
                                 type="text"
