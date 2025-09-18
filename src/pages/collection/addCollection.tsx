@@ -11,7 +11,10 @@ const AddCollection = () => {
     const [showValidation, setShowValidation] = useState(false)
     const [form, setForm] = useState({
         name: "",
-        description: "",
+        slogan: "",
+        description: [
+            { heading: "", text: "" }
+        ],
     });
 
     const [addCollection, { isLoading }] = useAddCollectionMutation()
@@ -45,7 +48,8 @@ const AddCollection = () => {
         }
 
         formData.append("name", form.name);
-        formData.append("description", form.description);
+        formData.append("description", JSON.stringify(form.description));
+        formData.append("slogan", form.slogan);
 
         if (image) {
             formData.append("collectionImage", image);
@@ -85,6 +89,28 @@ const AddCollection = () => {
     };
 
 
+
+    const handleDescriptionChange = (index: number, field: "heading" | "text", value: string) => {
+        const newDesc = [...form.description];
+        newDesc[index][field] = value;
+        setForm({ ...form, description: newDesc });
+    };
+
+    // add a new block
+    const addDescriptionBlock = () => {
+        setForm({
+            ...form,
+            description: [...form.description, { heading: "", text: "" }],
+        });
+    };
+
+    // remove a block
+    const removeDescriptionBlock = (index: number) => {
+        const newDesc = form.description.filter((_, i) => i !== index);
+        setForm({ ...form, description: newDesc });
+    };
+
+
     return (
         <div className="md:p-4 glass text-white rounded-xl shadow-lg max-w-7xl mx-2 md:mx-12">
             <h2 className="text-3xl font-bold mb-6 flex items-center gap-2"><ChevronLeft className='cursor-pointer w-7 h-7' onClick={() => navigate(-1)} />  Add Collection</h2>
@@ -106,20 +132,16 @@ const AddCollection = () => {
                         className={`w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600 focus:outline-none ${showValidation && !form.name && 'border-red-500'}`}
                     />
 
-                    <label className="block mt-4 mb-2 text-sm font-semibold">
-                       Collection Description <span className="text-red-500 font-bold ">*</span>
-                    </label>
-                    <textarea
-                        name="description"
-                        value={form.description}
+                    <label className="block mb-2 text-sm font-semibold">Collection Slogan <span className="text-red-500 font-bold ">*</span></label>
+                    <input
+                        type="text"
+                        name="slogan"
+                        value={form.slogan}
                         onChange={handleChange}
-                        rows={5}
                         required
-                        style={{ resize: "none" }}
-                        placeholder="Write description..."
-                        className={`w-full p-4 rounded-lg border border-gray-600 focus:outline-none ${showValidation && !form.description && 'border-red-500'}`}
+                        placeholder="Enter Collection slogan"
+                        className={`w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600 focus:outline-none ${showValidation && !form.slogan && 'border-red-500'}`}
                     />
-
 
 
                     <label className="block mt-2 mb-2 text-sm font-semibold">Collection Image <span className="text-red-500 font-bold ">*</span></label>
@@ -139,12 +161,59 @@ const AddCollection = () => {
 
                     </div>
 
+
+
+                    <label className="block mt-4 mb-2 text-sm font-semibold ">
+                        Collection Description <span className="text-red-500 font-bold">*</span>
+                    </label>
+
+                    {form.description.map((desc, index) => (
+                        <div key={index} className="mb-4 p-4 rounded-lg  border border-gray-600 glass">
+                            <input
+                                type="text"
+                                placeholder="Heading"
+                                value={desc.heading}
+                                onChange={(e) => handleDescriptionChange(index, "heading", e.target.value)}
+                                className="w-full mb-2 p-2 rounded-lg  border border-gray-500 focus:outline-none"
+                            />
+                            <textarea
+                                style={{ resize: "none" }}
+                                placeholder="Text"
+                                value={desc.text}
+                                onChange={(e) => handleDescriptionChange(index, "text", e.target.value)}
+                                rows={3}
+                                className="w-full p-2 rounded-lg  border border-gray-500 focus:outline-none"
+                            />
+                            {form.description.length > 1 && (
+                                <button
+                                    type="button"
+                                    onClick={() => removeDescriptionBlock(index)}
+                                    className="mt-2 text-sm bgPink blackText underline"
+                                >
+                                    Remove
+                                </button>
+                            )}
+                        </div>
+                    ))}
+
+                    <button
+                        type="button"
+                        onClick={addDescriptionBlock}
+                        className="px-3 py-1 bgPink blackText rounded-lg text-sm "
+                    >
+                        + Add another section
+                    </button>
+
+
+
+
+
                 </div>
 
             </form>
 
 
-            <div className="flex justify-between items-center m-2">
+            <div className="flex justify-between items-center  mt-10">
 
                 <button
                     disabled={isLoading}

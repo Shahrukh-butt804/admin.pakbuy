@@ -102,9 +102,38 @@ export default function CollectionDetails() {
                             <span>${collection?.CollectionPrice || "0"}</span>
                         </div>
                         <div className="flex flex-col">
-                            <span className="text-gray-400">Description</span>
-                            <span>{collection?.description || "N/A"}</span>
+                            <span className="text-gray-400">Collection Slogan</span>
+                            <span>{collection?.slogan || "0"}</span>
                         </div>
+
+
+                    </div>
+                    <div className="flex flex-col">
+                        <span className="text-gray-400 font-semibold">Description</span>
+
+                        {Array.isArray(collection?.description) && collection.description.length > 0 ? (
+                            <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                {collection.description.map((item: any, index: number) => (
+                                    <div
+                                        key={index}
+                                        className="bg-gradient-to-r from-[#f5d8d6] to-[#f0cdca] rounded-xl p-4 shadow-md hover:shadow-lg transition duration-300"
+                                    >
+                                        {item.heading && (
+                                            <h3 className="text-lg font-semibold text-gray-800 mb-1">
+                                                {item.heading}
+                                            </h3>
+                                        )}
+                                        {item.text && (
+                                            <p className="text-sm text-gray-700 leading-snug">
+                                                {item.text}
+                                            </p>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <span className="text-gray-500">N/A</span>
+                        )}
                     </div>
                 </div>
                 <div className='md:px-4'>

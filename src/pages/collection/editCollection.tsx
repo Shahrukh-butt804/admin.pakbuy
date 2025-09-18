@@ -9,7 +9,7 @@ import { useGetCollectionByIdQuery, useUpdateCollectionMutation } from "../../re
 const EditCollection = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { data: collection, isLoading: isLoadingProduct } = useGetCollectionByIdQuery(id, { skip: !id  ,refetchOnMountOrArgChange: true });
+    const { data: collection, isLoading: isLoadingProduct } = useGetCollectionByIdQuery(id, { skip: !id, refetchOnMountOrArgChange: true });
     const [updateCollection, { isLoading }] = useUpdateCollectionMutation();
 
     const [showValidation, setShowValidation] = useState(false);
@@ -18,16 +18,19 @@ const EditCollection = () => {
 
     const [form, setForm] = useState({
         name: "",
-        description: "",
+        slogan: "",
+        description: [{ heading: "", text: "" }],
     });
 
     useEffect(() => {
         if (collection?._id) {
             setForm({
                 name: collection.name || "",
-                description: collection.description || "",
-
-            })
+                slogan: collection.slogan || "",
+                description: Array.isArray(collection.description)
+                    ? collection.description
+                    : [{ heading: "", text: "" }],
+            });
 
         }
     }, [collection]);
@@ -57,7 +60,8 @@ const EditCollection = () => {
 
 
         formData.append("name", form.name);
-        formData.append("description", form.description);
+        formData.append("description", JSON.stringify(form.description));
+        formData.append("slogan", form.slogan);
 
         if (productImage) {
             formData.append("collectionImage", productImage);
@@ -91,6 +95,32 @@ const EditCollection = () => {
 
 
 
+    const handleDescriptionChange = (
+        index: number,
+        field: "heading" | "text",
+        value: string
+    ) => {
+        const newDesc = [...form.description];
+        newDesc[index] = {
+            ...newDesc[index],    // clone the object
+            [field]: value,       // update field
+        };
+        setForm({ ...form, description: newDesc });
+    };
+
+    const addDescriptionBlock = () => {
+        setForm({
+            ...form,
+            description: [...form.description, { heading: "", text: "" }],
+        });
+    };
+
+    const removeDescriptionBlock = (index: number) => {
+        const newDesc = form.description.filter((_, i) => i !== index);
+        setForm({ ...form, description: newDesc });
+    };
+
+
     if (isLoadingProduct) {
         return (
             <div className='grid place-content-center'>
@@ -121,19 +151,17 @@ const EditCollection = () => {
                         className={`w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600 focus:outline-none ${showValidation && !form.name && 'border-red-500'}`}
                     />
 
-                    <label className="block mt-4 mb-2 text-sm font-semibold">
-                        Collection Description <span className="text-red-500 font-bold ">*</span>
-                    </label>
-                    <textarea
-                        name="description"
-                        value={form.description}
+                    <label className="block mb-2 text-sm font-semibold">Collection Slogan <span className="text-red-500 font-bold ">*</span></label>
+                    <input
+                        type="text"
+                        name="slogan"
+                        value={form.slogan}
                         onChange={handleChange}
-                        rows={5}
                         required
-                        style={{ resize: "none" }}
-                        placeholder="Write description..."
-                        className={`w-full p-4 rounded-lg border border-gray-600 focus:outline-none ${showValidation && !form.description && 'border-red-500'}`}
+                        placeholder="Enter Collection slogan"
+                        className={`w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600 focus:outline-none ${showValidation && !form.slogan && 'border-red-500'}`}
                     />
+
 
                     <label className="block mt-3 mb-2 text-sm font-semibold">Collection Image</label>
                     <input
@@ -161,6 +189,55 @@ const EditCollection = () => {
                             className="h-24 w-24 rounded-lg object-cover"
                         />
                     )}
+
+
+                    <label className="block mt-4 mb-2 text-sm font-semibold">
+                        Collection Description <span className="text-red-500 font-bold">*</span>
+                    </label>
+
+                    {form.description.map((desc, index) => (
+                        <div
+                            key={index}
+                            className="mb-4 p-4 rounded-lg border border-gray-600 glass"
+                        >
+                            <input
+                                type="text"
+                                placeholder="Heading"
+                                value={desc.heading}
+                                onChange={(e) =>
+                                    handleDescriptionChange(index, "heading", e.target.value)
+                                }
+                                className="w-full mb-2 p-2 rounded-lg border border-gray-500 focus:outline-none"
+                            />
+                            <textarea
+                                style={{ resize: "none" }}
+                                placeholder="Text"
+                                value={desc.text}
+                                onChange={(e) =>
+                                    handleDescriptionChange(index, "text", e.target.value)
+                                }
+                                rows={3}
+                                className="w-full p-2 rounded-lg border border-gray-500 focus:outline-none"
+                            />
+                            {form.description.length > 1 && (
+                                <button
+                                    type="button"
+                                    onClick={() => removeDescriptionBlock(index)}
+                                    className="mt-2 text-sm bgPink blackText underline"
+                                >
+                                    Remove
+                                </button>
+                            )}
+                        </div>
+                    ))}
+
+                    <button
+                        type="button"
+                        onClick={addDescriptionBlock}
+                        className="px-3 py-1 bgPink blackText rounded-lg text-sm "
+                    >
+                        + Add another section
+                    </button>
 
                 </div>
 

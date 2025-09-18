@@ -39,7 +39,7 @@ export default function Collection() {
                 </button>
             </div>
             <Table
-                tableData={{ data: data.collections, exlucdedFields: ["__v", "updatedAt", "products", "discountPrice", "codes", "image"] }}
+                tableData={{ data: data.collections, exlucdedFields: ["__v", "updatedAt", "products", "discountPrice", "codes", "image" ,"description"] }}
                 navigateTo="/collection-detail"
                 setPagination={setPagination}
                 pagination={data?.pagination || {}}
