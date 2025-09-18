@@ -33,10 +33,16 @@ export const collectionSlice = createApi({
                 method: "PUT",
                 body,
             }),
-        })
+        }),
+        deleteCollection: builder.mutation({
+            query: (id) => ({
+                url: `/delete-collection/${id}`,
+                method: "DELETE",
+            }),
+        }),
     }),
 });
 
-export const { useGetAllCollectionsQuery, useGetCollectionByIdQuery, useAddCollectionMutation, useUpdateCollectionMutation } = collectionSlice;
+export const { useGetAllCollectionsQuery, useGetCollectionByIdQuery, useAddCollectionMutation, useUpdateCollectionMutation, useDeleteCollectionMutation } = collectionSlice;
 
 

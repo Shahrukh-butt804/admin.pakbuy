@@ -30,6 +30,7 @@ import CouponDetails from "./pages/coupons/couponDetails";
 import Collection from "./pages/collection";
 import AddCollection from "./pages/collection/addCollection";
 import EditCollection from "./pages/collection/editCollection";
+import CollectionDetails from "./pages/collection/collectionDetails";
 
 const PrivateRoute = () => {
   const user = useSelector(selectUser);
@@ -58,6 +59,7 @@ function AppRoutes() {
               <Route path="/collections" element={<Collection />} />
               <Route path="/add-collection" element={<AddCollection />} />
               <Route path="/edit-collection/:id" element={<EditCollection />} />
+              <Route path="/collection-detail/:id" element={<CollectionDetails />} />
               <Route path="/orders" element={<Orders />} />
               <Route path="/order-detail/:id" element={<OrderDetails />} />
               <Route path="/resources" element={<Resources />} />

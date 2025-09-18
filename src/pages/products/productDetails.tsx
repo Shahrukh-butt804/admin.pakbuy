@@ -1,14 +1,48 @@
-import { useNavigate, useParams } from 'react-router'
 import { ChevronLeft } from "lucide-react";
-import { useGetProductByIdQuery } from '../../redux/services/productSlice';
+import { useNavigate, useParams } from 'react-router';
+import Swal from 'sweetalert2';
 import Spinner from '../../components/spinner';
 import { UPLOADS_URL } from '../../constants/api';
+import { useDeleteProductMutation, useGetProductByIdQuery } from '../../redux/services/productSlice';
 
 
 export default function ProductDetails() {
     const navigate = useNavigate()
     const { id } = useParams()
     const { data: product, isLoading } = useGetProductByIdQuery(id, { skip: !id, refetchOnMountOrArgChange: true })
+
+
+    const [deleteProduct, { isLoading: isLoadingDelete }] = useDeleteProductMutation()
+
+
+    const handleDelete = async () => {
+        if (!id) return;
+
+        try {
+            const res: any = await deleteProduct(id)
+            if (res?.data?.success) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Updated!",
+                    text: res?.data?.message || "Product updated successfully.",
+                });
+                navigate('/products')
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops!",
+                    text: res?.error?.data?.message || res?.error?.data?.errors[0]?.msg || "Something went wrong!",
+                });
+            }
+        } catch (error: any) {
+            Swal.fire({
+                icon: "error",
+                title: "Update Failed",
+                text: error?.message || "Something went wrong!",
+            });
+            console.error("🚀 ~ handleSubmit ~ error:", error);
+        }
+    }
 
 
     if (isLoading) {
@@ -23,7 +57,7 @@ export default function ProductDetails() {
     return (
         <div className='text-gray-200'>
 
-            <div className="flex flex-col md:flex-row gap-4 md:gap-0 justify-between items-start md:items-center px-4 md:px-6 mb-6 text-white mr-7">
+            <div className="flex flex-col md:flex-row gap-4 md:gap-0 justify-between items-center px-4 md:px-6 mb-6 text-white mr-7">
                 <div className="flex items-center gap-2 text-3xl font-bold">
                     <ChevronLeft
                         className="cursor-pointer w-10 h-10"
@@ -32,13 +66,24 @@ export default function ProductDetails() {
                     <span>Product Details</span>
                 </div>
 
-                <button
-                    onClick={() => navigate(`/edit-product/${product?._id}`)}
-                    type="submit"
-                    className="px-4 py-2 bgPink blackText font-semibold rounded-lg transition-colors"
-                >
-                    Edit PRODUCT
-                </button>
+                <div className="flex flex-col lg:flex-row gap-4">
+
+                    <button
+                        onClick={() => navigate(`/edit-product/${product?._id}`)}
+                        type="submit"
+                        className="px-4 py-2 bgPink blackText font-semibold rounded-lg transition-colors"
+                    >
+                        Edit PRODUCT
+                    </button>
+                    <button
+                        onClick={handleDelete}
+                        disabled={isLoadingDelete}
+                        type="submit"
+                        className="px-4 py-2 bgPink blackText font-semibold rounded-lg transition-colors"
+                    >
+                        {isLoadingDelete ? "Deleting PRODUCT..." : "Delete PRODUCT"}
+                    </button>
+                </div>
             </div>
 
             <div className='glass flex flex-col gap-10 mx-2 md:mx-12 '>
@@ -83,7 +128,7 @@ export default function ProductDetails() {
                     </div>
                 </div>
                 <div className='md:px-4'>
-                    <p>Items In Collections</p>
+                    <p>Collections that include this product</p>
                     <div className="glass rounded-lg col-span-2 max-w-2xl">
                         <table className="w-full text-left font-extralight">
                             <thead >

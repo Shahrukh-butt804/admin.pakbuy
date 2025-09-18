@@ -40,7 +40,7 @@ export default function Collection() {
             </div>
             <Table
                 tableData={{ data: data.collections, exlucdedFields: ["__v", "updatedAt", "products", "discountPrice", "codes", "image"] }}
-                navigateTo="/edit-collection"
+                navigateTo="/collection-detail"
                 setPagination={setPagination}
                 pagination={data?.pagination || {}}
             />
