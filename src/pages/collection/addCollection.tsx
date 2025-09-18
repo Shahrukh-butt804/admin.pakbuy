@@ -211,10 +211,7 @@ const AddCollection = () => {
                 </div>
 
             </form>
-
-
             <div className="flex justify-between items-center  mt-10">
-
                 <button
                     disabled={isLoading}
                     type="submit"
@@ -224,6 +221,8 @@ const AddCollection = () => {
                     {isLoading ? <Spinner /> : "Add Collection"}
                 </button>
             </div>
+
+
         </div>
     );
 };

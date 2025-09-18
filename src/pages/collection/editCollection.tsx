@@ -234,7 +234,7 @@ const EditCollection = () => {
                     <button
                         type="button"
                         onClick={addDescriptionBlock}
-                        className="px-3 py-1 bgPink blackText rounded-lg text-sm "
+                        className="px-3 py-1 w-full md:w-xs bgPink blackText rounded-lg text-sm "
                     >
                         + Add another section
                     </button>
@@ -242,7 +242,7 @@ const EditCollection = () => {
                 </div>
 
 
-                <div className="flex justify-between items-center m-2">
+                <div className="flex justify-between items-center ">
                     <button
                         disabled={isLoading}
                         type="submit"

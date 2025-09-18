@@ -101,35 +101,34 @@ export default function CollectionDetails() {
                             <span className="text-gray-400">Collection Price</span>
                             <span>${collection?.CollectionPrice || "0"}</span>
                         </div>
-                        <div className="flex flex-col">
-                            <span className="text-gray-400">Collection Slogan</span>
-                            <span>{collection?.slogan || "0"}</span>
-                        </div>
+
 
 
                     </div>
-                    <div className="flex flex-col">
-                        <span className="text-gray-400 font-semibold">Description</span>
+                    <div className="flex flex-col md:mx-2 ">
+                        <span className="text-gray-400 font-semibold">Description And Slogan</span>
 
                         {Array.isArray(collection?.description) && collection.description.length > 0 ? (
-                            <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div className="mt-4 space-y-3 glass rounded-xl p-6">
                                 {collection.description.map((item: any, index: number) => (
-                                    <div
-                                        key={index}
-                                        className="bg-gradient-to-r from-[#f5d8d6] to-[#f0cdca] rounded-xl p-4 shadow-md hover:shadow-lg transition duration-300"
-                                    >
+                                    <div key={index} className="border-l-4 border-[#F0CDCA] pl-3">
                                         {item.heading && (
-                                            <h3 className="text-lg font-semibold text-gray-800 mb-1">
+                                            <h3 className="text-md font-bold text-[#F0CDCA] uppercase tracking-wide mb-1">
                                                 {item.heading}
                                             </h3>
                                         )}
                                         {item.text && (
-                                            <p className="text-sm text-gray-700 leading-snug">
+                                            <p className="text-sm text-gray-200 leading-snug">
                                                 {item.text}
                                             </p>
                                         )}
                                     </div>
                                 ))}
+
+                                {/* optional tagline at the bottom like in screenshot */}
+                                <p className="pt-4 text-center text-[#F0CDCA] font-semibold text-base">
+                                    {collection?.slogan || "0"}
+                                </p>
                             </div>
                         ) : (
                             <span className="text-gray-500">N/A</span>
