@@ -74,7 +74,6 @@ const PrivateRoute = () => {
   }
 
   const currentTime = Date.now() / 1000;
-  console.log("isExpired" ,decoded.exp < currentTime)
   if (decoded.exp < currentTime) {
     dispatch(logout());
     Cookies.remove("accessToken");
