@@ -64,6 +64,7 @@ export default function Layout() {
                     text: res?.data?.message || 'something went wrong!',
                 })
                 dispatch(logout())
+                navigate("/login")
             } else {
                 Swal.fire({
                     icon: 'error',
