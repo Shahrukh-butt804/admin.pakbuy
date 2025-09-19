@@ -18,7 +18,7 @@ export const productSlice = createApi({
         }),
         getProductById: builder.query({
             query: (id) => `/get-product-by-id/${id}`,
-            transformResponse: (response: any) => response?.pkg
+            transformResponse: (response: any) => response?.product
         }),
         addProduct: builder.mutation({
             query: (body) => ({
@@ -33,10 +33,16 @@ export const productSlice = createApi({
                 method: "PUT",
                 body,
             }),
-        })
+        }),
+        deleteProduct: builder.mutation({
+            query: (id) => ({
+                url: `/delete-product/${id}`,
+                method: "DELETE",
+            }),
+        }),
     }),
 });
 
-export const { useGetAllProductsQuery, useGetProductByIdQuery, useAddProductMutation  , useUpdateProductMutation} = productSlice;
+export const { useGetAllProductsQuery, useGetProductByIdQuery, useAddProductMutation, useUpdateProductMutation, useDeleteProductMutation } = productSlice;
 
 
