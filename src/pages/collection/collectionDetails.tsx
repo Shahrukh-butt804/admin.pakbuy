@@ -91,17 +91,15 @@ export default function CollectionDetails() {
                             <span className="text-gray-400">Collection Name</span>
                             <span>CHOOSE {collection?.name || "N/A"}</span>
                         </div>
-
                         <div className="flex flex-col">
-                            <span className="text-gray-400">Collection ID</span>
-                            <span>{collection?._id || "N/A"}</span>
+                            <span className="text-gray-400">Collection Title</span>
+                            <span>{collection?.title || "N/A"}</span>
                         </div>
 
                         <div className="flex flex-col">
                             <span className="text-gray-400">Collection Price</span>
                             <span>${collection?.CollectionPrice || "0"}</span>
                         </div>
-
 
 
                     </div>
