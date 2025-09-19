@@ -35,10 +35,10 @@ import { store } from "./redux/store";
 
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import Layout from "./components/layout";
 import { logout } from "./redux/reducers/userSlice";
-import { useEffect } from "react";
 
 
 interface JwtPayload {
@@ -54,16 +54,15 @@ const PrivateRoute = () => {
   const token = Cookies.get("accessToken");
 
   useEffect(() => {
-
     if (!token) {
       dispatch(logout());
     }
-  }, [location.pathname, token]); 
+  }, [location.pathname, token]);
 
   if (!token) return <Navigate to="/login" replace />;
 
   let decoded: JwtPayload;
-  
+
   try {
     decoded = jwtDecode<JwtPayload>(token);
   } catch {
