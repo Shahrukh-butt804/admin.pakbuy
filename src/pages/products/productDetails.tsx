@@ -116,11 +116,16 @@ export default function ProductDetails() {
                             <span className="text-gray-400">Status</span>
                             <span>{product?.stock > 0 ? "In Stock" : "Out of Stock"}</span>
                         </div>
-                        {/* 
+                        
                         <div className="flex flex-col">
                             <span className="text-gray-400">Ratings</span>
-                            <span>5 out of 4</span>
-                        </div> */}
+                            <span>{product?.rating || "N/A"}</span>
+                        </div>
+                        
+                        <div className="flex flex-col">
+                            <span className="text-gray-400">Review</span>
+                            <span>{product?.review || "N/A"}</span>
+                        </div>
                         <div className="flex flex-col">
                             <span className="text-gray-400">Description</span>
                             <span>{product?.description || "N/A"}</span>
