@@ -12,8 +12,9 @@ const Editor = ({ content, setContent }: any) => {
                 value={content}
                 name="content"
                 config={{
+                    askBeforePasteHTML: false,
                     readonly: false,
-                    height: 400,
+                    height: 500,
                     placeholder: "Write your Content here...",
                     toolbarAdaptive: false,
                     buttons: [
