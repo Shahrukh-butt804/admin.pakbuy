@@ -12,7 +12,7 @@ import Coupons from "./pages/coupons";
 import AddCoupon from "./pages/coupons/addCoupon";
 import CouponDetails from "./pages/coupons/couponDetails";
 import EditCoupon from "./pages/coupons/editCoupon";
-import Customers from "./pages/customers";
+import Members from "./pages/customers";
 import CustomerDetail from "./pages/customers/customerDetail";
 import Dashboard from "./pages/dashboard";
 import Orders from "./pages/orders";
@@ -92,7 +92,7 @@ function AppRoutes() {
           <Routes>
             <Route element={<PrivateRoute />}>
               <Route path="/" element={<Dashboard />} />
-              <Route path="/customers" element={<Customers />} />
+              <Route path="/members" element={<Members />} />
               <Route path="/customer-detail/:id" element={<CustomerDetail />} />
               <Route path="/products" element={<Products />} />
               <Route path="/product-detail/:id" element={<ProductDetails />} />

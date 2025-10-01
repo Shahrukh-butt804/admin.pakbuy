@@ -15,8 +15,8 @@ export const pages = [
         icon: "dashboard-icon.png"
     },
     {
-        title: "Customers",
-        link: "/customers",
+        title: "Members",
+        link: "/members",
         icon: "customer-icon.png"
     },
     {

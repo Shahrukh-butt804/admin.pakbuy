@@ -25,6 +25,8 @@ const EditProduct = () => {
     const [form, setForm] = useState({
         name: "",
         codes: "",
+        rating: "",
+        review: "",
         description: "",
         tax: false,
         categories: [] as string[],
@@ -37,6 +39,8 @@ const EditProduct = () => {
             setForm({
                 name: collection.name || "",
                 codes: collection.codes.join(",") || "",
+                rating: collection.rating?.toString() || "",
+                review: collection.review?.toString() || "",
                 description: collection.description || "",
                 tax: collection.tax || false,
                 categories: collection.categories || [],
@@ -105,6 +109,18 @@ const EditProduct = () => {
         const formData = new FormData();
         const isEmpty = !form.name || !form.description || !form.stock;
 
+
+        if (form.rating) {
+            const ratingNum = Number(form.rating);
+            if (isNaN(ratingNum) || ratingNum < 1 || ratingNum > 5) {
+                return Swal.fire({
+                    icon: 'error',
+                    title: 'Oops!',
+                    text: 'Rating must be a number between 1 and 5',
+                })
+            }
+        }
+
         if (isEmpty) {
             setShowValidation(true);
             return;
@@ -121,7 +137,7 @@ const EditProduct = () => {
 
         const codes = form.codes.split(",");
 
-        let realLength = form.codes .split(",").map(c => c.trim()).filter(c => c !== "")
+        let realLength = form.codes.split(",").map(c => c.trim()).filter(c => c !== "")
 
 
         if (realLength.length > 0 && codes.length < Number(form.stock)) {
@@ -160,6 +176,8 @@ const EditProduct = () => {
         formData.append("stock", form.stock);
         formData.append("price", form.price);
         formData.append("collectionIds", JSON.stringify(selectedCategories));
+        formData.append("rating", form.rating);
+        formData.append("review", form.review);
 
 
         // ✅ send product JSON *without images*
@@ -240,6 +258,20 @@ const EditProduct = () => {
                         className={`w-full p-3 sm:p-4 rounded-lg bg-[#1a2236] border ${showValidation && !form.name ? "border-red-500" : "border-gray-600"
                             }`}
                     />
+
+
+                    <label className="block my-2  text-sm font-semibold">Product Rating <span className="text-red-500 font-bold ">*</span></label>
+                    <input
+                        type="number"
+                        name="rating"
+                        value={form.rating}
+                        onChange={handleChange}
+                        required
+                        placeholder="Enter product rating out of 5"
+                        className={`w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600 focus:outline-none ${showValidation && !form.rating && 'border-red-500'}`}
+                    />
+
+
                     <label className="block mt-4 mb-2 text-sm font-semibold">
                         Codes
                         {/* <span className="text-red-500 font-bold ">* </span> */}
@@ -292,6 +324,17 @@ const EditProduct = () => {
                             }`}
                     />
 
+                    <label className="block my-2 text-sm font-semibold">Product Review <span className="text-red-500 font-bold ">*</span></label>
+                    <input
+                        type="number"
+                        name="review"
+                        value={form.review}
+                        onChange={handleChange}
+                        required
+                        placeholder="Enter product review"
+                        className={`w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600 focus:outline-none ${showValidation && !form.review && 'border-red-500'}`}
+                    />
+
                     <label className="block mt-4 mb-2 text-sm font-semibold">Description *</label>
                     <textarea
                         name="description"
@@ -334,7 +377,7 @@ const EditProduct = () => {
                 </div>
 
                 <div className="glass flex flex-col gap-4 text-white p-4 rounded-xl xl:w-80 shadow-lg mb-10 lg:mb-0">
-                    <h3 className="text-xl font-bold ">Categories</h3>
+                    <h3 className="text-xl font-bold ">Collections</h3>
                     <ul className="space-y-4 ">
                         {data?.collections?.map((category: any, index: number) => (
                             <li key={index} className="flex items-center space-x-2">

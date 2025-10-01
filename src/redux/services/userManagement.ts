@@ -8,7 +8,17 @@ export const userManagementSlice = createApi({
     endpoints: (builder) => ({
         getReport: builder.query({
             query: () => "/get-report",
+
         }),
+
+        getGrowthData: builder.query({
+            query: ({ weeksBack }) => ({
+                url: "/get-membership-growth",
+                method: "GET",
+                params: weeksBack ? { weeksBack } : {},
+            }),
+        }),
+
         getAllUsers: builder.query({
             query: ({ page, limit, keyword }) => ({
                 url: "/get-all-users",
@@ -37,6 +47,6 @@ export const userManagementSlice = createApi({
     }),
 });
 
-export const { useGetReportQuery, useGetAllUsersQuery, useGetUserByIdQuery, useToggleUserStatusMutation } = userManagementSlice;
+export const { useGetReportQuery, useGetGrowthDataQuery, useGetAllUsersQuery, useGetUserByIdQuery, useToggleUserStatusMutation } = userManagementSlice;
 
 

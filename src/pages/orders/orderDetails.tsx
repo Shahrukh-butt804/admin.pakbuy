@@ -91,7 +91,7 @@ export default function OrderDetails() {
                         </div>
                         <div className="flex flex-col">
                             <span className="text-gray-400">Amount</span>
-                            <span>{order?.totalAmount || "N/A"}</span>
+                            <span>$ {order?.totalAmount.toFixed(2) || "N/A"}</span>
                         </div>
 
                         <div className="flex flex-col">
