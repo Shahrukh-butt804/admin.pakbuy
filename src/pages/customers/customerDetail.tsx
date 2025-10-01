@@ -53,7 +53,7 @@ export default function CustomerDetail() {
 
     return (
         <div>
-            <div className="text-3xl font-bold text-white flex  items-center gap-2 mb-10 md:px-6"><ChevronLeft className='cursor-pointer w-10 h-10 ' onClick={() => navigate(-1)} /> Customer Details</div>
+            <div className="text-3xl font-bold text-white flex  items-center gap-2 mb-10 md:px-6"><ChevronLeft className='cursor-pointer w-10 h-10 ' onClick={() => navigate(-1)} /> Member Details</div>
             <div className='flex flex-col gap-10 glass mx-4 md:mx-12 text-gray-200'>
                 <div className="flex flex-col-reverse lg:flex-row items-start lg:items-center justify-between gap-10 lg:gap-2 py-6 md:px-10">
                     <div className='flex items-center gap-2'>

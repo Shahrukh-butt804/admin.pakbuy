@@ -334,7 +334,7 @@ const EditProduct = () => {
                 </div>
 
                 <div className="glass flex flex-col gap-4 text-white p-4 rounded-xl xl:w-80 shadow-lg mb-10 lg:mb-0">
-                    <h3 className="text-xl font-bold ">Categories</h3>
+                    <h3 className="text-xl font-bold ">Collections</h3>
                     <ul className="space-y-4 ">
                         {data?.collections?.map((category: any, index: number) => (
                             <li key={index} className="flex items-center space-x-2">

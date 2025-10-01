@@ -1,19 +1,25 @@
 import { useState } from "react";
 import Spinner from "../../components/spinner";
 import Table from "../../components/table";
-import { useGetAllUsersQuery } from "../../redux/services/userManagement";
+import { useGetAllUsersQuery, useGetGrowthDataQuery } from "../../redux/services/userManagement";
+import MembershipGrowthChart from "../../components/growthChart";
 
-export default function Customers() {
+
+export default function Members() {
   const [pagination, setPagination] = useState({
     page: 1,
     limit: 10,
     keyword: ""
   })
-  const { data, isLoading } = useGetAllUsersQuery({ ...pagination } , {refetchOnMountOrArgChange: true})
+  const [weeksBack, setWeeksBack] = useState(12);
+  const [isTableVisible, setIsTableVisible] = useState(false);
 
 
+  const { data, isLoading } = useGetAllUsersQuery({ ...pagination }, { refetchOnMountOrArgChange: true })
+  const { data: growthData, isLoading: growthDataLoading } = useGetGrowthDataQuery({ weeksBack }, { refetchOnMountOrArgChange: true })
 
-  if (isLoading) {
+
+  if (isLoading || growthDataLoading) {
     return (
       <div className='grid place-content-center'>
         <Spinner size='lg' />
@@ -24,9 +30,23 @@ export default function Customers() {
 
   return (
     <div >
-      <header className="flex justify-center md:justify-between items-center md:px-6">
-        <p className="text-4xl md:text-5xl font-bold text-white">Customers</p>
+      <header className="flex flex-col md:flex-row justify-center md:justify-between items-center md:px-6">
+        <p className="text-4xl md:text-5xl font-bold text-white">Members</p>
+        <div className="flex justify-center">
+          <button
+            onClick={() => setIsTableVisible(!isTableVisible)}
+            className="px-4 py-2 bgPink blackText font-semibold rounded-lg transition-colors"
+          >{isTableVisible ? "Hide" : "Show"} Table</button>
+        </div>
       </header>
+
+
+      {isTableVisible &&
+        <div className="p-3 md:px-6">
+          <MembershipGrowthChart data={growthData.growth} weeksBack={growthData.weeksBack} setWeeksBack={setWeeksBack} />
+        </div>
+      }
+
       <Table
         tableData={{ data: data?.Users, exlucdedFields: ["password", "__v", "otp", "updatedAt", "refreshToken", "image"] }}
         navigateTo="/customer-detail"
