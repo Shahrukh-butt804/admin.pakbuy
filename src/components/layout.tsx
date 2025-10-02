@@ -95,7 +95,7 @@ export default function Layout() {
                     {pages.map((page, index) => (
                         <div
                             key={index}
-                            className={`rounded-lg hoverBgPink text-white hover:text-black px-4 py-2 flex flex-row gap-2 items-center cursor-pointer ${page.link === location.pathname && "bgPink text-black"}`}
+                            className={`rounded-lg hoverBgPink text-white hover:text-black px-4 py-2 flex flex-row gap-2 items-center cursor-pointer ${page.link === location.pathname && "bgPink !text-black"}`}
                             onClick={() => navigate(page.link)}
                         >
                             <img src={`${ImageUrl(page.icon)}`} alt={page.title} />

@@ -9,6 +9,7 @@ import {
     XAxis,
     YAxis
 } from "recharts";
+import Spinner from "./spinner";
 
 interface GrowthData {
     year: number;
@@ -16,7 +17,7 @@ interface GrowthData {
     members: number;
 }
 
-const MembershipGrowthChart: React.FC<{ data: GrowthData[], weeksBack: number, setWeeksBack: React.Dispatch<React.SetStateAction<number>> }> = ({ data, weeksBack, setWeeksBack }) => {
+const MembershipGrowthChart: React.FC<{ data: GrowthData[], weeksBack: number, setWeeksBack: React.Dispatch<React.SetStateAction<number>>, growthDataFetching: boolean }> = ({ data, weeksBack, setWeeksBack, growthDataFetching }) => {
 
     const formattedData = data.map(item => ({
         ...item,
@@ -60,8 +61,13 @@ const MembershipGrowthChart: React.FC<{ data: GrowthData[], weeksBack: number, s
                 </ResponsiveContainer>
             </div>
 
+
             <p className="text-sm  mt-2 text-center">
-                Showing last <span className="font-semibold">{weeksBack}</span> weeks
+                {growthDataFetching ? <Spinner size="sm" /> :
+                    <span>
+                        Showing last <span className="font-semibold">{weeksBack}</span> weeks
+                    </span>
+                }
             </p>
         </div>
     );

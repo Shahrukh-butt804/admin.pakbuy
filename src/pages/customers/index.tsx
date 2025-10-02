@@ -16,7 +16,7 @@ export default function Members() {
 
 
   const { data, isLoading } = useGetAllUsersQuery({ ...pagination }, { refetchOnMountOrArgChange: true })
-  const { data: growthData, isLoading: growthDataLoading } = useGetGrowthDataQuery({ weeksBack }, { refetchOnMountOrArgChange: true })
+  const { data: growthData, isLoading: growthDataLoading , isFetching: growthDataFetching } = useGetGrowthDataQuery({ weeksBack }, { refetchOnMountOrArgChange: true })
 
 
   if (isLoading || growthDataLoading) {
@@ -36,14 +36,14 @@ export default function Members() {
           <button
             onClick={() => setIsTableVisible(!isTableVisible)}
             className="px-4 py-2 bgPink blackText font-semibold rounded-lg transition-colors"
-          >{isTableVisible ? "Hide" : "Show"} Table</button>
+          >{isTableVisible ? "Hide" : "Show"} Graph</button>
         </div>
       </header>
 
 
       {isTableVisible &&
         <div className="p-3 md:px-6">
-          <MembershipGrowthChart data={growthData.growth} weeksBack={growthData.weeksBack} setWeeksBack={setWeeksBack} />
+          <MembershipGrowthChart data={growthData.growth} weeksBack={growthData.weeksBack} setWeeksBack={setWeeksBack} growthDataFetching={growthDataFetching} />
         </div>
       }
 
