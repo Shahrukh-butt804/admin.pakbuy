@@ -39,7 +39,7 @@ export default function Resources() {
                 </button>
             </div>
             <Table
-                tableData={{ data: data?.resources, exlucdedFields: ["_id", "__v", "createdAt"] }}
+                tableData={{ data: data?.resources, exlucdedFields: ["_id", "__v", "createdAt" , "content"] }}
                 navigateTo="/resource-detail"
                 setPagination={setPagination}
                 pagination={data?.pagination || {}}
