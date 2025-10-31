@@ -10,7 +10,6 @@ export default function CollectionDetails() {
     const navigate = useNavigate()
     const { id } = useParams()
     const { data: collection, isLoading } = useGetCollectionByIdQuery(id, { skip: !id, refetchOnMountOrArgChange: true })
-    console.log("🚀 ~ CollectionDetails ~ collection:", collection)
 
     const [deleteCollection, { isLoading: isLoadingDelete }] = useDeleteCollectionMutation()
 
