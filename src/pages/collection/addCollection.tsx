@@ -13,6 +13,7 @@ const AddCollection = () => {
         name: "",
         title: "",
         slogan: "",
+        about: "",
         description: [
             { heading: "", text: "" }
         ],
@@ -51,6 +52,7 @@ const AddCollection = () => {
         formData.append("name", form.name);
         formData.append("description", JSON.stringify(form.description));
         formData.append("slogan", form.slogan);
+        formData.append("about", form.about);
         formData.append("title", form.title);
 
         if (image) {
@@ -156,6 +158,7 @@ const AddCollection = () => {
                     />
 
 
+
                     <label className="block mt-2 my-3 text-sm font-semibold">Collection Image <span className="text-red-500 font-bold ">*</span></label>
                     <input
                         type="file"
@@ -173,6 +176,16 @@ const AddCollection = () => {
 
                     </div>
 
+                    <label className="block my-3 text-sm font-semibold">Collection About <span className="text-red-500 font-bold ">*</span></label>
+                    <input
+                        type="text"
+                        name="about"
+                        value={form.about}
+                        onChange={handleChange}
+                        required
+                        placeholder="Enter About Collection "
+                        className={`w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600 focus:outline-none ${showValidation && !form.about && 'border-red-500'}`}
+                    />
 
 
                     <label className="block mt-4 mb-2 text-sm font-semibold ">

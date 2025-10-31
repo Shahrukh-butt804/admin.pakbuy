@@ -20,6 +20,7 @@ const EditCollection = () => {
         name: "",
         title: "",
         slogan: "",
+        about: "",
         description: [{ heading: "", text: "" }],
     });
 
@@ -29,6 +30,7 @@ const EditCollection = () => {
                 name: collection.name || "",
                 title: collection.title || "",
                 slogan: collection.slogan || "",
+                about: collection.about || "",
                 description: Array.isArray(collection.description)
                     ? collection.description
                     : [{ heading: "", text: "" }],
@@ -64,6 +66,7 @@ const EditCollection = () => {
         formData.append("name", form.name);
         formData.append("description", JSON.stringify(form.description));
         formData.append("slogan", form.slogan);
+        formData.append("about", form.about);
         formData.append("title", form.title);
 
         if (productImage) {
@@ -183,6 +186,18 @@ const EditCollection = () => {
                         onChange={handleFileChange}
                         accept="image/*"
                         className="w-full px-4 py-3.5 rounded-lg bg-[#1a2236] border border-gray-600"
+                    />
+
+
+                    <label className="block my-3 text-sm font-semibold">Collection About <span className="text-red-500 font-bold ">*</span></label>
+                    <input
+                        type="text"
+                        name="about"
+                        value={form.about}
+                        onChange={handleChange}
+                        required
+                        placeholder="Enter About Collection"
+                        className={`w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600 focus:outline-none ${showValidation && !form.about && 'border-red-500'}`}
                     />
 
                     {productImage ? (
