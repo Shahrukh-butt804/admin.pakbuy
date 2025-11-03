@@ -99,7 +99,7 @@ const Table = ({ navigateTo, tableData, setPagination, pagination }: { navigateT
 
                                             <td key={col} className="px-4 py-3">
                                                 {col === "createdAt" || col === "expiryDate" || col === "updatedAt" ? new Date(row[col]).toLocaleDateString() :
-                                                    col === "totalAmount" || col === "amount" ? `$ ${row[col].toFixed(2)}`
+                                                    col === "totalAmount" || col === "amount" || col === "taxAmount" || col === "discountAmount" || col === "subTotal" ? `$ ${row[col].toFixed(2)}`
                                                         : String(row[col]).length > 200 ? String(row[col]).slice(0, 140) + "..." : String(row[col]) || "N/A"}
                                             </td>
 
