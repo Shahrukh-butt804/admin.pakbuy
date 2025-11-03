@@ -89,8 +89,23 @@ export default function OrderDetails() {
                             <span className="text-gray-400">Date</span>
                             <span>{new Date(order?.createdAt).toLocaleDateString() || "N/A"}</span>
                         </div>
+
                         <div className="flex flex-col">
-                            <span className="text-gray-400">Amount</span>
+                            <span className="text-gray-400">Sub Total</span>
+                            <span>$ {order?.subTotal?.toFixed(2) || "N/A"}</span>
+                        </div>
+                        <div className="flex flex-col">
+                            <span className="text-gray-400">Tax</span>
+                            <span>$ {order?.taxAmount.toFixed(2) || "N/A"}</span>
+                        </div>
+
+                        <div className="flex flex-col">
+                            <span className="text-gray-400">Discount Amount</span>
+                            <span>$ {order?.discountAmount.toFixed(2) || "N/A"}</span>
+                        </div>
+
+                        <div className="flex flex-col">
+                            <span className="text-gray-400">Total Amount Paid</span>
                             <span>$ {order?.totalAmount.toFixed(2) || "N/A"}</span>
                         </div>
 
@@ -101,7 +116,7 @@ export default function OrderDetails() {
 
                         <div className="flex flex-col">
                             <span className="text-gray-400">Status</span>
-                            <span className={`${order?.status === "cancelled" && "text-red-400 font-bold" }`}>{order?.status || "N/A"}</span>
+                            <span className={`${order?.status === "cancelled" && "text-red-400 font-bold"}`}>{order?.status || "N/A"}</span>
                         </div>
                     </div>
 
@@ -159,18 +174,18 @@ export default function OrderDetails() {
                             </thead>
                             <tbody>
                                 {order?.products?.length > 0 &&
-                                    order.products.some((p: any) => p.packageId !== null) &&
+                                    order.products.some((p: any) => p.collectionId !== null) &&
                                     order.products.map((orderData: any, index: number) => (
                                         <React.Fragment key={index}>
                                             <div className="my-6" />
                                             <tr>
-                                                <td>{orderData.packageId?.name || "N/A"}</td>
+                                                <td>{orderData.collectionId?.name || "N/A"}</td>
                                                 <td>
-                                                    {orderData.packageId?.products
+                                                    {orderData.collectionId?.products
                                                         ?.map((product: any) => product.name)
                                                         .join(", ") || "N/A"}
                                                 </td>
-                                                <td>{orderData.packageId?.price ?? "N/A"}</td>
+                                                <td>{orderData.collectionId?.CollectionPrice ?? "N/A"}</td>
                                                 <td>{orderData.quantity}</td>
                                                 <td>{order.totalAmount}</td>
                                             </tr>
