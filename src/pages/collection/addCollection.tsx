@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import Spinner from "../../components/spinner";
 import { useAddCollectionMutation } from "../../redux/services/collectionSlice";
+import Editor from "../../components/editor";
 
 const AddCollection = () => {
     const navigate = useNavigate();
@@ -13,17 +14,24 @@ const AddCollection = () => {
         name: "",
         title: "",
         slogan: "",
-        about: "",
+        // about: "",
         description: [
             { heading: "", text: "" }
         ],
     });
+
+    const [about, setAbout] = useState({
+        name: "",
+        content: "",
+    });
+
 
     const [addCollection, { isLoading }] = useAddCollectionMutation()
 
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
+
         const { name, value, type, checked }: any = e.target;
         setForm({
             ...form,
@@ -44,7 +52,13 @@ const AddCollection = () => {
         const formData = new FormData();
 
         const isEmpty = Object.values(form).some((value) => value === '');
+
         if (isEmpty) {
+            setShowValidation(true)
+            return;
+        }
+
+        if (!about.content || about.content === '') {
             setShowValidation(true)
             return;
         }
@@ -52,7 +66,7 @@ const AddCollection = () => {
         formData.append("name", form.name);
         formData.append("description", JSON.stringify(form.description));
         formData.append("slogan", form.slogan);
-        formData.append("about", form.about);
+        formData.append("about", about.content);
         formData.append("title", form.title);
 
         if (image) {
@@ -176,8 +190,8 @@ const AddCollection = () => {
 
                     </div>
 
-                    <label className="block my-3 text-sm font-semibold">Collection About <span className="text-red-500 font-bold ">*</span></label>
-                    <input
+                    <label className={`block my-3 text-sm font-semibold  ${showValidation && !about.content ? '!text-red-500' : 'text-white'} `}>Collection About <span className="text-red-500 font-bold ">*</span></label>
+                    {/* <input
                         type="text"
                         name="about"
                         value={form.about}
@@ -185,14 +199,19 @@ const AddCollection = () => {
                         required
                         placeholder="Enter About Collection "
                         className={`w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600 focus:outline-none ${showValidation && !form.about && 'border-red-500'}`}
+                    /> */}
+                    <Editor
+                        content={about.content}
+                        setContent={setAbout}
                     />
+
 
 
                     <label className="block mt-4 mb-2 text-sm font-semibold ">
                         Collection Description <span className="text-red-500 font-bold">*</span>
                     </label>
 
-                    {form.description.map((desc, index) => (
+                    {form?.description.map((desc, index) => (
                         <div key={index} className="my-3 p-4 rounded-lg  border border-gray-600 glass">
                             <input
                                 type="text"

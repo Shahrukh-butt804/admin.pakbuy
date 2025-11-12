@@ -107,7 +107,8 @@ export default function CollectionDetails() {
                     <div className="max-w-3xl md:px-4 flex flex-col gap-2">
                         <span className="text-gray-400 text-sm md:text-base">Collection About</span>
                         <p className="w-full break-words whitespace-normal text-sm md:text-base leading-relaxed">
-                            {collection?.about || "N/A"}
+                            {/* {collection?.about || "N/A"} */}
+                            <div dangerouslySetInnerHTML={{ __html: collection.about || '' }} />
                         </p>
                     </div>
 

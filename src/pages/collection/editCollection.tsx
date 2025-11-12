@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import Spinner from "../../components/spinner";
 import { UPLOADS_URL } from "../../constants/api";
 import { useGetCollectionByIdQuery, useUpdateCollectionMutation } from "../../redux/services/collectionSlice";
+import Editor from "../../components/editor";
 
 const EditCollection = () => {
     const { id } = useParams();
@@ -20,8 +21,11 @@ const EditCollection = () => {
         name: "",
         title: "",
         slogan: "",
-        about: "",
         description: [{ heading: "", text: "" }],
+    });
+    const [about, setAbout] = useState({
+        name: "",
+        content: "",
     });
 
     useEffect(() => {
@@ -30,12 +34,15 @@ const EditCollection = () => {
                 name: collection.name || "",
                 title: collection.title || "",
                 slogan: collection.slogan || "",
-                about: collection.about || "",
                 description: Array.isArray(collection.description)
                     ? collection.description
                     : [{ heading: "", text: "" }],
             });
 
+            setAbout({
+                name: "about",
+                content: collection.about || "",
+            });
         }
     }, [collection]);
 
@@ -66,7 +73,7 @@ const EditCollection = () => {
         formData.append("name", form.name);
         formData.append("description", JSON.stringify(form.description));
         formData.append("slogan", form.slogan);
-        formData.append("about", form.about);
+        formData.append("about", about.content);
         formData.append("title", form.title);
 
         if (productImage) {
@@ -189,8 +196,8 @@ const EditCollection = () => {
                     />
 
 
-                    <label className="block my-3 text-sm font-semibold">Collection About <span className="text-red-500 font-bold ">*</span></label>
-                    <input
+                    <label className={`block my-3 text-sm font-semibold ${showValidation && !about.content && 'text-red-500'}`}>Collection About <span className="text-red-500 font-bold ">*</span></label>
+                    {/* <input
                         type="text"
                         name="about"
                         value={form.about}
@@ -198,7 +205,10 @@ const EditCollection = () => {
                         required
                         placeholder="Enter About Collection"
                         className={`w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600 focus:outline-none ${showValidation && !form.about && 'border-red-500'}`}
-                    />
+                    /> */}
+
+                    <Editor content={about.content} setContent={setAbout} />
+
 
                     {productImage ? (
 
