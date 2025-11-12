@@ -39,6 +39,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import Layout from "./components/layout";
 import { logout } from "./redux/reducers/userSlice";
+import EmailManagement from "./pages/email-management";
 
 
 interface JwtPayload {
@@ -112,6 +113,7 @@ function AppRoutes() {
               <Route path="/coupon-detail/:id" element={<CouponDetails />} />
               <Route path="/add-coupon" element={<AddCoupon />} />
               <Route path="/edit-coupon/:id" element={<EditCoupon />} />
+              <Route path="/email-management" element={<EmailManagement />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/edit-profile" element={<EditProfile />} />
               <Route path="/change-password" element={<ChangePassword />} />

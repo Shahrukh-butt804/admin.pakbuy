@@ -42,6 +42,11 @@ export const pages = [
     {
         title: "Coupons",
         link: "/coupons",
+        icon: "product-icon.png"
+    },
+    {
+        title: "Email Management",
+        link: "/email-management",
         icon: "customer-icon.png"
     },
 ]
