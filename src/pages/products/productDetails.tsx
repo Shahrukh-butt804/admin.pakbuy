@@ -108,6 +108,12 @@ export default function ProductDetails() {
                             <span className="text-gray-400">Price</span>
                             <span>${product?.price || "N/A"}</span>
                         </div>
+
+                        <div className="flex flex-col">
+                            <span className="text-gray-400">Retail Price</span>
+                            <span>${product?.retailPrice || "N/A"}</span>
+                        </div>
+
                         <div className="flex flex-col">
                             <span className="text-gray-400">Stock</span>
                             <span>{product?.stock || "0"}</span>
@@ -116,15 +122,19 @@ export default function ProductDetails() {
                             <span className="text-gray-400">Status</span>
                             <span>{product?.stock > 0 ? "In Stock" : "Out of Stock"}</span>
                         </div>
-                        
+
                         <div className="flex flex-col">
                             <span className="text-gray-400">Ratings</span>
                             <span>{product?.rating || "N/A"}</span>
                         </div>
-                        
+
                         <div className="flex flex-col">
                             <span className="text-gray-400">Review</span>
                             <span>{product?.review || "N/A"}</span>
+                        </div>
+                        <div className="flex flex-col">
+                            <span className="text-gray-400">Vendor's Site Link</span>
+                            <span>{product?.link || "N/A"}</span>
                         </div>
                         <div className="flex flex-col">
                             <span className="text-gray-400">Description</span>

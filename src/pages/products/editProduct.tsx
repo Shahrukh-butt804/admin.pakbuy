@@ -32,6 +32,8 @@ const EditProduct = () => {
         categories: [] as string[],
         stock: "",
         price: "",
+        link: "",
+        retailPrice: "",
     });
 
     useEffect(() => {
@@ -46,6 +48,8 @@ const EditProduct = () => {
                 categories: collection.categories || [],
                 stock: collection.stock?.toString() || "",
                 price: collection.price?.toString() || "",
+                link: collection.link || "",
+                retailPrice: collection.retailPrice?.toString() || "",
 
             });
             collection.collections.forEach((category: any) => {
@@ -178,6 +182,8 @@ const EditProduct = () => {
         formData.append("collectionIds", JSON.stringify(selectedCategories));
         formData.append("rating", form.rating);
         formData.append("review", form.review);
+        formData.append("link", form.link);
+        formData.append("retailPrice", form.retailPrice);
 
 
         // ✅ send product JSON *without images*
@@ -309,6 +315,17 @@ const EditProduct = () => {
                         className={`w-full p-3 sm:p-4 rounded-lg bg-[#1a2236] border ${showValidation && !form.price ? "border-red-500" : "border-gray-600"
                             }`}
                     />
+
+                    <label className="block mt-2 mb-2 text-sm font-semibold">Retail Price *</label>
+                    <input
+                        type="number"
+                        name="retailPrice"
+                        value={form.retailPrice}
+                        onChange={handleChange}
+                        required
+                        className={`w-full p-3 sm:p-4 rounded-lg bg-[#1a2236] border ${showValidation && !form.retailPrice ? "border-red-500" : "border-gray-600"
+                            }`}
+                    />
                 </div>
 
                 {/* Right Side */}
@@ -344,6 +361,19 @@ const EditProduct = () => {
                         required
                         style={{ resize: "none" }}
                         className={`w-full p-3 sm:p-4 rounded-lg border ${showValidation && !form.description ? "border-red-500" : "border-gray-600"
+                            }`}
+                    />
+
+
+
+                    <label className="block mb-2 text-sm font-semibold">Link *</label>
+                    <input
+                        type="text"
+                        name="link"
+                        value={form.link}
+                        onChange={handleChange}
+                        required
+                        className={`w-full p-3 sm:p-4 rounded-lg bg-[#1a2236] border ${showValidation && !form.link ? "border-red-500" : "border-gray-600"
                             }`}
                     />
 
