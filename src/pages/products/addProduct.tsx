@@ -20,6 +20,8 @@ const AddProduct = () => {
         categories: [] as string[],
         stock: "",
         price: "",
+        retailPrice: "",
+        link: "",
         products: [
             { name: "", price: "", description: "", image: null as File | null },
         ],
@@ -176,6 +178,8 @@ const AddProduct = () => {
         formData.append("collectionIds", JSON.stringify(selectedCategories));
         formData.append("rating", form.rating);
         formData.append("review", form.review);
+        formData.append("retailPrice", form.retailPrice);
+        formData.append("link", form.link);
 
         if (image) {
             formData.append("image", image);
@@ -287,6 +291,17 @@ const AddProduct = () => {
                         className={`w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600 focus:outline-none ${showValidation && !form.price && 'border-red-500'}`}
                     />
 
+                    <label className="block mt-3 mb-2 text-sm font-semibold">Retail Price <span className="text-red-500 font-bold ">*</span></label>
+                    <input
+                        type="number"
+                        name="retailPrice"
+                        value={form.retailPrice}
+                        onChange={handleChange}
+                        placeholder="Enter Retail Price"
+                        required
+                        className={`w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600 focus:outline-none ${showValidation && !form.retailPrice && 'border-red-500'}`}
+                    />
+
 
                 </div>
 
@@ -345,6 +360,18 @@ const AddProduct = () => {
                         )}
 
                     </div>
+
+
+                    <label className="block mt-2 mb-2 text-sm font-semibold">Link <span className="text-red-500 font-bold ">*</span></label>
+                    <input
+                        type="text"
+                        name="link"
+                        value={form.link}
+                        onChange={handleChange}
+                        required
+                        placeholder="Enter Vendor Site link"
+                        className={`w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600 focus:outline-none ${showValidation && !form.link && 'border-red-500'}`}
+                    />
                 </div>
 
                 <div className="glass flex flex-col gap-4 text-white p-4 rounded-xl xl:w-80 shadow-lg mb-10 lg:mb-0">
@@ -364,7 +391,7 @@ const AddProduct = () => {
                     </ul>
                     <button
                         onClick={() => navigate("/add-collection")}
-                        className="mt-4 bgPink blackText font-semibold"
+                        className="mt-10 bgPink blackText font-semibold"
                     >
                         Create New
                     </button>
@@ -432,7 +459,7 @@ const AddProduct = () => {
                     </div>
                 ))}
             </div> */}
-            <div className="flex justify-between items-center m-2">
+            <div className="flex justify-between items-center m-2 mt-5">
                 {/* <button
                         type="button"
                         onClick={addProductField}
@@ -445,7 +472,7 @@ const AddProduct = () => {
                     disabled={isLoading}
                     type="submit"
                     onClick={handleSubmit}
-                    className="w-full md:w-xs bgPink blackText font-semibold rounded-lg transition-colors"
+                    className="w-full md:w-xs bgPink blackText font-semibold rounded-lg transition-colors "
                 >
                     {isLoading ? <Spinner /> : "Add Product"}
                 </button>
