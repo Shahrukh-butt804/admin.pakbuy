@@ -5,6 +5,7 @@ import { ChevronLeft } from "lucide-react";
 import { useNavigate } from "react-router";
 import Spinner from "../../components/spinner";
 import { useGetAllCollectionsQuery } from "../../redux/services/collectionSlice";
+import Editor from "../../components/editor";
 
 const AddProduct = () => {
     const navigate = useNavigate();
@@ -15,7 +16,7 @@ const AddProduct = () => {
         codes: "",
         rating: "",
         review: "",
-        description: "",
+        // description: "",
         tax: false,
         categories: [] as string[],
         stock: "",
@@ -25,6 +26,11 @@ const AddProduct = () => {
         products: [
             { name: "", price: "", description: "", image: null as File | null },
         ],
+    });
+
+    const [description, setDescription] = useState({
+        name: "",
+        content: "",
     });
 
 
@@ -164,6 +170,15 @@ const AddProduct = () => {
             })
         }
 
+        if (!description.content) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops!',
+                text: `remove Description is required`,
+            })
+            setShowValidation(true);
+            return;
+        }
 
         // formData.append("tax", "true");
         if (realLength.length > 0) {
@@ -171,7 +186,7 @@ const AddProduct = () => {
         }
 
         formData.append("name", form.name);
-        formData.append("description", form.description);
+        formData.append("description", description.content);
         formData.append("stock", form.stock);
         formData.append("price", form.price);
         // formData.append("products", JSON.stringify(form.products));
@@ -303,6 +318,37 @@ const AddProduct = () => {
                     />
 
 
+                    <label className="block mt-2 mb-2 text-sm font-semibold">Link <span className="text-red-500 font-bold ">*</span></label>
+                    <input
+                        type="text"
+                        name="link"
+                        value={form.link}
+                        onChange={handleChange}
+                        required
+                        placeholder="Enter Vendor Site link"
+                        className={`w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600 focus:outline-none ${showValidation && !form.link && 'border-red-500'}`}
+                    />
+
+                    <label className="block mt-2 mb-2 text-sm font-semibold">Product Image <span className="text-red-500 font-bold ">*</span></label>
+                    <input
+                        type="file"
+                        multiple
+                        onChange={handleFileChange}
+                        accept="image/*"
+                        className="w-full px-4 py-3.5 rounded-lg bg-[#1a2236] border border-gray-600"
+                    />
+                    <div className="flex flex-wrap gap-4 mt-2">
+                        {image?.name && (
+                            <span className="px-2 py-1 text-xs bg-gray-700 rounded-lg" >
+                                {image?.name || ""}
+                            </span>
+                        )}
+
+                    </div>
+
+
+
+
                 </div>
 
                 {/* Right Side */}
@@ -333,7 +379,12 @@ const AddProduct = () => {
                     <label className="block mt-4 mb-2 text-sm font-semibold">
                         Description <span className="text-red-500 font-bold ">*</span>
                     </label>
-                    <textarea
+
+                    <Editor
+                        content={description.content}
+                        setContent={setDescription}
+                    />
+                    {/* <textarea
                         name="description"
                         value={form.description}
                         onChange={handleChange}
@@ -342,36 +393,8 @@ const AddProduct = () => {
                         style={{ resize: "none" }}
                         placeholder="Write description..."
                         className={`w-full p-4 rounded-lg border border-gray-600 focus:outline-none ${showValidation && !form.description && 'border-red-500'}`}
-                    />
+                    /> */}
 
-                    <label className="block mt-2 mb-2 text-sm font-semibold">Product Image <span className="text-red-500 font-bold ">*</span></label>
-                    <input
-                        type="file"
-                        multiple
-                        onChange={handleFileChange}
-                        accept="image/*"
-                        className="w-full px-4 py-3.5 rounded-lg bg-[#1a2236] border border-gray-600"
-                    />
-                    <div className="flex flex-wrap gap-4 mt-2">
-                        {image?.name && (
-                            <span className="px-2 py-1 text-xs bg-gray-700 rounded-lg" >
-                                {image?.name || ""}
-                            </span>
-                        )}
-
-                    </div>
-
-
-                    <label className="block mt-2 mb-2 text-sm font-semibold">Link <span className="text-red-500 font-bold ">*</span></label>
-                    <input
-                        type="text"
-                        name="link"
-                        value={form.link}
-                        onChange={handleChange}
-                        required
-                        placeholder="Enter Vendor Site link"
-                        className={`w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600 focus:outline-none ${showValidation && !form.link && 'border-red-500'}`}
-                    />
                 </div>
 
                 <div className="glass flex flex-col gap-4 text-white p-4 rounded-xl xl:w-80 shadow-lg mb-10 lg:mb-0">

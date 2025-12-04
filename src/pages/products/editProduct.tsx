@@ -6,6 +6,7 @@ import { UPLOADS_URL } from "../../constants/api";
 import { ChevronLeft } from "lucide-react";
 import Spinner from "../../components/spinner";
 import { useGetAllCollectionsQuery } from "../../redux/services/collectionSlice";
+import Editor from "../../components/editor";
 
 const EditProduct = () => {
     const { id } = useParams();
@@ -27,13 +28,17 @@ const EditProduct = () => {
         codes: "",
         rating: "",
         review: "",
-        description: "",
         tax: false,
         categories: [] as string[],
         stock: "",
         price: "",
         link: "",
         retailPrice: "",
+    });
+
+    const [description, setDescription] = useState({
+        name: "",
+        content: "",
     });
 
     useEffect(() => {
@@ -43,14 +48,16 @@ const EditProduct = () => {
                 codes: collection.codes.join(",") || "",
                 rating: collection.rating?.toString() || "",
                 review: collection.review?.toString() || "",
-                description: collection.description || "",
                 tax: collection.tax || false,
                 categories: collection.categories || [],
                 stock: collection.stock?.toString() || "",
                 price: collection.price?.toString() || "",
                 link: collection.link || "",
                 retailPrice: collection.retailPrice?.toString() || "",
-
+            });
+            setDescription({
+                name: collection.name || "",
+                content: collection.description || "",
             });
             collection.collections.forEach((category: any) => {
                 setSelectedCategories((prev) => [...prev, category._id]);
@@ -111,8 +118,17 @@ const EditProduct = () => {
         e.preventDefault();
 
         const formData = new FormData();
-        const isEmpty = !form.name || !form.description || !form.stock;
+        const isEmpty = !form.name || !form.stock;
 
+        if (!description.content) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops!',
+                text: 'Description is required',
+            })
+            setShowValidation(true);
+            return;
+        }
 
         if (form.rating) {
             const ratingNum = Number(form.rating);
@@ -176,7 +192,7 @@ const EditProduct = () => {
         }
 
         formData.append("name", form.name);
-        formData.append("description", form.description);
+        formData.append("description", description.content);
         formData.append("stock", form.stock);
         formData.append("price", form.price);
         formData.append("collectionIds", JSON.stringify(selectedCategories));
@@ -326,47 +342,7 @@ const EditProduct = () => {
                         className={`w-full p-3 sm:p-4 rounded-lg bg-[#1a2236] border ${showValidation && !form.retailPrice ? "border-red-500" : "border-gray-600"
                             }`}
                     />
-                </div>
-
-                {/* Right Side */}
-                <div className="flex  flex-col">
-                    <label className="block mb-2 text-sm font-semibold">Stock *</label>
-                    <input
-                        type="number"
-                        name="stock"
-                        value={form.stock}
-                        onChange={handleChange}
-                        required
-                        className={`w-full p-3 sm:p-4 rounded-lg bg-[#1a2236] border ${showValidation && !form.stock ? "border-red-500" : "border-gray-600"
-                            }`}
-                    />
-
-                    <label className="block my-2 text-sm font-semibold">Product Review <span className="text-red-500 font-bold ">*</span></label>
-                    <input
-                        type="number"
-                        name="review"
-                        value={form.review}
-                        onChange={handleChange}
-                        required
-                        placeholder="Enter product review"
-                        className={`w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600 focus:outline-none ${showValidation && !form.review && 'border-red-500'}`}
-                    />
-
-                    <label className="block mt-4 mb-2 text-sm font-semibold">Description *</label>
-                    <textarea
-                        name="description"
-                        value={form.description}
-                        onChange={handleChange}
-                        rows={5}
-                        required
-                        style={{ resize: "none" }}
-                        className={`w-full p-3 sm:p-4 rounded-lg border ${showValidation && !form.description ? "border-red-500" : "border-gray-600"
-                            }`}
-                    />
-
-
-
-                    <label className="block mb-2 text-sm font-semibold">Link *</label>
+                    <label className="block my-2 text-sm font-semibold">Link *</label>
                     <input
                         type="text"
                         name="link"
@@ -403,6 +379,51 @@ const EditProduct = () => {
                             className="h-24 w-24 rounded-lg object-cover"
                         />
                     )}
+                </div>
+
+                {/* Right Side */}
+                <div className="flex  flex-col">
+                    <label className="block mb-2 text-sm font-semibold">Stock *</label>
+                    <input
+                        type="number"
+                        name="stock"
+                        value={form.stock}
+                        onChange={handleChange}
+                        required
+                        className={`w-full p-3 sm:p-4 rounded-lg bg-[#1a2236] border ${showValidation && !form.stock ? "border-red-500" : "border-gray-600"
+                            }`}
+                    />
+
+                    <label className="block my-2 text-sm font-semibold">Product Review <span className="text-red-500 font-bold ">*</span></label>
+                    <input
+                        type="number"
+                        name="review"
+                        value={form.review}
+                        onChange={handleChange}
+                        required
+                        placeholder="Enter product review"
+                        className={`w-full p-4 rounded-lg bg-[#1a2236] border border-gray-600 focus:outline-none ${showValidation && !form.review && 'border-red-500'}`}
+                    />
+
+                    <label className="block mt-4 mb-2 text-sm font-semibold">Description *</label>
+                    <Editor
+                        content={description.content}
+                        setContent={setDescription}
+                    />
+                    {/* <textarea
+                        name="description"
+                        value={form.description}
+                        onChange={handleChange}
+                        rows={5}
+                        required
+                        style={{ resize: "none" }}
+                        className={`w-full p-3 sm:p-4 rounded-lg border ${showValidation && !form.description ? "border-red-500" : "border-gray-600"
+                            }`}
+                    /> */}
+
+
+
+
 
                 </div>
 
