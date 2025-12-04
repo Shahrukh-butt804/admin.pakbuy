@@ -138,7 +138,7 @@ export default function ProductDetails() {
                         </div>
                         <div className="flex flex-col">
                             <span className="text-gray-400">Description</span>
-                            <span>{product?.description || "N/A"}</span>
+                            <div dangerouslySetInnerHTML={{ __html: product?.description || "N/A" }} />
                         </div>
                     </div>
                 </div>
