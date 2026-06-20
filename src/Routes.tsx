@@ -38,8 +38,9 @@ import { jwtDecode } from "jwt-decode";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import Layout from "./components/layout";
-import { logout } from "./redux/reducers/userSlice";
+import { logout, selectUser } from "./redux/reducers/userSlice";
 import EmailManagement from "./pages/email-management";
+import { useSelector } from "react-redux";
 
 
 interface JwtPayload {
@@ -52,7 +53,7 @@ interface JwtPayload {
 const PrivateRoute = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const token = Cookies.get("accessToken");
+  const token = Cookies.get("accessToken") || useSelector(selectUser)?.token as any || {};
 
   useEffect(() => {
     if (!token) {

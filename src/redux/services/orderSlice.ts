@@ -1,9 +1,15 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BASE_URL } from "../../constants/api";
+import { prepareHeaders } from "../prepareHeader/preapareHeader";
 
 export const orderSlice = createApi({
     reducerPath: "orderSlice",
-    baseQuery: fetchBaseQuery({ baseUrl: BASE_URL + "/order", credentials: 'include' }),
+    baseQuery: fetchBaseQuery({ 
+        baseUrl: BASE_URL + "/order",
+         credentials: 'include',
+         prepareHeaders
+        
+        }),
     endpoints: (builder) => ({
         getAllOrders: builder.query({
             query: ({ page, limit, keyword }) => ({

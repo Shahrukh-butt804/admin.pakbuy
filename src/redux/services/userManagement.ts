@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BASE_URL } from "../../constants/api";
+import { prepareHeaders } from "../prepareHeader/preapareHeader";
 
 export const userManagementSlice = createApi({
     reducerPath: "userManagementSlice",
-    baseQuery: fetchBaseQuery({ baseUrl: BASE_URL + "/admin/user-management", credentials: 'include' }),
+    baseQuery: fetchBaseQuery({ baseUrl: BASE_URL + "/admin/user-management", credentials: 'include' , prepareHeaders }),
     tagTypes: ["User"],
     endpoints: (builder) => ({
         getReport: builder.query({

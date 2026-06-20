@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BASE_URL } from "../../constants/api";
+import { prepareHeaders } from "../prepareHeader/preapareHeader";
 
 export const collectionSlice = createApi({
     reducerPath: "collectionSlice",
-    baseQuery: fetchBaseQuery({ baseUrl: BASE_URL + "/collections", credentials: 'include' }),
+    baseQuery: fetchBaseQuery({ baseUrl: BASE_URL + "/collections", credentials: 'include' , prepareHeaders }),
     endpoints: (builder) => ({
         getAllCollections: builder.query({
             query: ({ page, limit, keyword }) => ({

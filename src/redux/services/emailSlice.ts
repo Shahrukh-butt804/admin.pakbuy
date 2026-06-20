@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BASE_URL } from "../../constants/api";
+import { prepareHeaders } from "../prepareHeader/preapareHeader";
 
 export const emailSlice = createApi({
     reducerPath: "emailSlice",
-    baseQuery: fetchBaseQuery({ baseUrl: BASE_URL + "/email-management", credentials: 'include' }),
+    baseQuery: fetchBaseQuery({ baseUrl: BASE_URL + "/email-management", credentials: 'include' , prepareHeaders }),
     tagTypes: ['EmailTemplate'],
     endpoints: (builder) => ({
         getEmailTemplate: builder.query({

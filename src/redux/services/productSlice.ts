@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BASE_URL } from "../../constants/api";
+import { prepareHeaders } from "../prepareHeader/preapareHeader";
 
 export const productSlice = createApi({
     reducerPath: "productSlice",
-    baseQuery: fetchBaseQuery({ baseUrl: BASE_URL + "/products", credentials: 'include' }),
+    baseQuery: fetchBaseQuery({ baseUrl: BASE_URL + "/products", credentials: 'include', prepareHeaders }),
     endpoints: (builder) => ({
         getAllProducts: builder.query({
             query: ({ page, limit, keyword }) => ({

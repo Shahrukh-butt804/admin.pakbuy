@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BASE_URL } from "../../constants/api";
+import { prepareHeaders } from "../prepareHeader/preapareHeader";
 
 export const couponSlice = createApi({
     reducerPath: "couponSlice",
-    baseQuery: fetchBaseQuery({ baseUrl: BASE_URL + "/coupons", credentials: 'include' }),
+    baseQuery: fetchBaseQuery({ baseUrl: BASE_URL + "/coupons", credentials: 'include' , prepareHeaders }),
     endpoints: (builder) => ({
 
         getAllCoupons: builder.query({
