@@ -1,12 +1,11 @@
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { selectUser } from "../redux/reducers/userSlice";
-import MobileMenu from "./mobileMenu";
-import { NotificationIcon } from "./notificaiton";
 import { useNavigate } from "react-router";
 import { UPLOADS_URL } from "../constants/api";
+import { selectUser } from "../redux/reducers/userSlice";
 import { ImageUrl } from "../utils/Functions";
+import MobileMenu from "./mobileMenu";
 
 export default function Header() {
 
@@ -19,7 +18,7 @@ export default function Header() {
             </div>
 
             <div className="hidden md:flex items-center gap-4  ">
-                <div><NotificationIcon /></div>
+                {/* <div><NotificationIcon /></div> */}
                 <div className="flex items-center gap-2">
                     <img className="w-10 h-10 rounded-full" crossOrigin="anonymous" src={user?.image ? UPLOADS_URL + user?.image : "https://static.vecteezy.com/system/resources/previews/036/280/651/non_2x/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-illustration-vector.jpg"} alt="Image" />
                     <div className="flex flex-col">
@@ -60,15 +59,6 @@ function Dropdown() {
                         >
                             My Profile
                         </div>
-                        {/* <div
-                            onClick={() => {
-                                alert("Option 2 selected");
-                                setOpen(false);
-                            }}
-                            className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left"
-                        >
-                            Option 2
-                        </div> */}
                     </div>
                 </div>
             )}

@@ -14,7 +14,6 @@ export default function CustomerDetail() {
     async function handleToggleUserStatus() {
         try {
             const res: any = await toggleUser({ id: user?._id });
-            console.log("🚀 ~ handleToggleUserStatus ~ res:", res)
 
             if (res?.data?.success) {
                 Swal.fire({
@@ -76,22 +75,13 @@ export default function CustomerDetail() {
                         <span className="text-gray-400">Full Name</span>
                         <span>{user?.fullName || ""}</span>
                     </div>
-                    {/* <div className="flex flex-col">
-                        <span className="text-gray-400">Last Name</span>
-                        <span>Doe</span>
-                    </div> */}
-                    <div className="flex flex-col">
-                        <span className="text-gray-400">Registered On</span>
-                        <span>{user?.createdAt || ""}</span>
-                    </div>
-
                     <div className="flex flex-col">
                         <span className="text-gray-400">Email Address</span>
                         <span>{user?.email || ""}</span>
                     </div>
                     <div className="flex flex-col">
-                        <span className="text-gray-400">Phone Number</span>
-                        <span>+123456789</span>
+                        <span className="text-gray-400">Registered On</span>
+                        <span>{user?.createdAt? new Date(user.createdAt).toLocaleDateString() : ""}</span>
                     </div>
                     <div className="flex flex-col">
                         <span className="text-gray-400">Newsletter</span>
@@ -101,14 +91,6 @@ export default function CustomerDetail() {
                     <div className="flex flex-col">
                         <span className="text-gray-400">Is Actve</span>
                         <span className={`${user?.isActive ? "text-green-500" : "text-red-500"} font-semibold`}>{user?.isActive ? "Active" : "Banned"}</span>
-                    </div>
-                    {/* <div className="flex flex-col">
-                        <span className="text-gray-400">Address</span>
-                        <span>123 Street, City</span>
-                    </div> */}
-                    <div className="flex flex-col">
-                        <span className="text-gray-400">Collections Purchased</span>
-                        <span>15</span>
                     </div>
                 </div>
 

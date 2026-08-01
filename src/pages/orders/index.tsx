@@ -27,7 +27,7 @@ export default function Orders() {
         <p className="text-4xl md:text-5xl font-bold text-white">Orders</p>
       </header>
       <Table
-        tableData={{ data: data?.orders, exlucdedFields: ["products", "__v", "stripeSource", "updatedAt", "_id", "shippingAddress", "billingAddress"] }}
+        tableData={{ data: data?.orders, exlucdedFields: ["products", "__v", "stripeSource","taxAmount", "updatedAt", "_id", "shippingAddress", "billingAddress"] }}
         navigateTo="/order-detail"
         setPagination={setPagination}
         pagination={data?.pagination || {}}

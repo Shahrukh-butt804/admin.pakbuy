@@ -89,7 +89,7 @@ export default function CollectionDetails() {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-y-6  font-extralight md:max-w-3xl md:px-4">
                         <div className="flex flex-col">
                             <span className="text-gray-400">Collection Name</span>
-                            <span>CHOOSE {collection?.name || "N/A"}</span>
+                            <span>{collection?.name || "N/A"}</span>
                         </div>
                         <div className="flex flex-col">
                             <span className="text-gray-400">Collection Title</span>

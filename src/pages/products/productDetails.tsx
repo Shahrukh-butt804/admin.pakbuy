@@ -89,14 +89,9 @@ export default function ProductDetails() {
             <div className='glass flex flex-col gap-10 mx-2 md:mx-12 '>
                 <div className='flex flex-col gap-10    '>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-y-6  font-extralight md:max-w-3xl md:px-4">
-
-                        {/* <div className="flex flex-col">
-                            <span className="text-gray-400">SKU</span>
-                            <span>BW22-BL</span>
-                        </div> */}
                         <div className="flex flex-col">
                             <span className="text-gray-400">Collection Name</span>
-                            <span>CHOOSE {product?.name || "N/A"}</span>
+                            <span>{product?.name || "N/A"}</span>
                         </div>
 
                         <div className="flex flex-col">

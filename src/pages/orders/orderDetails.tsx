@@ -147,11 +147,10 @@ export default function OrderDetails() {
                         <div className="flex flex-col">
                             <span className="text-gray-400">Collections Purchased</span>
                             <span>
-                                CHOOSE{" "}
-                                {order?.products && order?.products.length > 0
+                                {order?.products && order?.products?.length > 0
                                     ? order.products
-                                        .filter((p: any) => p.packageId) // avoid nulls
-                                        .map((p: any) => p.packageId.name)
+                                        .filter((p: any) => p.collectionId) // avoid nulls
+                                        .map((p: any) => p.collectionId.name)
                                         .join(", ")
                                     : "N/A"}
                             </span>
