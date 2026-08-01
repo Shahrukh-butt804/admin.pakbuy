@@ -72,8 +72,8 @@ export default function Login() {
 
   return (
     <div>
-      <div className="min-h-screen  flex flex-col items-center justify-center p-4 ">
-        <img src="./images/logo.png" alt="logo" />
+      <div className="min-h-screen flex flex-col items-center justify-center p-4 ">
+        <img src="./images/logo.png" className="w-56 h-56" alt="logo" />
         <div className="rounded-2xl p-10 max-w-lg w-full text-white shadow-lg backdrop-blur-sm glass">
           <h2 className="text-xl text-center mb-1">Welcome !</h2>
           <h3 className="font-semibold text-2xl md:text-4xl  pinkText text-center">

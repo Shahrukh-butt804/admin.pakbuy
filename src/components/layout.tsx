@@ -92,9 +92,9 @@ export default function Layout() {
     return (
         <div className="flex h-screen ">
             {/* Sidebar */}
-            <aside className="w-64 blackGlass shadow-lg hidden md:flex flex-col">
-                <div className="p-4 font-bold text-xl ">
-                    <img src={ImageUrl("logo.png")} className="w-48" alt="Logo" />
+            <aside className="w-64 blackGlass shadow-lg hidden md:flex flex-col !pt-0">
+                <div className="font-bold text-xl flex justify-center items-center">
+                    <img src={ImageUrl("logo.png")} className="w-40 h-32" alt="Logo" />
                 </div>
                 <nav className="flex-1 space-y-3">
                     {pages.map((page, index) => (

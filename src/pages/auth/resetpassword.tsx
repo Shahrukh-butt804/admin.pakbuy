@@ -75,7 +75,7 @@ export default function Resetpassword() {
     return (
         <div>
             <div className="min-h-screen  flex flex-col items-center justify-center p-4 ">
-                <img src="./images/logo.png" alt="logo" />
+                <img src="./images/logo.png" className="w-56 h-56" alt="logo" />
                 <div className="rounded-2xl p-10 max-w-lg w-full text-white shadow-lg backdrop-blur-sm glass">
                     <h3 className="font-semibold text-2xl md:text-4xl  pinkText text-center">Reset Password</h3>
                     <p className="text-center mb-6 text-xs text-gray-300">Enter your email to recover your password.</p>
