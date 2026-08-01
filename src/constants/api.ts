@@ -2,7 +2,7 @@ const { hostname } = window.location;
 
 const servers = {
     local: "http://localhost:3054",
-    live: "https://choosewell-backend.vercel.app",
+    live: "https://api-pakbuy-nu.vercel.app",
 };
 
 var URL;
