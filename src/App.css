@@ -91,15 +91,15 @@ body::before {
 
 
 .pinkText {
-  color: #F0CDCA;
+  color: #df939c;
 }
 
 .bgPink {
-  background-color: #F0CDCA;
+  background-color: #df939c;
 }
 
 .hoverBgPink:hover {
-  background-color: #F0CDCA;
+  background-color: #df939c;
 }
 
 .blackText {
